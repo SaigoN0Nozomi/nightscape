@@ -163,7 +163,7 @@ public class NSunits {
             rotateSpeed = 2f;
             speed = 1.2f;
             flying = false;
-            targetAir = false;
+            targetAir = true;
             treadPullOffset = 3;
             treadRects = new Rect[]{new Rect(11 - 32f, 16 - 32f, 14, 44)};
             weapons.add(new Weapon(name + "-mount"){{
