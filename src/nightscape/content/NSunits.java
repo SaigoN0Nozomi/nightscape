@@ -28,7 +28,7 @@ public class NSunits {
     point, vector,
 
     //flash
-    procursus;
+    procursus, radius;
 
     public static void load(){
         point = new UnitType("point"){{
@@ -106,12 +106,10 @@ public class NSunits {
                 shootSound = Sounds.shootBig;
 
                 bullet = new BasicBulletType(1.6f, 10){{
-                    width = 8f;
-                    height = 8f;
+                    width = 9f;
+                    height = 9f;
                     recoil = 1f;
-                    trailWidth = 3;
-                    trailLength = 7;
-                    backColor = frontColor = trailColor = Color.valueOf("d297e1");
+                    backColor = frontColor = Color.valueOf("d297e1");
                     pierce = true;
                     pierceCap = 3;
                     pierceBuilding = true;
@@ -120,15 +118,14 @@ public class NSunits {
                     intervalAngle = 270f;
                     intervalSpread = 300f;
                     intervalBullet =  new LightningBulletType(){{
-                            damage = 15;
-                            collidesAir = false;
-                            lightningColor = Color.valueOf("d297e1");
-                            lightningLength = 7;
-                            lightningLengthRand = 6;
-                            width = 2;
-                            hitEffect = Fx.none;
-                        }};
+                        damage = 15;
+                        collidesAir = false;
+                        lightningColor = Color.valueOf("d297e1");
+                        lightningLength = 7;
+                        lightningLengthRand = 6;
+                        hitEffect = Fx.none;
                     }};
+                }};
                 parts.add(new RegionPart("-weather"){{
                     mirror = false;
                     y = -0.8f;
@@ -161,11 +158,14 @@ public class NSunits {
             armor = 4f;
             hitSize = 13f;
             rotateSpeed = 2f;
-            speed = 1.2f;
+            speed = 1f;
             flying = false;
             targetAir = true;
+            outlineColor = Color.valueOf("2d2630");
+
             treadPullOffset = 3;
-            treadRects = new Rect[]{new Rect(11 - 32f, 16 - 32f, 14, 44)};
+            treadRects = new Rect[]{new Rect(11 - 32f, 15 - 32f, 14, 45)};
+
             weapons.add(new Weapon(name + "-mount"){{
                     mirror = false;
                     reload = 180f;
@@ -194,6 +194,77 @@ public class NSunits {
                     }};
                 }});
             }};
+
+        radius = new TankUnitType("radius"){{
+            this.constructor = TankUnit::create;
+
+            health = 490f;
+            armor = 6f;
+            hitSize = 24f;
+            rotateSpeed = 1.8f;
+            speed = 0.8f;
+            flying = false;
+            targetAir = true;
+            outlineColor = Color.valueOf("2d2630");
+
+            treadPullOffset = 3;
+            treadRects = new Rect[]{new Rect(17 - 48f, 10 - 48f, 19, 77)};
+
+            weapons.add(new Weapon(name + "-mount"){{
+                mirror = false;
+                reload = 150f;
+                rotate = true;
+
+                recoil = 3f;
+                recoilTime = 50f;
+                shootSound = Sounds.shootBig;
+                soundPitchMax = 0.8f;
+                soundPitchMin = 0.7f;
+
+                x = 0;
+                y = 0;
+                bullet = new BasicBulletType(2.5f, 20f){{
+                    width = 15f;
+                    height = 15f;
+                    lifetime = 70f;
+                    ammoMultiplier = 3;
+                    hitColor = backColor = trailColor = Color.valueOf("d8f3f4");
+                    frontColor = Color.white;
+                    despawnEffect = Fx.none;
+                    trailWidth = 1.5f;
+                    trailLength = 7;
+                    pierceCap = 4;
+                    pierceBuilding = true;
+                    smokeEffect = new Effect(17f, e -> {
+                        color(Color.valueOf("d8f3f4"), Color.lightGray, Color.gray, e.fin());
+
+                        randLenVectors(e.id, 8, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
+                            Fill.circle(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
+                        });
+                    });
+                    bulletInterval = 4;
+                    intervalSpread = 45;
+                    intervalRandomSpread = 45;
+                    intervalBullet = fragBullet = new BasicBulletType(3f, 10f){{
+                        width = 9f;
+                        height = 9f;
+                        lifetime = 20f;
+                        ammoMultiplier = 3;
+                        hitColor = backColor = trailColor = Color.valueOf("d8f3f4");
+                        frontColor = Color.white;
+                        despawnEffect = Fx.none;
+                        trailWidth = 0.8f;
+                        trailLength = 3;
+                        pierceCap = 3;
+                    }};
+                    fragBullets = 5;
+                    fragBullet.pierceCap = 1;
+                    fragBullet.lifetime = 30;
+                    fragBullet.speed = 5;
+                    fragBullet.drag = 0.02f;
+                }};
+            }});
+        }};
 
         observer = new UnitType("Observer"){{
             this.constructor = UnitEntity::create;
