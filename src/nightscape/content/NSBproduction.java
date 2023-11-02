@@ -160,7 +160,7 @@ public class NSBproduction {
             range = 6;
             fogRadius = 3;
 
-            consumePowerBuffered(100f);
+            consumePowerBuffered(250f);
         }};
     }
 }
