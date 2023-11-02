@@ -163,6 +163,8 @@ public class NSBturret {
             ammoEjectBack = 4f;
             squareSprite = false;
             recoil = 0.5f;
+            soundPitchMax = 0.75f;
+            soundPitchMin = 0.6f;
             heatRequirement = 3f;
             maxHeatEfficiency = 2;
             hasLiquids = false;
