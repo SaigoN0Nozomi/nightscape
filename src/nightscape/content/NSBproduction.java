@@ -13,6 +13,7 @@ import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
+import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.BurstDrill;
 import mindustry.world.blocks.production.HeatCrafter;
@@ -27,7 +28,7 @@ public class NSBproduction {
     public static Block
             shockDrill, nutExtractor,
             ozoneHeater, veloniumFurnace,
-            heatCore, node;
+            heatCore, node, SFGenerator;
     public static void load(){
 
 
@@ -161,6 +162,23 @@ public class NSBproduction {
             fogRadius = 3;
 
             consumePowerBuffered(250f);
+        }};
+
+        SFGenerator = new ConsumeGenerator("solidFuelGenerator"){{
+            requirements(Category.power, with(NSitems.tantalum, 30, NSitems.electrum, 25));
+            powerProduction = 5f / 6f;
+            itemDuration = 45f;
+            size = 2;
+
+            generateEffect = Fx.generatespark;
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.06f;
+
+            consumeItem(NSitems.naturit);
+            drawer = new DrawMulti(
+                    new DrawDefault(),
+                    new DrawFlame(Color.valueOf("e6dd8bs"))
+            );
         }};
     }
 }
