@@ -30,11 +30,11 @@ public class NSBturret {
         victim = new ItemTurret("victim"){{
             requirements(Category.turret, with(NSitems.tantalum, 45));
             ammo(
-                NSitems.tantalum, new BasicBulletType(3.5f, 8f){{
+                NSitems.tantalum, new BasicBulletType(3.5f, 7f){{
                     width = 9f;
                     height = 14f;
                     lifetime = 40f;
-                    ammoMultiplier = 2;
+                    ammoMultiplier = 1;
                     hitColor = backColor = trailColor = Color.valueOf("7f9da9");
                     frontColor = Color.white;
                     despawnEffect = Fx.none;
@@ -48,10 +48,10 @@ public class NSBturret {
                         });
                     });
                 }},
-                NSitems.velonium, new BasicBulletType(7f, 16f){{
+                NSitems.velonium, new BasicBulletType(7f, 12f){{
                     width = 10f;
                     height = 16f;
-                    lifetime = 20f;
+                    lifetime = 19f;
                     ammoMultiplier = 3;
                     hitColor = backColor = trailColor = Color.valueOf("d8f3f4");
                     frontColor = Color.white;
@@ -96,7 +96,7 @@ public class NSBturret {
         combustion = new PowerTurret("Combustion"){{
             requirements(Category.turret, with(NSitems.tantalum, 140, NSitems.velonium, 65));
 
-            shootType = new LaserBulletType(25f){{
+            shootType = new LaserBulletType(21f){{
                 colors = new Color[]{Color.yellow, Color.white, Color.yellow};
                 width = 10f;
                 sideAngle = 45f;
@@ -144,7 +144,7 @@ public class NSBturret {
                         width = 10f;
                         height = 16f;
                         lifetime = 25f;
-                        ammoMultiplier = 1 ;
+                        ammoMultiplier = 2;
                         splashDamageRadius = 16f;
                         splashDamage = 16f;
                         homingRange = 60f;

@@ -13,12 +13,12 @@ public class NSitems {
     public static final Seq<Item> ChItems = new Seq<>();
 
     public static void load() {
-        tantalum = new Item("Tantalum", Color.valueOf("7f9da9")){{
+        tantalum = new Item("tantalum", Color.valueOf("7f9da9")){{
             cost = 1f;
             hardness = 2;
         }};
 
-        naturit = new Item("Naturit", Color.valueOf("eecd74")){{
+        naturit = new Item("naturit", Color.valueOf("eecd74")){{
             cost = 1f;
             flammability = 1f;
         }};
@@ -27,16 +27,12 @@ public class NSitems {
             cost = 2f;
         }};
 
-        electrum = new Item("electrum"){{
+        electrum = new Item("electrum", Color.valueOf("e6dd8b")){{
             cost = 2f;
             charge = 0.1f;
+            hardness = 3;
         }};
-/*
-        bioElectronics = new Item("bioElectronics", Color.valueOf("9091a8")){{
-            cost = 3f;
-            charge = 0.4f;
-        }};
-*/
+
         ChItems.addAll(
                 tantalum, naturit, velonium, electrum
         );

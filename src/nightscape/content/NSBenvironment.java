@@ -22,7 +22,7 @@ public class NSBenvironment {
     rainStone, rainStoneWall, rainBoulder,
 
     //ore block
-    tantalumWallOre;
+    tantalumOre, electrumOre;
 
     public static void load(){
         //dark
@@ -129,9 +129,12 @@ public class NSBenvironment {
         }};
 
         //ores
-        tantalumWallOre = new OreBlock("tantalum-wall-ore") {{
+        tantalumOre = new OreBlock("tantalumOre"){{
             itemDrop = NSitems.tantalum;
         }};
 
+        electrumOre = new OreBlock("electrumOre"){{
+            itemDrop = NSitems.electrum;
+        }};
     }
 }

@@ -12,6 +12,7 @@ import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.heat.HeatProducer;
+import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.BurstDrill;
 import mindustry.world.blocks.production.HeatCrafter;
@@ -25,8 +26,8 @@ import static mindustry.type.ItemStack.with;
 public class NSBproduction {
     public static Block
             shockDrill, nutExtractor,
-            ozoneHeater, solidGenerator,
-            veloniumFurnace, heatCore;
+            ozoneHeater, veloniumFurnace,
+            heatCore, node;
     public static void load(){
 
 
@@ -150,6 +151,16 @@ public class NSBproduction {
             heatMin = 1;
             heatMax = 6;
             step = 0.5f;
+        }};
+
+        node = new BeamNode("node"){{
+            requirements(Category.power, with(NSitems.tantalum, 15, NSitems.electrum, 6));
+            consumesPower = outputsPower = true;
+            health = 120;
+            range = 6;
+            fogRadius = 3;
+
+            consumePowerBuffered(100f);
         }};
     }
 }
