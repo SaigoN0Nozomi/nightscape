@@ -11,6 +11,7 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
+import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
@@ -27,7 +28,7 @@ import static mindustry.type.ItemStack.with;
 public class NSBproduction {
     public static Block
             shockDrill, nutExtractor,
-            ozoneHeater, veloniumFurnace,
+            ozoneHeater, veloniumFurnace, heatRedirector,
             heatCore, node, SFGenerator;
     public static void load(){
 
@@ -115,6 +116,15 @@ public class NSBproduction {
 
             consumeItems(with(NSitems.tantalum, 5));
             heatRequirement = 2f;
+        }};
+
+        heatRedirector = new HeatConductor("heatRedirector"){{
+            requirements(Category.crafting, with(NSitems.tantalum, 45, NSitems.velonium, 25));
+
+            researchCostMultiplier = 10f;
+            size = 2;
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawHeatInput("-heat"));
+            regionRotated1 = 1;
         }};
 
         ozoneHeater = new HeatProducer("ozoneHeater"){{
