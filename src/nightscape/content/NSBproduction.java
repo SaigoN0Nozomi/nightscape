@@ -17,6 +17,7 @@ import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.BurstDrill;
+import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.HeatCrafter;
 import mindustry.world.draw.*;
 import nightscape.world.HeatCore;
@@ -29,7 +30,7 @@ public class NSBproduction {
     public static Block
             shockDrill, nutExtractor,
             ozoneHeater, veloniumFurnace, heatRedirector,
-            heatCore, node, SFGenerator;
+            heatCore, node, SFGenerator, naturitSeparator, combustionMixer;
     public static void load(){
 
 
@@ -119,7 +120,7 @@ public class NSBproduction {
         }};
 
         heatRedirector = new HeatConductor("heatRedirector"){{
-            requirements(Category.crafting, with(NSitems.tantalum, 45, NSitems.velonium, 25));
+            requirements(Category.power, with(NSitems.tantalum, 45, NSitems.velonium, 25));
 
             researchCostMultiplier = 10f;
             size = 2;
@@ -189,6 +190,37 @@ public class NSBproduction {
                     new DrawDefault(),
                     new DrawFlame(Color.valueOf("e6dd8bs"))
             );
+        }};
+
+        naturitSeparator = new HeatCrafter("naturitSeparator"){{
+            requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.naturit, 180, NSitems.electrum, 90));
+            size = 3;
+            heatRequirement = 3f;
+            maxEfficiency = 2;
+            regionRotated1 = 3;
+            rotate = true;
+            invertFlip = true;
+            consumeItem(NSitems.naturit, 6);
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawBlurSpin("-rotor", 16f){{
+                        blurThresh = 0.01f;
+                    }},
+                    new DrawRegion(),
+                    new DrawLiquidOutputs()
+            );
+            outputLiquids = LiquidStack.with(Liquids.oil, 8 / 60f, Liquids.water, 16 / 60f);
+            liquidOutputDirections = new int[]{1, 3};
+        }};
+
+        combustionMixer = new GenericCrafter("combustionMixer"){{
+            requirements(Category.crafting, with(NSitems.tantalum, 80, NSitems.electrum, 60, NSitems.velonium, 30));
+            size = 2;
+            consumePower(1.5f);
+            consumeItem(NSitems.naturit, 2);
+            consumeLiquid(Liquids.oil, 1.5f / 60);
+            craftTime = 30f;
+            outputItem = new ItemStack(NSitems.flammable, 3);
         }};
     }
 }
