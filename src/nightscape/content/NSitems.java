@@ -8,7 +8,7 @@ import static mindustry.content.Items.*;
 
 public class NSitems {
     public static Item
-            tantalum, naturit, velonium, electrum;
+            tantalum, naturit, velonium, electrum, flammable;
 
     public static final Seq<Item> ChItems = new Seq<>();
 
@@ -33,8 +33,14 @@ public class NSitems {
             hardness = 3;
         }};
 
+        flammable = new Item("flammableCompound", coal.color){{
+            cost = 0.5f;
+            flammability = 1f;
+            explosiveness = 0.2f;
+        }};
+
         ChItems.addAll(
-                tantalum, naturit, velonium, electrum
+                tantalum, naturit, velonium, electrum, flammable
         );
     }
 }

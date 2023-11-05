@@ -17,12 +17,12 @@ public class NSBother {
     public static void load(){
         tWall = new Wall("tWall") {{
         requirements(Category.defense, with(NSitems.tantalum, 8));
-        health = 780;
+        health = 610;
     }};
 
         tWall_large = new Wall("tWall-large") {{
             requirements(Category.defense, with(NSitems.tantalum, 32));
-            health = 3120;
+            health = 2640;
             size = 2;
         }};
 

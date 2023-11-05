@@ -2,16 +2,15 @@ package nightscape.content;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
+import arc.math.Interp;
 import arc.math.geom.Rect;
 import mindustry.ai.types.BuilderAI;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.entities.abilities.SuppressionFieldAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.part.RegionPart;
-import mindustry.gen.MechUnit;
-import mindustry.gen.Sounds;
-import mindustry.gen.TankUnit;
-import mindustry.gen.UnitEntity;
+import mindustry.gen.*;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.TankUnitType;
@@ -25,7 +24,7 @@ public class NSunits {
     observer,
 
     //static
-    point, vector,
+    point, vector, planum,
 
     //flash
     procursus, radius;
@@ -87,7 +86,7 @@ public class NSunits {
         vector = new UnitType("vector"){{
             this.constructor = MechUnit::create;
 
-            health = 360f;
+            health = 840f;
             mechFrontSway = 0.55f;
             speed = 0.38f;
             armor = 8f;
@@ -151,6 +150,67 @@ public class NSunits {
             outlineColor = Color.valueOf("4c3d4e");
         }};
 
+        planum = new UnitType("planum"){{
+            this.constructor = LegsUnit::create;
+            weapons.add(new Weapon(){{
+                minWarmup = 0.8f;
+                mirror = true;
+                alternate = false;
+                top = false;
+                recoilTime = 70;
+                y = -3.5f;
+                x = 5.5f;
+                layerOffset = -0.5f;
+                reload = 100;
+                shootSound = Sounds.laser;
+                soundPitchMax = 0.8f;
+                soundPitchMin = 0.65f;
+                bullet = new LaserBulletType(105){{
+                    layerOffset = -0.5f;
+                    lifetime = 25;
+                    width = 17f;
+                    sideAngle = 45f;
+                    sideWidth = 2f;
+                    sideLength = 24f;
+                    length = 120;
+                    colors = new Color[]{Color.valueOf("d297e1"), Color.valueOf("aa62ac")};
+                }};
+            }});
+            health = 2540f;
+            speed = 0.35f;
+            armor = 9f;
+            hitSize = 20f;
+            rotateSpeed = 1.5f;
+            flying = false;
+
+            legCount = 6;
+            legLength = 18;
+            legBaseOffset = 2f;
+            legExtension = -4;
+            lockLegBase = true;
+            legContinuousMove = true;
+
+            parts.add(new RegionPart("-laser"){{
+                progress = PartProgress.warmup;
+                moveRot = 35f;
+                y = 1.6f;
+                moveX = -3f;
+                moveY = 1.5f;
+                mirror = true;
+                moves.add(new PartMove(PartProgress.recoil.curve(Interp.pow2Out), -1, 0.5f, 15));
+                layerOffset = -0.0001f;
+
+            }});
+            abilities.add(new SuppressionFieldAbility(){{
+                orbRadius = 2.4f;
+                y = -4f;
+                particleLen = 3;
+                particleSize = 1.2f;
+                range = 120;
+            }});
+            outlineColor = Color.valueOf("4c3d4e");
+        }};
+
         procursus = new TankUnitType("procursus"){{
             this.constructor = TankUnit::create;
 
@@ -198,9 +258,9 @@ public class NSunits {
         radius = new TankUnitType("radius"){{
             this.constructor = TankUnit::create;
 
-            health = 490f;
+            health = 670f;
             armor = 6f;
-            hitSize = 24f;
+            hitSize = 20f;
             rotateSpeed = 1.8f;
             speed = 0.8f;
             flying = false;
@@ -286,26 +346,23 @@ public class NSunits {
                 mirror = false;
                 showStatSprite = false;
                 continuous = false;
-                reload = 90f;
+                reload = 30f;
                 x = 0;
-                shootSound = Sounds.laser;
+                shootSound = Sounds.missile;
                 soundPitchMax = 1.5f;
                 soundPitchMin = 1.2f;
 
-                bullet = new LaserBulletType(){{
-                    damage = 20f;
+                bullet = new MissileBulletType(3, 10){{
+                    lifetime = 40;
                     status = NSstatus.overCharged;
                     statusDuration = 10f;
                     recoil = 0.05f;
-                    sideAngle = 90f;
-                    sideWidth = 1f;
-                    sideLength = 20f;
-                    healPercent = 5f;
+                    healAmount = 20;
                     collidesTeam = true;
-                    length = 90f;
                     pierceCap = 2;
                     buildingDamageMultiplier = 0.01f;
-                    colors = new Color[]{Color.valueOf("ffd37f").a(0.4f), Color.valueOf("ffd37f"), Color.white};
+                    backColor = Color.valueOf("ffd37f");
+                    frontColor = Color.white;
                 }};
             }});
 
@@ -319,5 +376,6 @@ public class NSunits {
             alwaysUnlocked = true;
             outlineColor = Color.valueOf("4c3d4e");
         }};
+
     }
 }
