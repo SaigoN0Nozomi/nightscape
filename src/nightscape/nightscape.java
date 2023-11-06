@@ -26,6 +26,7 @@ public class nightscape extends Mod{
         Log.info("Loading even more blocks.");
         NSBenvironment.load();
         NSBdistribution.load();
+        NSBpower.load();
         NSBproduction.load();
         NSBturret.load();
         NSBother.load();
