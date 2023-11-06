@@ -15,7 +15,7 @@ public class NSplanets {
     public static Planet Chorda;
 
     public static void load(){
-        Chorda = new Planet("teste", Planets.sun, 0.9f, 2){{
+        Chorda = new Planet("Chorda", Planets.sun, 0.9f, 2){{
             generator = new ErekirPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);
             cloudMeshLoader = () -> new MultiMesh(
