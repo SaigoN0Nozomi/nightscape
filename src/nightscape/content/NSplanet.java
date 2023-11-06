@@ -1,12 +1,13 @@
 package nightscape.content;
 
 import arc.graphics.*;
-import mindustry.content.Items;
 import mindustry.content.Planets;
 import mindustry.game.*;
 import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.*;
 import mindustry.type.*;
+
+import static nightscape.content.NSitems.chordaItems;
 
 public class NSplanet {
     public static Planet Chorda;
@@ -41,7 +42,7 @@ public class NSplanet {
             orbitRadius = 25f;
             alwaysUnlocked = true;
             landCloudColor = Color.valueOf("625160");
-            hiddenItems.addAll(Items.erekirItems).addAll(Items.serpuloItems).removeAll(NSitems.ChItems);
+            itemWhitelist = chordaItems;
             unlockedOnLand.add(NSBother.coreSatellite);
             ruleSetter = r -> {
                 r.waveTeam = Team.malis;
