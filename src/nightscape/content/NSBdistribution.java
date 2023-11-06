@@ -14,10 +14,18 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBdistribution {
     public static Block
-            tConveyor, tRouter, tJunction, tBridge,
-            tConduit, tcRouter, tcBridge;
+            tRouter, tJunction, tBridge, tConveyor,
+            tcRouter, tcBridge, tConduit;
 
     public static void load(){
+        tConveyor = new Conveyor("tConveyor"){{
+            requirements(Category.distribution, with(NSitems.tantalum, 2));
+            health = 20;
+            speed = 0.05f;
+            displayedSpeed = 6f;
+            underBullets = false;
+        }};
+
         tRouter = new Router("tRouter"){{
             requirements(Category.distribution, with(NSitems.tantalum, 6));
             health = 35;
@@ -26,6 +34,7 @@ public class NSBdistribution {
         tJunction = new Junction("tJunction"){{
             requirements(Category.distribution, with(NSitems.tantalum, 6));
             health = 30;
+            ((Conveyor)tConveyor).junctionReplacement = this;
         }};
 
         tBridge = new ItemBridge("tBridge"){{
@@ -33,16 +42,16 @@ public class NSBdistribution {
             health = 90;
             range = 3;
             squareSprite = false;
+            hasPower = false;
+            ((Conveyor)tConveyor).bridgeReplacement = this;
         }};
 
-        tConveyor = new Conveyor("tConveyor"){{
-            requirements(Category.distribution, with(NSitems.tantalum, 2));
-            health = 20;
-            speed = 0.05f;
-            displayedSpeed = 6f;
+        tConduit = new Conduit("tConduit"){{
+            requirements(Category.liquid, with(NSitems.tantalum, 2, NSitems.naturit, 1));
+            liquidCapacity = 10f;
+            liquidPressure = 1.025f;
+            health = 50;
             underBullets = false;
-            bridgeReplacement = tBridge;
-            junctionReplacement = tJunction;
         }};
 
         tcRouter = new LiquidRouter("tcRouter"){{
@@ -55,15 +64,8 @@ public class NSBdistribution {
             health = 75;
             range = 3;
             squareSprite = false;
-        }};
-
-        tConduit = new Conduit("tConduit"){{
-            requirements(Category.liquid, with(NSitems.tantalum, 2, NSitems.naturit, 1));
-            liquidCapacity = 10f;
-            liquidPressure = 1.025f;
-            health = 50;
-            underBullets = false;
-            bridgeReplacement = tcBridge;
+            hasPower = false;
+            ((Conduit)tConduit).bridgeReplacement = this;
         }};
     }
 }

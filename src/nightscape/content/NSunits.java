@@ -34,7 +34,7 @@ public class NSunits {
             this.constructor = MechUnit::create;
 
             mechFrontSway = 0.55f;
-            health = 175f;
+            health = 260f;
             speed = 0.4f;
             armor = 5f;
             hitSize = 8f;
@@ -86,7 +86,7 @@ public class NSunits {
         vector = new UnitType("vector"){{
             this.constructor = MechUnit::create;
 
-            health = 840f;
+            health = 740f;
             mechFrontSway = 0.55f;
             speed = 0.38f;
             armor = 8f;
@@ -176,7 +176,7 @@ public class NSunits {
                     colors = new Color[]{Color.valueOf("d297e1"), Color.valueOf("aa62ac")};
                 }};
             }});
-            health = 2540f;
+            health = 2300f;
             speed = 0.35f;
             armor = 9f;
             hitSize = 20f;
@@ -214,7 +214,7 @@ public class NSunits {
         procursus = new TankUnitType("procursus"){{
             this.constructor = TankUnit::create;
 
-            health = 180f;
+            health = 190f;
             armor = 4f;
             hitSize = 13f;
             rotateSpeed = 2f;
@@ -258,7 +258,7 @@ public class NSunits {
         radius = new TankUnitType("radius"){{
             this.constructor = TankUnit::create;
 
-            health = 670f;
+            health = 610f;
             armor = 6f;
             hitSize = 20f;
             rotateSpeed = 1.8f;
@@ -376,6 +376,5 @@ public class NSunits {
             alwaysUnlocked = true;
             outlineColor = Color.valueOf("4c3d4e");
         }};
-
     }
 }

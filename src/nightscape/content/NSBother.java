@@ -54,6 +54,7 @@ public class NSBother {
             maxHeat = 6f;
             heatRequirement = 1.5f;
             range = 80f;
+            hasPower = false;
         }};
     }
 }

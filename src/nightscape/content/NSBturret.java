@@ -22,6 +22,7 @@ import mindustry.world.draw.DrawTurret;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
+import static mindustry.content.Items.pyratite;
 import static mindustry.type.ItemStack.with;
 
 public class NSBturret {
@@ -74,7 +75,7 @@ public class NSBturret {
                         });
                     });
                 }},
-                NSitems.flammable, new BasicBulletType(3f, 11f){{
+                pyratite, new BasicBulletType(3f, 11f){{
                     width = 9f;
                     height = 14f;
                     lifetime = 40f;
@@ -135,7 +136,7 @@ public class NSBturret {
                                     });
                                 });
                     }},
-                    NSitems.flammable, new ArtilleryBulletType(3f,15){{
+                    pyratite, new ArtilleryBulletType(3f,15){{
                         splashDamage = 18;
                         lifetime = 20;
                         splashDamageRadius = 40;
@@ -166,8 +167,7 @@ public class NSBturret {
 
         combustion = new PowerTurret("Combustion"){{
             requirements(Category.turret, with(NSitems.tantalum, 140, NSitems.velonium, 65));
-
-            shootType = new LaserBulletType(21f){{
+            shootType = new LaserBulletType(35f){{
                 colors = new Color[]{Color.yellow, Color.white, Color.yellow};
                 width = 10f;
                 sideAngle = 45f;
@@ -181,6 +181,7 @@ public class NSBturret {
                 status = NSstatus.overCharged;
                 statusDuration = 300f;
             }};
+            consumePower(0.5f);
             recoils = 3;
             squareSprite = false;
             heatRequirement = 1f;
@@ -211,13 +212,11 @@ public class NSBturret {
         punctual = new ItemTurret("punctual"){{
             requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.naturit, 270, NSitems.velonium, 30));
             ammo(
-                    NSitems.velonium, new BasicBulletType(6f, 19f){{
+                    NSitems.velonium, new BasicBulletType(6f, 39f){{
                         width = 10f;
                         height = 16f;
                         lifetime = 25f;
-                        ammoMultiplier = 2;
-                        splashDamageRadius = 16f;
-                        splashDamage = 16f;
+                        ammoMultiplier = 1;
                         homingRange = 60f;
                         homingPower = 0.04f;
                         hitColor = backColor = Color.valueOf("d8f3f4");

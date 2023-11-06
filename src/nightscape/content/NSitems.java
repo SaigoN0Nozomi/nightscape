@@ -2,45 +2,44 @@ package nightscape.content;
 
 import arc.graphics.Color;
 import arc.struct.Seq;
+import mindustry.content.Planets;
 import mindustry.type.Item;
+import mindustry.type.Planet;
 
 import static mindustry.content.Items.*;
+import static mindustry.content.Planets.*;
 
 public class NSitems {
     public static Item
-            tantalum, naturit, velonium, electrum, flammable;
+    tantalum, naturit, velonium, electrum;
 
-    public static final Seq<Item> ChItems = new Seq<>();
+    public static Seq<Item> chordaItems = new Seq<>();
 
     public static void load() {
         tantalum = new Item("tantalum", Color.valueOf("7f9da9")){{
             cost = 1f;
             hardness = 2;
+            hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
         naturit = new Item("naturit", Color.valueOf("eecd74")){{
             cost = 1f;
             flammability = 1f;
+            hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
         velonium = new Item("velonium", Color.valueOf("abced3")){{
             cost = 2f;
+            hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
         electrum = new Item("electrum", Color.valueOf("e6dd8b")){{
             cost = 2f;
             charge = 0.1f;
-            hardness = 3;
+            hardness = 4;
+            hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
-        flammable = new Item("flammableCompound", coal.color){{
-            cost = 0.5f;
-            flammability = 1f;
-            explosiveness = 0.2f;
-        }};
-
-        ChItems.addAll(
-                tantalum, naturit, velonium, electrum, flammable
-        );
+        chordaItems.addAll(tantalum, naturit, velonium, electrum, silicon, pyratite, coal);
     }
 }

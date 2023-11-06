@@ -1,13 +1,15 @@
 package nightscape;
 
 import arc.util.*;
+import mindustry.content.Planets;
 import mindustry.mod.*;
+import mindustry.type.Planet;
 import nightscape.content.*;
 
 public class nightscape extends Mod{
 
     public nightscape(){
-        Log.info("Loaded NightScape constructor.");
+        Log.info("Loaded NightScape.");
     }
 
     @Override
@@ -28,7 +30,7 @@ public class nightscape extends Mod{
         NSBturret.load();
         NSBother.load();
         Log.info("Planets and tech tree for them.");
-        NSplanet.load();
+        NSplanets.load();
         CHtechtree.load();
     }
 }

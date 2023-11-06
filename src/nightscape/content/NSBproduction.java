@@ -19,11 +19,15 @@ import mindustry.world.blocks.production.AttributeCrafter;
 import mindustry.world.blocks.production.BurstDrill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.blocks.production.HeatCrafter;
+import mindustry.world.consumers.ConsumeItemFlammable;
+import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.*;
 import nightscape.world.HeatCore;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
+import static mindustry.content.Items.coal;
+import static mindustry.content.Items.pyratite;
 import static mindustry.type.ItemStack.with;
 
 public class NSBproduction {
@@ -159,7 +163,7 @@ public class NSBproduction {
             ambientSound = Sounds.hum;
             consumePower(1f);
 
-            perEnOutput = 2f;
+            perEnOutput = 1.5f;
             heatMin = 1;
             heatMax = 6;
             step = 0.5f;
@@ -185,7 +189,7 @@ public class NSBproduction {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.06f;
 
-            consumeItem(NSitems.naturit);
+            consume(new ConsumeItemFlammable());
             drawer = new DrawMulti(
                     new DrawDefault(),
                     new DrawFlame(Color.valueOf("e6dd8bs"))
@@ -200,7 +204,7 @@ public class NSBproduction {
             regionRotated1 = 3;
             rotate = true;
             invertFlip = true;
-            consumeItem(NSitems.naturit, 6);
+            consumeItem(NSitems.naturit, 1);
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
                     new DrawBlurSpin("-rotor", 16f){{
@@ -209,7 +213,7 @@ public class NSBproduction {
                     new DrawRegion(),
                     new DrawLiquidOutputs()
             );
-            outputLiquids = LiquidStack.with(Liquids.oil, 8 / 60f, Liquids.water, 16 / 60f);
+            outputLiquids = LiquidStack.with(Liquids.ozone, 4 / 60f, Liquids.water, 3 / 60f);
             liquidOutputDirections = new int[]{1, 3};
         }};
 
@@ -217,10 +221,9 @@ public class NSBproduction {
             requirements(Category.crafting, with(NSitems.tantalum, 80, NSitems.electrum, 60, NSitems.velonium, 30));
             size = 2;
             consumePower(1.5f);
-            consumeItem(NSitems.naturit, 2);
-            consumeLiquid(Liquids.oil, 1.5f / 60);
+            consumeItems(ItemStack.with(NSitems.naturit, 2, coal, 3));
             craftTime = 30f;
-            outputItem = new ItemStack(NSitems.flammable, 3);
+            outputItem = new ItemStack(pyratite, 3);
         }};
     }
 }

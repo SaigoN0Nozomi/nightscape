@@ -6,7 +6,7 @@ import mindustry.content.Liquids;
 import static mindustry.content.TechTree.*;
 public class CHtechtree {
     public static void load(){
-        NSplanet.Chorda.techTree = nodeRoot("Chorda", NSBother.coreSatellite, () -> {
+        NSplanets.Chorda.techTree = nodeRoot("Chorda", NSBother.coreSatellite, () -> {
             //distribution
             node(NSBdistribution.tConveyor, () -> {
                 node(NSBdistribution.tJunction, () -> {

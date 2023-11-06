@@ -8,7 +8,7 @@ public class NSStatUnit{
     public static final StatUnit
 
     heatPerEn = new StatUnit("EnPerHeat", "[accent]" + Iconc.power + "[]"),
-    heatMax = new StatUnit("heat max", "[red]" + Iconc.waves + "[]");
+    heatMax = new StatUnit("heatMax", "[red]" + Iconc.waves + "[]");
 
     public final boolean space;
     public final String name;
