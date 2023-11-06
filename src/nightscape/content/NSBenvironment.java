@@ -15,8 +15,8 @@ public class NSBenvironment {
     ash, ashWall, ashVent,
     //naturit attributes
     natAsh, natAshWall, natweed, natTree,
-    //GrayLands
-    slate, slateWall, slateBoulder,
+    //redLands
+    slate, slateWall, slateBoulder, redStone, redWall, redBoulder,
     //ice
     ice, iceWall, icedStone,
     rainStone, rainStoneWall, rainBoulder,
@@ -98,6 +98,19 @@ public class NSBenvironment {
         slateBoulder = new Prop("slateBoulder"){{
             variants = 2;
             slate.asFloor().decoration = this;
+        }};
+
+        redStone = new Floor("redStone") {{
+            variants = 5;
+        }};
+
+        redWall = new StaticWall("redWall") {{
+            redStone.asFloor().wall = this;
+        }};
+
+        redBoulder = new Prop("redBoulder"){{
+            variants = 2;
+            redStone.asFloor().decoration = this;
         }};
 
         //sss
