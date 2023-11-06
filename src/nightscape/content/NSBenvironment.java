@@ -117,6 +117,8 @@ public class NSBenvironment {
         ice = new Floor("ice") {{
             variants = 3;
             attributes.set(Attribute.water, 1f);
+            dragMultiplier = 0.5f;
+            speedMultiplier = 0.95f;
         }};
 
         iceWall = new StaticWall("iceWall") {{
