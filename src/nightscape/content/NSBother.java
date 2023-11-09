@@ -1,6 +1,7 @@
 package nightscape.content;
 
 import mindustry.type.Category;
+import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.storage.CoreBlock;
@@ -18,16 +19,18 @@ public class NSBother {
         tWall = new Wall("tWall") {{
         requirements(Category.defense, with(NSitems.tantalum, 8));
         health = 610;
+        researchCost = ItemStack.with(NSitems.tantalum, 80);
     }};
 
         tWall_large = new Wall("tWall-large") {{
             requirements(Category.defense, with(NSitems.tantalum, 32));
             health = 2640;
             size = 2;
+            researchCost = ItemStack.with(NSitems.tantalum, 320);
         }};
 
         coreSatellite = new CoreBlock("Core_Satellite") {{
-            requirements(Category.effect, with(NSitems.tantalum, 2500, NSitems.velonium, 1250));
+            requirements(Category.effect, with(NSitems.tantalum, 1500, NSitems.naturit, 750));
             isFirstTier = true;
             unitType = NSunits.observer;
             health = 3000;

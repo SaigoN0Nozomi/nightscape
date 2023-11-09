@@ -3,19 +3,24 @@ package nightscape.content;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
 import arc.math.Interp;
+import arc.math.Mathf;
 import arc.math.geom.Rect;
 import mindustry.ai.types.BuilderAI;
+import mindustry.ai.types.SuicideAI;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.entities.abilities.SuppressionFieldAbility;
 import mindustry.entities.bullet.*;
+import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.RegionPart;
 import mindustry.gen.*;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
+import mindustry.type.unit.ErekirUnitType;
 import mindustry.type.unit.TankUnitType;
 
 import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.math.Angles.randLenVectors;
 
 public class NSunits {
@@ -27,14 +32,17 @@ public class NSunits {
     point, vector, planum,
 
     //flash
-    procursus, radius;
+    procursus, radius,
+
+    //K.YS.N.
+    gutta;
 
     public static void load(){
         point = new UnitType("point"){{
             this.constructor = MechUnit::create;
 
             mechFrontSway = 0.55f;
-            health = 260f;
+            health = 210f;
             speed = 0.4f;
             armor = 5f;
             hitSize = 8f;
@@ -50,7 +58,7 @@ public class NSunits {
                 recoil = 1f;
                 shake = 0.3f;
 
-                bullet = new BasicBulletType(6, 12){{
+                bullet = new BasicBulletType(6, 19){{
                     width = 6f;
                     height = 9f;
                     lifetime = 15f;
@@ -326,6 +334,54 @@ public class NSunits {
             }});
         }};
 
+        gutta = new ErekirUnitType("gutta"){{
+            this.constructor = ElevationMoveUnit::create;
+
+            hovering = true;
+            drag = 0.2f;
+            shadowElevation = 0.1f;
+            targetAir = false;
+            targetGround = true;
+            speed = 2.2f;
+            rotateSpeed = 7f;
+            hitSize = 8f;
+            health = 230;
+            range = 20f;
+
+            for(float f : new float[]{-2.5f, 2.5f}){
+                parts.add(new HoverPart(){{
+                    x = 3.2f;
+                    y = f;
+                    mirror = true;
+                    radius = 3f;
+                    phase = 90f;
+                    stroke = 2f;
+                    layerOffset = -0.001f;
+                    color = Color.valueOf("d297e1");
+                }});
+            }
+
+            engineSize = 3.4f;
+            engineOffset = 4f;
+            engineColor = Color.valueOf("d297e1");
+            weapons.add(new Weapon(){{
+                continuous = true;
+                mirror = false;
+                reload = 20;
+                x = 0;
+                bullet = new LightningBulletType(){{
+                    damage = 5;
+                    collidesAir = false;
+                    lightningColor = Color.valueOf("d297e1");
+                    lightningLength = 5;
+                    lightningAngle = 5;
+                    lightningLengthRand = 2;
+                    hitEffect = Fx.none;
+                }};
+            }});
+            outlineColor = Color.valueOf("2d2630");
+        }};
+
         observer = new UnitType("Observer"){{
             this.constructor = UnitEntity::create;
             aiController = BuilderAI::new;
@@ -352,7 +408,7 @@ public class NSunits {
                 soundPitchMax = 1.5f;
                 soundPitchMin = 1.2f;
 
-                bullet = new MissileBulletType(3, 10){{
+                bullet = new MissileBulletType(3, 18){{
                     lifetime = 40;
                     status = NSstatus.overCharged;
                     statusDuration = 10f;

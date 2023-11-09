@@ -33,13 +33,6 @@ public class NSitems {
             hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
-        electrum = new Item("electrum", Color.valueOf("e6dd8b")){{
-            cost = 2f;
-            charge = 0.1f;
-            hardness = 4;
-            hiddenOnPlanets = new Planet[]{serpulo, erekir};
-        }};
-
-        chordaItems.addAll(tantalum, naturit, velonium, electrum, silicon, pyratite, coal);
+        chordaItems.addAll(tantalum, naturit, velonium, silicon, sand);
     }
 }

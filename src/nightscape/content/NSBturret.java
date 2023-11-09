@@ -14,6 +14,7 @@ import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
+import mindustry.type.ItemStack;
 import mindustry.type.StatusEffect;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
@@ -23,6 +24,7 @@ import mindustry.world.draw.DrawTurret;
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
 import static mindustry.content.Items.pyratite;
+import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
 
 public class NSBturret {
@@ -38,7 +40,7 @@ public class NSBturret {
         victim = new ItemTurret("victim"){{
             requirements(Category.turret, with(NSitems.tantalum, 45));
             ammo(
-                NSitems.tantalum, new BasicBulletType(4f, 7f){{
+                NSitems.tantalum, new BasicBulletType(4f, 14f){{
                     width = 9f;
                     height = 14f;
                     lifetime = 30f;
@@ -56,7 +58,7 @@ public class NSBturret {
                         });
                     });
                 }},
-                NSitems.velonium, new BasicBulletType(6f, 14f){{
+                NSitems.velonium, new BasicBulletType(6f, 27f){{
                     width = 10f;
                     height = 16f;
                     lifetime = 20f;
@@ -74,32 +76,13 @@ public class NSBturret {
                             Fill.square(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
                         });
                     });
-                }},
-                pyratite, new BasicBulletType(3f, 11f){{
-                    width = 9f;
-                    height = 14f;
-                    lifetime = 40f;
-                    ammoMultiplier = 2;
-                    hitColor = backColor = trailColor = Color.orange;
-                    frontColor = Color.white;
-                    despawnEffect = Fx.none;
-                    status = StatusEffects.burning;
-                    statusDuration = 60f;
-                    trailWidth = 1f;
-                    trailLength = 5;
-                    smokeEffect = new Effect(17f, e -> {
-                        color(Color.orange, Color.lightGray, Color.gray, e.fin());
-
-                        randLenVectors(e.id, 6, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
-                            Fill.square(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
-                        });
-                    });
                 }}
             );
 
             recoils = 3;
             squareSprite = false;
             recoil = 1f;
+            itemCapacity = 15;
             shootY = 3f;
             reload = 20f;
             range = 120;
@@ -135,23 +118,9 @@ public class NSBturret {
                                         Fill.circle(e.x + x, e.y +y, e.fout() * 3f + 0.3f);
                                     });
                                 });
-                    }},
-                    pyratite, new ArtilleryBulletType(3f,15){{
-                        splashDamage = 18;
-                        lifetime = 20;
-                        splashDamageRadius = 40;
-                        backColor = frontColor = trailColor = Color.orange;
-                        despawnEffect = hitEffect = new Effect(30f, e -> {
-                                    color(Color.orange, Color.gray, e.fin());
-
-                                    randLenVectors(e.id, 8, e.finpow() * 40f, e.rotation, 360f, (x, y) -> {
-                                        Fill.circle(e.x + x, e.y +y, e.fout() * 3f + 0.3f);
-                                    });
-                                });
-                        status = StatusEffects.burning;
-                        statusDuration = 120f;
                     }}
             );
+            researchCostMultiplier = 1f;
             targetAir = false;
             inaccuracy = 5;
             squareSprite = false;
@@ -166,7 +135,7 @@ public class NSBturret {
         }};
 
         combustion = new PowerTurret("Combustion"){{
-            requirements(Category.turret, with(NSitems.tantalum, 140, NSitems.velonium, 65));
+            requirements(Category.turret, with(NSitems.tantalum, 140, NSitems.velonium, 65, silicon, 45));
             shootType = new LaserBulletType(35f){{
                 colors = new Color[]{Color.yellow, Color.white, Color.yellow};
                 width = 10f;
@@ -184,7 +153,7 @@ public class NSBturret {
             consumePower(0.5f);
             recoils = 3;
             squareSprite = false;
-            heatRequirement = 1f;
+            heatRequirement = 2f;
             targetAir = false;
             maxHeatEfficiency = 4f;
             recoil = 1f;
@@ -194,7 +163,7 @@ public class NSBturret {
             range = 80;
             health = 750;
             rotateSpeed = 4f;
-            researchCostMultiplier = 4f;
+            researchCostMultiplier = 1f;
             drawer = new DrawTurret("chorda-"){{
                 parts.add(new RegionPart("-wing"){{
                     progress = PartProgress.warmup;
@@ -255,7 +224,7 @@ public class NSBturret {
             inaccuracy = 30f;
             rotateSpeed = 7f;
             coolant = consumeCoolant(0.1f);
-            researchCostMultiplier = 0.05f;
+            researchCost = ItemStack.with(NSitems.tantalum, 1500, NSitems.naturit, 1200, NSitems.velonium, 650);
             drawer = new DrawTurret("chorda-"){{
                 parts.add(new RegionPart("-wing"){{
                     progress = PartProgress.recoil.curve(Interp.pow2Out);

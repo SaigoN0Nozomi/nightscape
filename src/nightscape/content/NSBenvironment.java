@@ -1,11 +1,14 @@
 package nightscape.content;
 
 import arc.graphics.Color;
+import mindustry.content.Items;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.Attribute;
+
+import static mindustry.content.Items.sand;
 
 public class NSBenvironment {
     public static Block
@@ -20,9 +23,12 @@ public class NSBenvironment {
     //ice
     ice, iceWall, icedStone,
     rainStone, rainStoneWall, rainBoulder,
+    coldStone,
+    //purl
+    purl, purlWall,
 
     //ore block
-    tantalumOre, electrumOre;
+    tantalumOre;
 
     public static void load(){
         //dark
@@ -30,12 +36,14 @@ public class NSBenvironment {
             variants = 3;
             playerUnmineable = true;
             statusDuration = 120f;
-            speedMultiplier = 0.69f;
+            speedMultiplier = 0.48f;
             cacheLayer = CacheLayer.mud;
             walkSound = Sounds.mud;
+            isLiquid = true;
             walkSoundVolume = 0.08f;
             walkSoundPitchMin = 0.4f;
             walkSoundPitchMax = 0.5f;
+            drownTime = 600f;
         }};
 
         swampWall = new StaticWall("swampWall") {{
@@ -51,11 +59,13 @@ public class NSBenvironment {
 
         ashWall = new StaticWall("ashWall") {{
             ash.asFloor().wall = this;
+            attributes.set(Attribute.sand, 0.5f);
         }};
 
         ashVent = new SteamVent("ashVent"){{
             parent = blendGroup = ash;
-            attributes.set(Attribute.steam, 1f);
+            attributes.set(NSattribute.ozone, 1f);
+            attributes.set(NSattribute.naturit, 0.25f);
             effectColor = Color.valueOf("ffbdd4");
         }};
 
@@ -93,6 +103,7 @@ public class NSBenvironment {
 
         slateWall = new StaticWall("slateWall") {{
             slate.asFloor().wall = this;
+            attributes.set(Attribute.sand, 1f);
         }};
 
         slateBoulder = new Prop("slateBoulder"){{
@@ -106,6 +117,7 @@ public class NSBenvironment {
 
         redWall = new StaticWall("redWall") {{
             redStone.asFloor().wall = this;
+            attributes.set(Attribute.sand, 1f);
         }};
 
         redBoulder = new Prop("redBoulder"){{
@@ -136,6 +148,7 @@ public class NSBenvironment {
 
         rainStoneWall = new StaticWall("rainStoneWall") {{
             rainStone.asFloor().wall = this;
+            attributes.set(Attribute.sand, 0.75f);
         }};
 
         rainBoulder = new Prop("rainBoulder"){{
@@ -143,13 +156,24 @@ public class NSBenvironment {
             rainStone.asFloor().decoration = this;
         }};
 
+        coldStone = new Floor("coldStone") {{
+            variants = 3;
+        }};
+
+        //purl
+        purl = new Floor("purl") {{
+            variants = 6;
+        }};
+
+        purlWall = new StaticWall("purlWall"){{
+           purl.asFloor().wall = this;
+           mapColor = Color.valueOf("6d5869");
+            attributes.set(Attribute.sand, 1.5f);
+        }};
+
         //ores
         tantalumOre = new OreBlock("tantalumOre"){{
             itemDrop = NSitems.tantalum;
-        }};
-
-        electrumOre = new OreBlock("electrumOre"){{
-            itemDrop = NSitems.electrum;
         }};
     }
 }

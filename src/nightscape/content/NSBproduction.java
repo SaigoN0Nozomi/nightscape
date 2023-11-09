@@ -3,6 +3,7 @@ package nightscape.content;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
 import mindustry.content.Fx;
+import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
@@ -15,29 +16,27 @@ import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.production.AttributeCrafter;
-import mindustry.world.blocks.production.BurstDrill;
-import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.HeatCrafter;
+import mindustry.world.blocks.production.*;
 import mindustry.world.consumers.ConsumeItemFlammable;
 import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.*;
+import mindustry.world.meta.Attribute;
 import nightscape.world.HeatCore;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
-import static mindustry.content.Items.coal;
-import static mindustry.content.Items.pyratite;
+import static mindustry.content.Items.*;
 import static mindustry.type.ItemStack.with;
 
 public class NSBproduction {
     public static Block
-    shockDrill, nutExtractor, veloniumFurnace, naturitSeparator, combustionMixer;
+    shockDrill, nutExtractor, veloniumFurnace, naturitSeparator, combustionMixer, cliffCrusher, siliconFurnace;
     public static void load(){
 
 
         shockDrill = new BurstDrill("shockDrill"){{
             requirements(Category.production, with(NSitems.tantalum, 25, NSitems.naturit, 12));
+            researchCost = ItemStack.with(NSitems.tantalum, 100, NSitems.naturit, 50);
 
             squareSprite = false;
             size = 2;
@@ -51,7 +50,6 @@ public class NSBproduction {
                     Fx.mineImpactWave.wrap(Liquids.ozone.color, 45f)
             );
             shake = 4f;
-            itemCapacity = 40;
             researchCostMultiplier = 0.5f;
             fogRadius = 4;
             drillMultipliers.put(NSitems.tantalum, 1.8f);
@@ -64,8 +62,9 @@ public class NSBproduction {
         }};
 
         nutExtractor = new AttributeCrafter("naturit-extractor"){{
-            requirements(Category.production, with(NSitems.tantalum, 40));
+            requirements(Category.production, with(NSitems.tantalum, 20));
 
+            researchCost = ItemStack.with(NSitems.tantalum, 40);
             outputItem = new ItemStack(NSitems.naturit, 1);
             outputLiquid = new LiquidStack(Liquids.ozone, 3f / 60f);
             craftTime = 60;
@@ -149,6 +148,35 @@ public class NSBproduction {
             consumeItems(ItemStack.with(NSitems.naturit, 2, coal, 3));
             craftTime = 30f;
             outputItem = new ItemStack(pyratite, 3);
+        }};
+
+        cliffCrusher = new WallCrafter("cliffCrusher"){{
+            requirements(Category.production, with(NSitems.naturit, 90, NSitems.velonium, 60));
+
+            consumeLiquid(Liquids.ozone, 9 / 60f);
+            drillTime = 60f;
+            size = 3;
+            rotateSpeed = 6;
+            attribute = Attribute.sand;
+            output = Items.sand;
+            researchCost = with(NSitems.naturit, 500, NSitems.velonium, 220);
+            ambientSound = Sounds.drill;
+            ambientSoundVolume = 0.15f;
+        }};
+
+        siliconFurnace = new HeatCrafter("siliconFurnace"){{
+            requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.velonium, 120));
+            size = 3;
+            heatRequirement = 6f;
+            maxEfficiency = 2;
+            outputItem = new ItemStack(silicon, 2);
+            consumeItems(with(sand, 3, NSitems.naturit, 2));
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawArcSmelt(),
+                    new DrawRegion()
+            );
+            researchCost = with(NSitems.tantalum, 1550, NSitems.velonium, 920);
         }};
     }
 }
