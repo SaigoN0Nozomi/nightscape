@@ -34,6 +34,7 @@ import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.SteamVent;
 import mindustry.world.meta.Attribute;
 import nightscape.content.NSBenvironment;
+import nightscape.content.loadouts;
 
 import static arc.graphics.g2d.Draw.scl;
 import static mindustry.Vars.bases;
@@ -45,7 +46,7 @@ public class ChordaPlanetGenerator extends PlanetGenerator {
     float waterOffset = 0.07f;
 
     {
-        defaultLoadout = Schematics.readBase64("bXNjaAF4nGNgZmBmZmDJS8xNZWC72A2CDNwpqcXJRZkFJZn5eQwMDGw5iUmpOcUMTNGxjAyiecXJiQWpus75RanxwYklqTk5mSWpQFWMIAQkAMMLFfo=");
+        defaultLoadout = loadouts.core;
     }
     Block[][] arr =
             {
