@@ -35,7 +35,7 @@ public class NSunits {
     procursus, radius,
 
     //K.YS.N.
-    gutta;
+    gutta, pluvia;
 
     public static void load(){
         point = new UnitType("point"){{
@@ -64,27 +64,6 @@ public class NSunits {
                     lifetime = 15f;
                     pierce = false;
                     pierceBuilding = false;
-                    shootEffect = new Effect(17f, e -> {
-                        color(Color.valueOf("d297e1"), Color.lightGray, Color.gray, e.fin());
-
-                        randLenVectors(e.id, 4, e.fin() * 4f, e.rotation, 12f, (x, y) -> {
-                            Fill.circle(e.x + x, e.y + y, e.fout() * 1.2f + 0.1f);
-                        });
-                    });
-                    hitEffect = new Effect(25f, e -> {
-                        color(Color.valueOf("d297e1"), Color.lightGray, e.fout());
-
-                        randLenVectors(e.id, 6, e.fin() * 16f, e.rotation, 60f, (x, y) -> {
-                            Fill.square(e.x + x, e.y + y, e.fout() * 2.3f + 0.2f);
-                        });
-                    });
-                    despawnEffect = new Effect(25f, e -> {
-                        color(Color.valueOf("d297e1"), Color.lightGray, e.fout());
-
-                        randLenVectors(e.id, 4, e.fin() * 11f, e.rotation, 90f, (x, y) -> {
-                            Fill.square(e.x + x, e.y + y, e.fout() * 1.1f + 0.1f);
-                        });
-                    });
                     backColor = frontColor = Color.valueOf("d297e1");
                 }};
             }});
@@ -252,13 +231,6 @@ public class NSunits {
                         despawnEffect = Fx.none;
                         trailWidth = 1.2f;
                         trailLength = 4;
-                        smokeEffect = new Effect(17f, e -> {
-                            color(Color.valueOf("d8f3f4"), Color.lightGray, Color.gray, e.fin());
-
-                            randLenVectors(e.id, 8, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
-                                Fill.square(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
-                            });
-                        });
                     }};
                 }});
             }};
@@ -303,13 +275,6 @@ public class NSunits {
                     trailLength = 7;
                     pierceCap = 4;
                     pierceBuilding = true;
-                    smokeEffect = new Effect(17f, e -> {
-                        color(Color.valueOf("d8f3f4"), Color.lightGray, Color.gray, e.fin());
-
-                        randLenVectors(e.id, 8, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
-                            Fill.circle(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
-                        });
-                    });
                     bulletInterval = 4;
                     intervalSpread = 45;
                     intervalRandomSpread = 45;
@@ -334,15 +299,17 @@ public class NSunits {
             }});
         }};
 
-        gutta = new ErekirUnitType("gutta"){{
+        gutta = new UnitType("gutta"){{
             this.constructor = ElevationMoveUnit::create;
 
             hovering = true;
-            drag = 0.2f;
+            useEngineElevation = false;
+            drag = 0.06f;
+            accel = 0.14f;
             shadowElevation = 0.1f;
             targetAir = false;
             targetGround = true;
-            speed = 2.2f;
+            speed = 1.6f;
             rotateSpeed = 7f;
             hitSize = 8f;
             health = 230;
@@ -361,8 +328,8 @@ public class NSunits {
                 }});
             }
 
-            engineSize = 3.4f;
-            engineOffset = 4f;
+            engineSize = 2.4f;
+            engineOffset = 4.5f;
             engineColor = Color.valueOf("d297e1");
             weapons.add(new Weapon(){{
                 continuous = true;
@@ -380,6 +347,50 @@ public class NSunits {
                 }};
             }});
             outlineColor = Color.valueOf("2d2630");
+        }};
+
+        pluvia = new UnitType("pluvia"){{
+            this.constructor = UnitEntity::create;
+            outlineColor = Color.valueOf("2d2630");
+
+            flying = true;
+            accel = 0.08f;
+            drag = 0.04f;
+            lowAltitude = true;
+            targetAir = true;
+            targetGround = true;
+            speed = 1.3f;
+            rotateSpeed = 3f;
+            hitSize = 18f;
+            health = 670;
+            range = 180f;
+
+            setEnginesMirror(
+                    new UnitEngine(5, -3, 4f, 315f)
+            );
+
+            engineSize = 3.4f;
+            engineOffset = 5f;
+            engineColor = Color.valueOf("d297e1");
+            weapons.add(new Weapon(name + "-gun"){{
+                rotationLimit = 60f;
+                top = true;
+                x = -5;
+                y = -1.5f;
+                rotateSpeed = 5f;
+                rotate = true;
+                reload = 5;
+                bullet = new BasicBulletType(7.5f, 5){{
+                    width = 9f;
+                    height = 15f;
+                    lifetime = 180 / 7.5f;
+                    frontColor = Color.valueOf("d297e1");
+                    backColor = trailColor = Color.valueOf("aa62ac");
+                    trailWidth = 0.8f;
+                    trailLength = 4;
+                    sprite = "nscape-arrow";
+                }};
+            }});
         }};
 
         observer = new UnitType("Observer"){{

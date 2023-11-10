@@ -52,7 +52,7 @@ public class NSBproduction {
             shake = 4f;
             researchCostMultiplier = 0.5f;
             fogRadius = 4;
-            drillMultipliers.put(NSitems.tantalum, 1.8f);
+            drillMultipliers.put(NSitems.tantalum, 2.5f);
 
             arrowOffset = 0;
             arrows = 1;
