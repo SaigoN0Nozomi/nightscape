@@ -43,8 +43,11 @@ public class CHtechtree {
                     });
                     node(NSBpower.SFGenerator, () -> {
                         node(NSBpower.node);
+                        node(NSBproduction.ozoneCondenser);
                     });
-                    node(NSBother.mender, Seq.with(new Objectives.SectorComplete(frozenCanyon)), () -> {});
+                    node(NSBother.mender, Seq.with(new Objectives.SectorComplete(frozenCanyon)), () -> {
+                        node(NSBother.radar);
+                    });
                     node(NSBpower.heatRedirector, () -> {
                         node(NSBpower.heatCore);
                     });
@@ -60,6 +63,7 @@ public class CHtechtree {
                     node(NSBturret.combustion);
                 });
                 node(NSBturret.punctual);
+                node(NSBturret.stelle);
             });
             //items
             nodeProduce(NSitems.naturit, () -> {

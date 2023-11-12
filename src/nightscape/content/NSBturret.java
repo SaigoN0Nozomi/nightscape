@@ -2,8 +2,10 @@ package nightscape.content;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
 import arc.math.Interp;
 import mindustry.content.Fx;
+import mindustry.content.Liquids;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.ArtilleryBulletType;
@@ -18,10 +20,12 @@ import mindustry.type.ItemStack;
 import mindustry.type.StatusEffect;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.draw.DrawTurret;
 
 import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
 import static mindustry.content.Items.pyratite;
 import static mindustry.content.Items.silicon;
@@ -33,7 +37,7 @@ public class NSBturret {
             //1x1
     victim, flicker,
             //2x2
-    combustion, punctual;
+    combustion, punctual, stelle;
 
     public static void load(){
 
@@ -134,8 +138,80 @@ public class NSBturret {
             fogRadiusMultiplier = 0.5f;
         }};
 
+        stelle = new LiquidTurret("stelle"){{
+            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.velonium, 95, silicon, 15));
+            researchCost = with(NSitems.tantalum, 1850, NSitems.velonium, 670, silicon, 320);
+
+            ammo(
+                Liquids.ozone, new BasicBulletType(2f, 15){{
+                    drag = -0.04f;
+                    lifetime = 43;
+                    homingRange = 200f;
+                    homingPower = 0.2f;
+                    homingDelay = 20;
+                    ammoMultiplier = 0.5f;
+                    weaveMag = 5f;
+                    weaveScale = 5f;
+                    backColor = trailColor = Color.valueOf("d297e1");
+                    frontColor = Color.white;
+                    trailWidth = 2f;
+                    trailLength = 9;
+                    status = NSstatus.ozoneCorrosion;
+                    statusDuration = 120;
+                    collidesGround = false;
+
+                    hitEffect = despawnEffect = new Effect(25f, e -> {
+                        color(Color.valueOf("d297e199"), Color.lightGray, e.fin());
+
+                        randLenVectors(e.id, 5, e.finpow() * 17f, e.rotation, 50f, (x, y) -> {
+                            Fill.circle(e.x + x, e.y +y, e.fout() * 2f);
+                        });
+
+                        e.scaled(12f, s -> {
+                            stroke(s.fout() * 2);
+                            Lines.circle(e.x, e.y, s.finpow() * 4f);
+                        });
+                    });
+                }}
+            );
+            size = 2;
+            shootWarmupSpeed = 0.2f;
+            ammoPerShot = 10;
+            shootEffect = new Effect(25f, e -> {
+                color(Color.valueOf("d297e199"), Color.lightGray, e.fin());
+
+                randLenVectors(e.id, 8, e.finpow() * 23f, e.rotation, 90f, (x, y) -> {
+                    Fill.circle(e.x + x, e.y +y, e.fout() * 4f);
+                });
+            });
+            targetGround = false;
+            recoils = 2;
+            squareSprite = false;
+            recoil = 2f;
+            shootY = 0.7f;
+            ammoUseEffect = Fx.none;
+            xRand = 3f;
+            shootSound = Sounds.shootAlt;
+            range = 190;
+            health = 520;
+            inaccuracy = 30f;
+            rotateSpeed = 8f;
+            reload = 12;
+            drawer = new DrawTurret("chorda-"){{
+                parts.add(new RegionPart("-claw"){{
+                    progress = PartProgress.warmup.curve(Interp.circleOut);
+                    moveX = 2f;
+                    moveRot = -22f;
+                    heatColor = Color.valueOf("f03b0e");
+                    mirror = true;
+                    under = true;
+                }});
+            }};
+        }};
+
         combustion = new PowerTurret("Combustion"){{
             requirements(Category.turret, with(NSitems.tantalum, 140, NSitems.velonium, 65, silicon, 45));
+            researchCost = ItemStack.with(NSitems.tantalum, 1250, NSitems.velonium, 720, silicon, 450);
             shootType = new LaserBulletType(35f){{
                 colors = new Color[]{Color.yellow, Color.white, Color.yellow};
                 width = 10f;

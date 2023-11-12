@@ -30,7 +30,8 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBproduction {
     public static Block
-    shockDrill, nutExtractor, veloniumFurnace, naturitSeparator, combustionMixer, cliffCrusher, siliconFurnace;
+    shockDrill, nutExtractor, veloniumFurnace, naturitSeparator,
+    combustionMixer, cliffCrusher, siliconFurnace, ozoneCondenser;
     public static void load(){
 
 
@@ -177,6 +178,35 @@ public class NSBproduction {
                     new DrawRegion()
             );
             researchCost = with(NSitems.tantalum, 1550, NSitems.velonium, 920);
+        }};
+
+        ozoneCondenser = new AttributeCrafter("ozoneCondenser"){{
+            requirements(Category.production, with(NSitems.tantalum, 120, silicon, 80));
+            researchCost = with(NSitems.tantalum, 1420, silicon, 720);
+            attribute = NSattribute.ozone;
+            minEfficiency = 9f - 0.0001f;
+            baseEfficiency = 0f;
+            displayEfficiency = false;
+            squareSprite = false;
+            craftEffect = Fx.turbinegenerate;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawLiquidTile(Liquids.ozone, 1.5f),
+                    new DrawRegion("-rotator"){{
+                        spinSprite = true;
+                        rotateSpeed = 18f;
+                    }},
+                    new DrawDefault()
+            );
+            craftTime = 60f;
+            size = 3;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.06f;
+            hasLiquids = true;
+            boostScale = 1f / 9f;
+            outputLiquid = new LiquidStack(Liquids.ozone, 2 / 6f);
+            consumePower(2f);
+            liquidCapacity = 60f;
         }};
     }
 }

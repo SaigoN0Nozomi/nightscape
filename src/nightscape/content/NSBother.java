@@ -1,19 +1,23 @@
 package nightscape.content;
 
+import arc.graphics.Color;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.Radar;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.meta.BuildVisibility;
 import nightscape.world.NonPercentMend;
 
+import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
 
 public class NSBother {
     public static Block
             coreSatellite,
             tWall, tWall_large,
-            mender;
+            mender, radar;
 
     public static void load(){
         tWall = new Wall("tWall") {{
@@ -55,9 +59,19 @@ public class NSBother {
             health = 170;
             phaseRangeBoost = 0f;
             maxHeat = 6f;
-            heatRequirement = 1.5f;
+            heatRequirement = 1f;
             range = 80f;
             hasPower = false;
+        }};
+
+        radar = new Radar("radar"){{
+            requirements(Category.effect, BuildVisibility.fogOnly, with(NSitems.velonium, 150, silicon, 120));
+            outlineColor = Color.valueOf("443645");
+            fogRadius = 40;
+            size = 2;
+            researchCost = with(NSitems.velonium, 600, silicon, 480);
+
+            consumePower(4f);
         }};
     }
 }

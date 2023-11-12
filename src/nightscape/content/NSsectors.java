@@ -26,7 +26,7 @@ public class NSsectors {
         deepGap = new SectorPreset("deepGap", Chorda, 63){{
             alwaysUnlocked = false;
             difficulty = 5;
-            captureWave = 25;
+            captureWave = 20;
             startWaveTimeMultiplier = 2f;
         }};
     }
