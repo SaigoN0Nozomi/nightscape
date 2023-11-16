@@ -12,12 +12,12 @@ import mindustry.world.meta.StatUnit;
 
 import static mindustry.Vars.indexer;
 
-public class NonPercentMend extends MendProjector {
+public class BetterMend extends MendProjector {
 
     public float healAmount = 10f;
     public float maxHeat;
     public float heatRequirement = 1f;
-    public NonPercentMend(String name){
+    public BetterMend(String name){
         super(name);
         solid = true;
         update = true;
@@ -33,7 +33,7 @@ public class NonPercentMend extends MendProjector {
     public void setBars(){
         super.setBars();
 
-        addBar("heat", (NPMendBuild entity) ->
+        addBar("heat", (BetterMendBuild entity) ->
                 new Bar(() ->
                         Core.bundle.format("bar.heatpercent", (int)(entity.heatAmount + 0.01f), (int)(entity.getHeatAmount() * 100)),
                         () -> Pal.lightOrange,
@@ -43,11 +43,10 @@ public class NonPercentMend extends MendProjector {
     public void setStats(){
         stats.timePeriod = useTime;
         super.setStats();
-        stats.remove(Stat.repairTime);
         stats.add(Stat.repairSpeed, (float)(healAmount / reload * 60f), StatUnit.perSecond);
         stats.add(Stat.input, heatRequirement, StatUnit.heatUnits);
     }
-    public class NPMendBuild extends MendBuild{
+    public class BetterMendBuild extends MendBuild{
         public float[] sideHeat = new float[4];
         public float heatAmount = 0f;
         public void updateTile(){
@@ -70,7 +69,7 @@ public class NonPercentMend extends MendProjector {
                 charge = 0f;
 
                 indexer.eachBlock(this, realRange, b -> b.damaged() && !b.isHealSuppressed(), other -> {
-                    other.heal(healAmount * efficiency);
+                    other.heal(healAmount * efficiency + other.maxHealth * healPercent / 100);
                     other.recentlyHealed();
                     Fx.healBlockFull.at(other.x, other.y, other.block.size, baseColor, other.block);
                 });

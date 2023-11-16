@@ -28,7 +28,7 @@ public class NSBenvironment {
     purl, purlWall,
 
     //ore block
-    tantalumOre;
+    tantalumOre, zirconiumOre;
 
     public static void load(){
         //dark
@@ -53,26 +53,27 @@ public class NSBenvironment {
         //Ash
         ash = new Floor("ash") {{
             variants = 3;
-            attributes.set(NSattribute.naturit, 0.1f);
+            attributes.set(NSattribute.naturit, 0.05f);
             playerUnmineable = true;
         }};
 
         ashWall = new StaticWall("ashWall") {{
             ash.asFloor().wall = this;
             attributes.set(Attribute.sand, 0.5f);
+            attributes.set(NSattribute.naturit, 0.1f);
         }};
 
         ashVent = new SteamVent("ashVent"){{
             parent = blendGroup = ash;
             attributes.set(NSattribute.ozone, 1f);
-            attributes.set(NSattribute.naturit, 0.25f);
+            attributes.set(NSattribute.naturit, 0.15f);
             effectColor = Color.valueOf("ffbdd4");
         }};
 
         //naturit ash
         natAsh = new Floor("naturitAsh") {{
             variants = 3;
-            attributes.set(NSattribute.naturit, 1f);
+            attributes.set(NSattribute.naturit, 0.5f);
             blendGroup = ash;
         }};
 
@@ -85,6 +86,7 @@ public class NSBenvironment {
             variants = 2;
             emitLight = true;
             lightRadius = 48;
+            attributes.set(NSattribute.naturit, 1.5f);
             lightColor = Color.valueOf("eecd7499");
         }};
 
@@ -174,6 +176,10 @@ public class NSBenvironment {
         //ores
         tantalumOre = new OreBlock("tantalumOre"){{
             itemDrop = NSitems.tantalum;
+        }};
+
+        zirconiumOre = new OreBlock("zirconiumOre"){{
+            itemDrop = NSitems.zirconium;
         }};
     }
 }

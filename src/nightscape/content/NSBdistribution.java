@@ -66,14 +66,14 @@ public class NSBdistribution {
         }};
 
         tBridge = new ItemBridge("tBridge"){{
-            requirements(Category.distribution, with(NSitems.tantalum, 12));
+            requirements(Category.distribution, with(NSitems.tantalum, 12, NSitems.zirconium, 6));
             health = 90;
             range = 3;
             squareSprite = false;
             hasPower = false;
             itemCapacity = 5;
             ((Conveyor)tConveyor).bridgeReplacement = this;
-            researchCost = ItemStack.with(NSitems.tantalum, 45);
+            researchCost = ItemStack.with(NSitems.tantalum, 45, NSitems.zirconium, 30);
         }};
 
         tConduit = new Conduit("tConduit"){{
@@ -99,13 +99,13 @@ public class NSBdistribution {
         }};
 
         tcBridge = new LiquidBridge("tcBridge"){{
-            requirements(Category.liquid, with(NSitems.tantalum, 10, NSitems.naturit, 6));
+            requirements(Category.liquid, with(NSitems.tantalum, 15, NSitems.naturit, 10, NSitems.zirconium, 6));
             health = 75;
             range = 3;
             squareSprite = false;
             hasPower = false;
             ((Conduit)tConduit).bridgeReplacement = this;
-            researchCost = ItemStack.with(NSitems.tantalum, 50, NSitems.naturit, 30);
+            researchCost = ItemStack.with(NSitems.tantalum, 50, NSitems.naturit, 30, NSitems.zirconium, 25);
         }};
     }
 }

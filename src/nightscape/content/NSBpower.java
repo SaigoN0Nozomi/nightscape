@@ -35,9 +35,9 @@ public class NSBpower {
         }};
 
         ozoneHeater = new HeatProducer("ozoneHeater"){{
-            requirements(Category.power, with(NSitems.tantalum, 35, NSitems.naturit, 20));
+            requirements(Category.power, with(NSitems.tantalum, 35, NSitems.zirconium, 30, NSitems.naturit, 20));
 
-            researchCost = ItemStack.with(NSitems.tantalum, 600, NSitems.naturit, 400);
+            researchCost = ItemStack.with(NSitems.tantalum, 600, NSitems.zirconium, 480, NSitems.naturit, 400);
 
             drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput());
             rotateDraw = false;
@@ -84,11 +84,11 @@ public class NSBpower {
         }};
 
         SFGenerator = new ConsumeGenerator("solidFuelGenerator"){{
-            requirements(Category.power, with(NSitems.tantalum, 30, silicon, 25));
+            requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 25));
             powerProduction = 5f / 6f;
             itemDuration = 45f;
             size = 2;
-            researchCost = ItemStack.with(NSitems.tantalum, 650, silicon, 550);
+            researchCost = ItemStack.with(NSitems.tantalum, 650, NSitems.zirconium, 580, silicon, 550);
 
             generateEffect = Fx.generatespark;
             ambientSound = Sounds.smelter;

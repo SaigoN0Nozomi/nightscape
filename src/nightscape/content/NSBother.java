@@ -8,7 +8,7 @@ import mindustry.world.blocks.defense.Radar;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.meta.BuildVisibility;
-import nightscape.world.NonPercentMend;
+import nightscape.world.BetterMend;
 
 import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
@@ -22,13 +22,13 @@ public class NSBother {
     public static void load(){
         tWall = new Wall("tWall") {{
         requirements(Category.defense, with(NSitems.tantalum, 8));
-        health = 610;
+        health = 420;
         researchCost = ItemStack.with(NSitems.tantalum, 80);
     }};
 
         tWall_large = new Wall("tWall-large") {{
             requirements(Category.defense, with(NSitems.tantalum, 32));
-            health = 2640;
+            health = 1680;
             size = 2;
             researchCost = ItemStack.with(NSitems.tantalum, 320);
         }};
@@ -37,11 +37,11 @@ public class NSBother {
             requirements(Category.effect, with(NSitems.tantalum, 1500, NSitems.naturit, 750));
             isFirstTier = true;
             unitType = NSunits.observer;
-            health = 3000;
+            health = 1800;
             itemCapacity = 3000;
             size = 3;
             squareSprite = false;
-            armor = 10f;
+            armor = 4f;
             alwaysUnlocked = true;
             incinerateNonBuildable = true;
 
@@ -51,14 +51,15 @@ public class NSBother {
             researchCostMultiplier = 0.1f;
         }};
 
-        mender = new NonPercentMend("mender"){{
+        mender = new BetterMend("mender"){{
             requirements(Category.effect, with(NSitems.tantalum, 60, NSitems.velonium, 50));
             size = 2;
             reload = 120f;
             healAmount = 10f;
+            healPercent = 0.2f;
             health = 170;
             phaseRangeBoost = 0f;
-            maxHeat = 6f;
+            maxHeat = 4f;
             heatRequirement = 1f;
             range = 80f;
             hasPower = false;
@@ -68,6 +69,7 @@ public class NSBother {
             requirements(Category.effect, BuildVisibility.fogOnly, with(NSitems.velonium, 150, silicon, 120));
             outlineColor = Color.valueOf("443645");
             fogRadius = 40;
+            discoveryTime = 240 * 10f;
             size = 2;
             researchCost = with(NSitems.velonium, 600, silicon, 480);
 

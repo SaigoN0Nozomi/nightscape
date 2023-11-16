@@ -22,6 +22,7 @@ import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
 import nightscape.world.HeatCore;
+import nightscape.world.block.AttributeCollector;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
@@ -53,7 +54,7 @@ public class NSBproduction {
             shake = 4f;
             researchCostMultiplier = 0.5f;
             fogRadius = 4;
-            drillMultipliers.put(NSitems.tantalum, 2.5f);
+            drillMultipliers.put(NSitems.tantalum, 2.1f);
 
             arrowOffset = 0;
             arrows = 1;
@@ -62,18 +63,20 @@ public class NSBproduction {
             consumeLiquid(Liquids.ozone, 1.5f / 60f);
         }};
 
-        nutExtractor = new AttributeCrafter("naturit-extractor"){{
+        nutExtractor = new AttributeCollector("naturit-extractor"){{
             requirements(Category.production, with(NSitems.tantalum, 20));
 
             researchCost = ItemStack.with(NSitems.tantalum, 40);
             outputItem = new ItemStack(NSitems.naturit, 1);
-            outputLiquid = new LiquidStack(Liquids.ozone, 3f / 60f);
+            outputLiquid = new LiquidStack(Liquids.ozone, 4.5f / 60f);
             craftTime = 60;
             size = 2;
 
             hasItems = true;
             hasLiquids = true;
             liquidCapacity = 20f;
+            radius = 1;
+            radColor = NSitems.naturit.color;
 
             craftEffect = Fx.none;
             attribute = NSattribute.naturit;
@@ -89,7 +92,7 @@ public class NSBproduction {
                     new DrawRegion("-top")
             );
             maxBoost = 2f;
-            boostScale = 0.25f;
+            boostScale = 0.2f;
             baseEfficiency = 0;
         }};
 
@@ -104,7 +107,7 @@ public class NSBproduction {
             });
 
             outputItem = new ItemStack(NSitems.velonium, 2);
-            craftTime = 180f;
+            craftTime = 120f;
             size = 2;
             squareSprite = false;
             hasPower = false;
@@ -142,17 +145,8 @@ public class NSBproduction {
             liquidOutputDirections = new int[]{1, 3};
         }};
 
-        combustionMixer = new GenericCrafter("combustionMixer"){{
-            requirements(Category.crafting, with(NSitems.tantalum, 80, NSitems.electrum, 60, NSitems.velonium, 30));
-            size = 2;
-            consumePower(1.5f);
-            consumeItems(ItemStack.with(NSitems.naturit, 2, coal, 3));
-            craftTime = 30f;
-            outputItem = new ItemStack(pyratite, 3);
-        }};
-
         cliffCrusher = new WallCrafter("cliffCrusher"){{
-            requirements(Category.production, with(NSitems.naturit, 90, NSitems.velonium, 60));
+            requirements(Category.production, with(NSitems.naturit, 90, NSitems.velonium, 60, NSitems.zirconium, 30));
 
             consumeLiquid(Liquids.ozone, 9 / 60f);
             drillTime = 60f;
@@ -160,13 +154,13 @@ public class NSBproduction {
             rotateSpeed = 6;
             attribute = Attribute.sand;
             output = Items.sand;
-            researchCost = with(NSitems.naturit, 500, NSitems.velonium, 220);
+            researchCost = with(NSitems.naturit, 500, NSitems.velonium, 220, NSitems.zirconium, 190);
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.15f;
         }};
 
         siliconFurnace = new HeatCrafter("siliconFurnace"){{
-            requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.velonium, 120));
+            requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.velonium, 120, NSitems.zirconium, 90));
             size = 3;
             heatRequirement = 6f;
             maxEfficiency = 2;
@@ -177,12 +171,12 @@ public class NSBproduction {
                     new DrawArcSmelt(),
                     new DrawRegion()
             );
-            researchCost = with(NSitems.tantalum, 1550, NSitems.velonium, 920);
+            researchCost = with(NSitems.tantalum, 1550, NSitems.velonium, 920, NSitems.zirconium, 700);
         }};
 
         ozoneCondenser = new AttributeCrafter("ozoneCondenser"){{
-            requirements(Category.production, with(NSitems.tantalum, 120, silicon, 80));
-            researchCost = with(NSitems.tantalum, 1420, silicon, 720);
+            requirements(Category.production, with(NSitems.tantalum, 120, NSitems.zirconium, 120, silicon, 80));
+            researchCost = with(NSitems.tantalum, 1420, NSitems.zirconium, 1340, silicon, 720);
             attribute = NSattribute.ozone;
             minEfficiency = 9f - 0.0001f;
             baseEfficiency = 0f;

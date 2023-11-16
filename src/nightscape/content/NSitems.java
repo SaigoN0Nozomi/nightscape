@@ -11,7 +11,7 @@ import static mindustry.content.Planets.*;
 
 public class NSitems {
     public static Item
-    tantalum, naturit, velonium, electrum;
+    tantalum, naturit, velonium, electrum, zirconium;
 
     public static Seq<Item> chordaItems = new Seq<>();
 
@@ -28,11 +28,17 @@ public class NSitems {
             hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
+        zirconium = new Item("zirconium"){{
+            cost = 1f;
+            hiddenOnPlanets = new Planet[]{serpulo, erekir};
+            hardness = 2;
+        }};
+
         velonium = new Item("velonium", Color.valueOf("abced3")){{
             cost = 2f;
             hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
-        chordaItems.addAll(tantalum, naturit, velonium, silicon, sand);
+        chordaItems.addAll(tantalum, naturit, velonium, silicon, sand, zirconium);
     }
 }

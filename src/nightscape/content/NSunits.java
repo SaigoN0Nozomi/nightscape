@@ -1,5 +1,6 @@
 package nightscape.content;
 
+import arc.audio.Sound;
 import arc.graphics.Color;
 import arc.math.Interp;
 import arc.math.geom.Rect;
@@ -15,6 +16,8 @@ import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import mindustry.type.unit.TankUnitType;
 import nightscape.content.effects.unitFx;
+import nightscape.world.meta.SoundsAlt;
+import nightscape.world.types.AccWeapon;
 
 public class NSunits {
     public static UnitType
@@ -36,7 +39,7 @@ public class NSunits {
 
             mechFrontSway = 0.55f;
             health = 210f;
-            speed = 0.4f;
+            speed = 0.55f;
             armor = 5f;
             hitSize = 8f;
             rotateSpeed = 4f;
@@ -70,7 +73,7 @@ public class NSunits {
 
             health = 740f;
             mechFrontSway = 0.55f;
-            speed = 0.38f;
+            speed = 0.5f;
             armor = 8f;
             hitSize = 10f;
             rotateSpeed = 1.8f;
@@ -148,11 +151,11 @@ public class NSunits {
                 reload = 100;
                 shootSound = Sounds.laser;
                 soundPitchMax = 0.8f;
+                ejectEffect = unitFx.planumSmoke;
                 soundPitchMin = 0.65f;
                 shoot.firstShotDelay = 25f;
                 bullet = new LaserBulletType(105){{
                     chargeEffect = unitFx.planumCharge;
-                    shootEffect = unitFx.planumSmoke;
                     shootStatus = StatusEffects.unmoving;
                     shootStatusDuration = 45f;
                     layerOffset = -0.5f;
@@ -167,7 +170,7 @@ public class NSunits {
                 }};
             }});
             health = 2300f;
-            speed = 0.35f;
+            speed = 0.45f;
             armor = 9f;
             hitSize = 20f;
             rotateSpeed = 1.5f;
@@ -272,7 +275,6 @@ public class NSunits {
                     lifetime = 70f;
                     hitColor = backColor = trailColor = Color.valueOf("d8f3f4");
                     frontColor = Color.white;
-                    despawnEffect = Fx.none;
                     trailWidth = 1.5f;
                     trailLength = 7;
                     despawnEffect = hitEffect = unitFx.blueHitBig;
@@ -349,23 +351,24 @@ public class NSunits {
             }});
             weapons.add(new Weapon(name + "-rocket"){{
                 mirror = false;
-                reload = 500f;
+                reload = 50f;
                 rotate = true;
                 rotateSpeed = 1;
 
                 inaccuracy = 20f;
                 recoil = 1f;
                 recoilTime = 60f;
-                shootSound = Sounds.missileSmall;
+                shootSound = SoundsAlt.rocket;
                 x = 0;
                 y = 4;
-                shoot.shots = 24;
+                shoot.shots = 4;
                 shoot.shotDelay = 4;
                 xRand = 2;
-                bullet = new MissileBulletType(3f, 20f){{
+                bullet = new MissileBulletType(3f, 32f){{
                     width = 7f;
                     height = 12f;
-                    lifetime = 66.5f;
+                    lifetime = 66.6f;
+                    homingDelay = 30f;
                     backColor = trailColor = Color.valueOf("d8f3f4");
                     frontColor = Color.white;
                     hitEffect = despawnEffect = unitFx.blueHitBig;
@@ -393,6 +396,7 @@ public class NSunits {
             speed = 1.6f;
             rotateSpeed = 7f;
             hitSize = 8f;
+            faceTarget = false;
             health = 230;
             range = 20f;
 
@@ -413,18 +417,23 @@ public class NSunits {
             engineOffset = 4.5f;
             engineColor = Color.valueOf("d297e1");
             weapons.add(new Weapon(){{
-                continuous = true;
+                reload = 120f;
+                shootCone = 180f;
+                ejectEffect = unitFx.purpleHitBiggest;
+                shootSound = Sounds.explosion;
+                x = shootY = 0f;
                 mirror = false;
-                reload = 20;
-                x = 0;
-                bullet = new LightningBulletType(){{
-                    damage = 5;
-                    collidesAir = false;
-                    lightningColor = Color.valueOf("d297e1");
-                    lightningLength = 5;
-                    lightningAngle = 5;
-                    lightningLengthRand = 2;
-                    hitEffect = Fx.none;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+
+                    rangeOverride = 30f;
+                    speed = 0f;
+                    splashDamageRadius = 35f;
+                    instantDisappear = true;
+                    splashDamage = 20f;
+                    hittable = false;
+                    collidesAir = true;
                 }};
             }});
             outlineColor = Color.valueOf("2d2630");
@@ -438,6 +447,7 @@ public class NSunits {
             accel = 0.08f;
             drag = 0.04f;
             lowAltitude = true;
+            faceTarget = true;
             targetAir = true;
             targetGround = true;
             speed = 1.3f;
@@ -453,7 +463,7 @@ public class NSunits {
             engineSize = 3.4f;
             engineOffset = 5f;
             engineColor = Color.valueOf("d297e1");
-            weapons.add(new Weapon(name + "-gun"){{
+            weapons.add(new AccWeapon(name + "-gun"){{
                 rotationLimit = 60f;
                 top = true;
                 x = -5;
@@ -461,7 +471,9 @@ public class NSunits {
                 shootSound = Sounds.shootAlt;
                 rotateSpeed = 5f;
                 rotate = true;
-                reload = 5;
+                minReload = 10;
+                maxReload = 25;
+                accelerate = 0.05f;
                 bullet = new BasicBulletType(7.5f, 7){{
                     width = 9f;
                     smokeEffect = unitFx.purpleSmoke;

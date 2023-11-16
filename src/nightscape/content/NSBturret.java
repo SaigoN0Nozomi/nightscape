@@ -44,11 +44,11 @@ public class NSBturret {
         victim = new ItemTurret("victim"){{
             requirements(Category.turret, with(NSitems.tantalum, 45));
             ammo(
-                NSitems.tantalum, new BasicBulletType(4f, 14f){{
+                NSitems.tantalum, new BasicBulletType(4f, 11f){{
                     width = 9f;
                     height = 14f;
                     lifetime = 30f;
-                    ammoMultiplier = 1;
+                    ammoMultiplier = 2;
                     hitColor = backColor = trailColor = Color.valueOf("7f9da9");
                     frontColor = Color.white;
                     despawnEffect = Fx.none;
@@ -62,7 +62,7 @@ public class NSBturret {
                         });
                     });
                 }},
-                NSitems.velonium, new BasicBulletType(6f, 27f){{
+                NSitems.velonium, new BasicBulletType(6f, 18f){{
                     width = 10f;
                     height = 16f;
                     lifetime = 20f;
@@ -108,7 +108,7 @@ public class NSBturret {
         }};
 
         flicker = new ItemTurret("flicker"){{
-            requirements(Category.turret, with(NSitems.tantalum, 60, NSitems.naturit, 45));
+            requirements(Category.turret, with(NSitems.tantalum, 60, NSitems.zirconium, 45));
             ammo(
                     NSitems.naturit, new ArtilleryBulletType(3f,8){{
                         splashDamage = 12;
@@ -139,8 +139,8 @@ public class NSBturret {
         }};
 
         stelle = new LiquidTurret("stelle"){{
-            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.velonium, 95, silicon, 15));
-            researchCost = with(NSitems.tantalum, 1850, NSitems.velonium, 670, silicon, 320);
+            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.zirconium, 95, silicon, 15));
+            researchCost = with(NSitems.tantalum, 1850, NSitems.zirconium, 670, silicon, 320);
 
             ammo(
                 Liquids.ozone, new BasicBulletType(2f, 15){{

@@ -5,6 +5,7 @@ import mindustry.content.Planets;
 import mindustry.mod.*;
 import mindustry.type.Planet;
 import nightscape.content.*;
+import nightscape.world.meta.SoundsAlt;
 
 public class nightscape extends Mod{
 
@@ -17,6 +18,7 @@ public class nightscape extends Mod{
         Log.info("Loading NS content.");
 
         Log.info("Loading attribute, status, weather and item lists.");
+        SoundsAlt.load();
         NSattribute.load();
         NSstatus.load();
         NSweather.load();

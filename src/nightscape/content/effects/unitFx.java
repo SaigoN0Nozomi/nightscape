@@ -64,6 +64,24 @@ public class unitFx {
         Drawf.light(e.x, e.y, 20f, Color.valueOf("d297e1"), 0.6f * e.fout());
     }),
 
+    purpleHitBiggest = new Effect(25, e -> {
+        color(Color.white, Color.valueOf("d297e1"), e.fin());
+
+        e.scaled(20f, s -> {
+            stroke(s.fout() * 2);
+            Lines.circle(e.x, e.y, s.finpow() * 35f);
+        });
+
+        stroke(0.5f + e.fout());
+
+        randLenVectors(e.id, 16, e.finpow() * 45f, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            Fill.square(e.x + x, e.y + y, e.fout() * 7, 45);
+        });
+
+        Drawf.light(e.x, e.y, 20f, Color.valueOf("d297e1"), 0.6f * e.fout());
+    }),
+
     //planum
     planumCharge = new Effect(25, e -> {
         e.scaled(25f, s -> {
