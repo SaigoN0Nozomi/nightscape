@@ -10,9 +10,12 @@ import static nightscape.content.NSsectors.*;
 
 public class CHtechtree {
     public static void load(){
+        // pattern node(, () -> {});
+
         NSplanets.Chorda.techTree = nodeRoot("Chorda", NSBother.coreSatellite, () -> {
             //distribution
             node(NSBdistribution.tConveyor, () -> {
+                node(NSBdistribution.aConveyor);
                 node(NSBdistribution.tJunction, () -> {
                     node(NSBdistribution.tRouter, () -> {
                         node(NSBdistribution.tSorter, () -> {
@@ -25,63 +28,83 @@ public class CHtechtree {
                     node(NSBdistribution.tBridge);
                 });
             });
-            //liquid
+
+            //liquid distribution
             node(NSBdistribution.tConduit, () -> {
                 node(NSBdistribution.tcRouter, () ->{
                     node(NSBdistribution.tcBridge);
                 });
                 node(NSBdistribution.tcJuniction);
             });
+
             //production
             node(NSBproduction.nutExtractor, () -> {
                 node(NSBproduction.shockDrill, () -> {
-                    node(NSBproduction.cliffCrusher);
-                });
-                node(NSBpower.ozoneHeater, Seq.with(new Objectives.OnSector(frozenCanyon)), () -> {
-                    node(NSBproduction.veloniumFurnace, () -> {
-                        node(NSBproduction.siliconFurnace, Seq.with(new Objectives.OnSector(deepGap)), () -> {});
+                    node(NSBproduction.veloniumFurnace, Seq.with(new Objectives.OnSector(iceCrater)), () -> {
+                        node(NSBproduction.strebyPress, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
                     });
-                    node(NSBpower.SFGenerator, () -> {
-                        node(NSBpower.node);
-                        node(NSBproduction.ozoneCondenser);
-                    });
-                    node(NSBother.mender, Seq.with(new Objectives.SectorComplete(frozenCanyon)), () -> {
-                        node(NSBother.radar);
-                    });
-                    node(NSBpower.heatRedirector, () -> {
-                        node(NSBpower.heatCore);
+                    node(NSBproduction.cliffCrusher, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
+                    node(NSBpower.ozoneHeater,  Seq.with(new Objectives.OnSector(iceCrater)), () -> {
+                        node(NSBpower.heatRedirector, () -> {});
                     });
                 });
             });
-            //defence
-            node(NSBother.tWall, () -> {
-                node(NSBother.tWall_large);
-            });
+
             //turrets
             node(NSBturret.victim, () -> {
-                node(NSBturret.flicker, Seq.with(new Objectives.SectorComplete(safeEdge)), () -> {
-                    node(NSBturret.combustion);
-                });
-                node(NSBturret.punctual);
-                node(NSBturret.stelle);
+                node(NSBturret.flicker);
+                node(NSBturret.magnetic);
             });
+
+            //defense
+            node(NSBother.tWall, () ->{
+                node(NSBother.tWall_large);
+                node(NSBother.mender);
+                node(NSBother.rWall, () -> {
+                    node(NSBother.rWall_large);
+                });
+            });
+
             //items
-            nodeProduce(NSitems.naturit, () -> {
-                nodeProduce(Liquids.ozone, () -> {
+            nodeProduce(NSitems.tantalum, () -> {
+                nodeProduce(NSitems.velonium, () -> {});
+                nodeProduce(NSitems.naturit, () -> {
+                    nodeProduce(Liquids.ozone, () -> {});
                     nodeProduce(Items.sand, () -> {
                         nodeProduce(Items.silicon, () -> {});
                     });
                 });
-                nodeProduce(NSitems.tantalum, () -> {
-                    nodeProduce(NSitems.velonium, () -> {});
+                nodeProduce(NSitems.zirconium, () -> {
+                    nodeProduce(NSitems.streby, () -> {});
                 });
             });
+
             //sectors
             node(safeEdge, () -> {
-                node(frozenCanyon, Seq.with(new Objectives.Research(NSBturret.flicker)), () -> {
-                    node(deepGap);
+                node(iceCrater, () -> {
                 });
             });
         });
     }
 }
+/*
+            //production
+            node(NSBproduction.cliffCrusher
+            node(NSBproduction.strebyPress
+            node(NSBpower.ozoneHeater
+            node(NSBproduction.veloniumFurnace
+            node(NSBproduction.siliconFurnace
+            node(NSBpower.SFGenerator
+            node(NSBpower.node
+            node(NSBproduction
+            node(NSBother.mender
+            node(NSBother.radar
+            node(NSBpower.heatRedirector
+            node(NSBpower.heatCore
+            node(NSBother.rWall
+            node(NSBother.rWall_large
+            //turrets
+            node(NSBturret.combustion
+            node(NSBturret.punctual
+            node(NSBturret.stelle
+ */

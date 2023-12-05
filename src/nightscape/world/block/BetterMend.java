@@ -43,7 +43,7 @@ public class BetterMend extends MendProjector {
     public void setStats(){
         stats.timePeriod = useTime;
         super.setStats();
-        stats.add(Stat.repairSpeed, (float)(healAmount / reload * 60f), StatUnit.perSecond);
+        stats.add(Stat.repairSpeed, (int)(healAmount / reload * 60f), StatUnit.perSecond);
         stats.add(Stat.input, heatRequirement, StatUnit.heatUnits);
     }
     public class BetterMendBuild extends MendBuild{

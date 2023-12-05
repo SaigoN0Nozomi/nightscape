@@ -12,16 +12,10 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
-import mindustry.world.blocks.heat.HeatConductor;
-import mindustry.world.blocks.heat.HeatProducer;
-import mindustry.world.blocks.power.BeamNode;
-import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.production.*;
-import mindustry.world.consumers.ConsumeItemFlammable;
-import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Attribute;
-import nightscape.world.HeatCore;
 import nightscape.world.block.AttributeCollector;
 
 import static arc.graphics.g2d.Draw.color;
@@ -32,7 +26,8 @@ import static mindustry.type.ItemStack.with;
 public class NSBproduction {
     public static Block
     shockDrill, nutExtractor, veloniumFurnace, naturitSeparator,
-    combustionMixer, cliffCrusher, siliconFurnace, ozoneCondenser;
+    cliffCrusher, siliconFurnace, ozoneCondenser,
+    strebyPress;
     public static void load(){
 
 
@@ -106,8 +101,8 @@ public class NSBproduction {
                 });
             });
 
-            outputItem = new ItemStack(NSitems.velonium, 2);
-            craftTime = 120f;
+            outputItem = new ItemStack(NSitems.velonium, 1);
+            craftTime = 60f;
             size = 2;
             squareSprite = false;
             hasPower = false;
@@ -120,10 +115,10 @@ public class NSBproduction {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.07f;
 
-            consumeItems(with(NSitems.tantalum, 5));
+            consumeItems(with(NSitems.tantalum, 2));
             heatRequirement = 2f;
         }};
-
+        /*
         naturitSeparator = new HeatCrafter("naturitSeparator"){{
             requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.naturit, 180, NSitems.electrum, 90));
             size = 3;
@@ -143,7 +138,7 @@ public class NSBproduction {
             );
             outputLiquids = LiquidStack.with(Liquids.ozone, 4 / 60f, Liquids.water, 3 / 60f);
             liquidOutputDirections = new int[]{1, 3};
-        }};
+        }};*/
 
         cliffCrusher = new WallCrafter("cliffCrusher"){{
             requirements(Category.production, with(NSitems.naturit, 90, NSitems.velonium, 60, NSitems.zirconium, 30));
@@ -201,6 +196,29 @@ public class NSBproduction {
             outputLiquid = new LiquidStack(Liquids.ozone, 2 / 6f);
             consumePower(2f);
             liquidCapacity = 60f;
+        }};
+
+        strebyPress = new GenericCrafter("strebyPress"){{
+            requirements(Category.crafting, with(NSitems.zirconium, 60, NSitems.velonium, 45));
+            researchCost = with(NSitems.zirconium, 850, NSitems.velonium, 625);
+            liquidCapacity = 60f;
+            craftTime = 60f;
+            consumeLiquid(Liquids.ozone, 3 / 60f);
+            consumeItems(with(NSitems.zirconium, 1, sand, 2));
+            outputItem = new ItemStack(NSitems.streby, 1);
+            size = 2;
+            health = 320;
+            hasLiquids = true;
+            hasPower = true;
+            craftEffect = Fx.none;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawLiquidTile(Liquids.ozone, 1.5f),
+                    new DrawPistons(){{
+                        sinMag = 2.5f;
+                    }},
+                    new DrawDefault()
+            );
         }};
     }
 }

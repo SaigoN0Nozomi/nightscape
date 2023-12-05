@@ -32,6 +32,7 @@ public class nightscape extends Mod{
         NSBproduction.load();
         NSBturret.load();
         NSBother.load();
+        NSBunits.load();
         loadouts.load();
         Log.info("Planets and tech tree for them.");
         NSplanets.load();

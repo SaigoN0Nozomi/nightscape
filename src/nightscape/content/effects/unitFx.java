@@ -3,11 +3,13 @@ package nightscape.content.effects;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
+import arc.math.Angles;
 import arc.math.Interp;
 import arc.math.Mathf;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Drawf;
+import mindustry.graphics.Pal;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
@@ -64,8 +66,8 @@ public class unitFx {
         Drawf.light(e.x, e.y, 20f, Color.valueOf("d297e1"), 0.6f * e.fout());
     }),
 
-    purpleHitBiggest = new Effect(25, e -> {
-        color(Color.white, Color.valueOf("d297e1"), e.fin());
+    blueBlast = new Effect(25, e -> {
+        color(Color.white, Color.valueOf("d8f3f4"), e.fin());
 
         e.scaled(20f, s -> {
             stroke(s.fout() * 2);
@@ -79,7 +81,7 @@ public class unitFx {
             Fill.square(e.x + x, e.y + y, e.fout() * 7, 45);
         });
 
-        Drawf.light(e.x, e.y, 20f, Color.valueOf("d297e1"), 0.6f * e.fout());
+        Drawf.light(e.x, e.y, 20f, Color.valueOf("d8f3f4"), 0.6f * e.fout());
     }),
 
     //planum
@@ -130,6 +132,27 @@ public class unitFx {
         Drawf.light(e.x, e.y, 20f, Color.valueOf("d8f3f4"), 0.6f * e.fout());
     }),
 
+    blueSquareHit = new Effect(30, e -> {
+        color(Color.white, Color.valueOf("d8f3f4"), e.fin());
+
+        e.scaled(15f, s -> {
+            stroke(s.fout() * 3);
+            Lines.circle(e.x, e.y, s.finpow() * 4f);
+        });
+
+        randLenVectors(e.id, 6, e.fin() * 12, (x, y) -> {
+            Fill.square(e.x + x, e.y + y, e.fout() * 2, 45);
+        });
+    }),
+
+    blueSmoke = new Effect(15, e -> {
+        color(Color.valueOf("d8f3f4"), Color.lightGray, e.fin());
+
+        randLenVectors(e.id, 6, e.finpow() * 9, e.rotation, 35, (x, y) -> {
+            Fill.square(e.x + x, e.y + y, e.fout() * 2, 45);
+        });
+    }),
+
     blueHitBig = new Effect(20, e -> {
         color(Color.white, Color.valueOf("d8f3f4"), e.fin());
 
@@ -146,5 +169,57 @@ public class unitFx {
         });
 
         Drawf.light(e.x, e.y, 20f, Color.valueOf("d8f3f4"), 0.6f * e.fout());
+    }),
+
+    diluvioCharge = new Effect(185, e -> {
+        color(Color.valueOf("d8f3f4"));
+        Fill.circle(e.x, e.y, e.fin() * 10f);
+        color(Color.white);
+        Fill.circle(e.x, e.y, e.fin() * 5f);
+    }),
+
+    diluvioHit = new Effect(50f, 100f, e -> {
+        e.scaled(7f, b -> {
+            color(Color.valueOf("d8f3f4"), b.fout());
+            Fill.circle(e.x, e.y, 50);
+        });
+
+        color(Color.valueOf("d8f3f4"));
+        stroke(e.fout() * 3f);
+        Lines.circle(e.x, e.y, 50);
+
+        Drawf.tri(e.x, e.y, 10 * e.fout(), 30, e.rotation);
+        Drawf.tri(e.x, e.y, 10 * e.fout(), -30, e.rotation);
+        Drawf.tri(e.x, e.y, 10 * e.fout(), 30, e.rotation + 90);
+        Drawf.tri(e.x, e.y, 10 * e.fout(), -30, e.rotation + 90);
+
+        int points = 10;
+        float offset = Mathf.randomSeed(e.id, 360f);
+        for(int i = 0; i < points; i++){
+            float angle = i* 360f / points + offset;
+            Drawf.tri(e.x + Angles.trnsx(angle, 50), e.y + Angles.trnsy(angle, 50), 5f, 20f * e.fout(), angle);
+        }
+        for(int i = 0; i < points; i++){
+            float angle = i* 360f / points + offset;
+            Drawf.tri(e.x + Angles.trnsx(angle, 50), e.y + Angles.trnsy(angle, 50), 5f, -20f * e.fout(), angle);
+        }
+
+        Fill.circle(e.x, e.y, 6f * e.fout());
+        color();
+        Fill.circle(e.x, e.y, 3f * e.fout());
+        Drawf.light(e.x, e.y, 50 * 1.6f, Color.valueOf("d8f3f4"), e.fout());
+    }),
+    hitLaser = new Effect(8, e -> {
+        color(Color.white, Pal.accent, e.fin());
+        stroke(0.5f + e.fout());
+        Lines.circle(e.x, e.y, e.fin() * 5f);
+
+        Drawf.light(e.x, e.y, 23f, Pal.accent, e.fout() * 0.7f);
+    }),
+    ishiField = new Effect(60, e -> {
+        color(Color.valueOf("dbd187"), Color.white, e.fin());
+
+        stroke(2f * e.fout());
+        Lines.circle(e.x, e.y, 75 * e.fin(Interp.circleOut));
     });
 }

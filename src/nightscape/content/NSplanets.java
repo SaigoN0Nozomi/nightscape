@@ -16,17 +16,17 @@ public class NSplanets {
     public static Planet Chorda;
 
     public static void load(){
-        Chorda = new Planet("Chorda", Planets.sun, 0.9f, 2){{
+        Chorda = new Planet("Chorda", Planets.sun, 1.1f, 2){{
         generator = new ChordaPlanetGenerator();
         meshLoader = () -> new HexMesh(this, 6);
         cloudMeshLoader = () -> new MultiMesh(
-                new HexSkyMesh(this, 23, 0.35f, 0.14f, 5, Color.valueOf("a42283").a(0.75f), 2, 0.45f, 0.9f, 0.36f),
-                new HexSkyMesh(this, 33, 0.7f, 0.17f, 5, Color.valueOf("fc81dd").a(0.75f), 2, 0.45f, 1f, 0.47f)
+                new HexSkyMesh(this, 23, 0.35f, 0.12f, 5, Color.valueOf("a42283").a(0.55f), 2, 0.45f, 0.9f, 0.38f),
+                new HexSkyMesh(this, 33, 0.7f, 0.17f, 5, Color.valueOf("fc81dd").a(0.45f), 2, 0.45f, 1f, 0.41f)
         );
         launchCapacityMultiplier = 0.3f;
         tidalLock = false;
-        orbitTime = 60f * 60f;
-        rotateTime = 8 * 60f * 60f * 60f;
+        orbitTime = 240f * 60f * 60f * 60f;
+        rotateTime = 0.1f * 60f * 60f * 60f;
 
         allowLaunchToNumbered = false;
         allowWaves = true;
@@ -39,10 +39,10 @@ public class NSplanets {
         iconColor = Color.valueOf("625160");
         atmosphereColor = Color.valueOf("625160");
         defaultCore = NSBother.coreSatellite;
-        atmosphereRadIn = 0.01f;
-        atmosphereRadOut = 0.3f;
+        atmosphereRadIn = 0.02f;
+        atmosphereRadOut = 0.35f;
         startSector = 4;
-        orbitRadius = 28f;
+        orbitRadius = 78f;
         accessible = true;
         alwaysUnlocked = true;
         landCloudColor = Color.valueOf("625160");

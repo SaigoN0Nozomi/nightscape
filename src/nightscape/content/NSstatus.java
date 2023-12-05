@@ -10,7 +10,7 @@ import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
 
 public class NSstatus {
-    public static StatusEffect ozoneCorrosion, prepared, overCharged;
+    public static StatusEffect ozoneCorrosion, overCharged, ascent;
 
     public static void load(){
         ozoneCorrosion = new StatusEffect("OzoneCorrosion"){{
@@ -31,6 +31,12 @@ public class NSstatus {
             reloadMultiplier = 0.7f;
             damageMultiplier = 0.7f;
             damage = 10f/60f;
+        }};
+
+        ascent = new StatusEffect("Ascent"){{
+            speedMultiplier = 1.05f;
+            healthMultiplier = 1.05f;
+            damageMultiplier = 1.1f;
         }};
     }
 }

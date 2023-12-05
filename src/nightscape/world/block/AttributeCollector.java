@@ -4,20 +4,24 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
+import arc.util.io.*;
 import mindustry.game.Team;
 import mindustry.graphics.Drawf;
 import mindustry.world.Tile;
 import mindustry.world.blocks.production.AttributeCrafter;
+import mindustry.world.meta.Attribute;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatValues;
+import nightscape.content.NSattribute;
 
 import static mindustry.Vars.tilesize;
 import static mindustry.Vars.world;
 
 public class AttributeCollector extends AttributeCrafter {
+    public Attribute attribute = NSattribute.naturit;
     public int radius = 0;
-    public float eff;
     public boolean conf = true;
+    public float eff;
     public float confCount;
     public Color radColor = Color.white;
     public AttributeCollector(String name){
@@ -42,27 +46,28 @@ public class AttributeCollector extends AttributeCrafter {
         displayEfficiency = false;
         super.drawPlace(x, y, rotation, valid);
 
-        drawPlaceText(Core.bundle.format("bar.efficiency", (int)((baseEfficiency + Math.min(maxBoost, eff * boostScale) * 100f ))), x, y, valid);
+        drawPlaceText(Core.bundle.format("bar.efficiency", (int)((baseEfficiency + Math.min(maxBoost, countEfficiency(x, y) * boostScale) * 100f ))), x, y, valid);
     }
-
-    @Override
-    public boolean canPlaceOn(Tile tile, Team team, int rotation){
-        return countEfficiency(tile) > 0;
-    }
-
-    public float countEfficiency(Tile tile){
+    public float countEfficiency(int tx, int ty){
         eff = baseEfficiency;
         confCount = 0;
-        for(int x = tile.x - radius; x < tile.x + radius + 2; x++){
-            for(int y = tile.y - radius; y < tile.y + radius + 2; y++){
-                Tile t = world.tile(x, y);
+        for(int ax = tx - radius; ax < tx + radius + size; ax++){
+            for(int ay = ty - radius; ay < ty + radius + size; ay++){
+                Tile t = world.tile(ax, ay);
                 if (t.block().attributes.get(attribute) > 0) eff = t.block().attributes.get(attribute) + eff;
                 else eff = t.floor().attributes.get(attribute) + eff;
-                if(conf && t.block() instanceof AttributeCollector) confCount++;
+                if (!(((ax >= tx)&&(ax < tx+size))&&((ay >= ty)&&(ay < ty+size)))) {
+                    if (conf && t.block() instanceof AttributeCollector) confCount++;
+                }
             }
         }
         if(confCount < 1) return Math.min(eff, maxBoost / boostScale);
         else return 0;
+    }
+
+    @Override
+    public boolean canPlaceOn(Tile tile, Team team, int rotation){
+        return countEfficiency(tile.x, tile.y) > 0;
     }
 
     public class AttributeCollectorBuild extends AttributeCrafterBuild{
@@ -98,9 +103,7 @@ public class AttributeCollector extends AttributeCrafter {
 
         @Override
         public void onProximityUpdate(){
-            super.onProximityUpdate();
-
-            attrsum = eff;
+            attrsum = countEfficiency(tile.x, tile.y);
         }
     }
 }

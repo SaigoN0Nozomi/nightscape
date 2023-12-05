@@ -6,20 +6,20 @@ import static nightscape.content.NSplanets.Chorda;
 
 public class NSsectors {
     public static SectorPreset
-    safeEdge, frozenCanyon, deepGap;
+    safeEdge, iceCrater, deepGap;
 
     public static void load(){
         safeEdge = new SectorPreset("safeEdge", Chorda, 4){{
             alwaysUnlocked = true;
-            difficulty = 1;
-            captureWave = 10;
+            difficulty = 2;
+            captureWave = 15;
             startWaveTimeMultiplier = 2f;
         }};
 
-        frozenCanyon = new SectorPreset("frozenCanyon", Chorda, 45){{
+        iceCrater = new SectorPreset("IceCrater", Chorda, 33){{
             alwaysUnlocked = false;
             difficulty = 3;
-            captureWave = 15;
+            captureWave = 20;
             startWaveTimeMultiplier = 2.5f;
         }};
 

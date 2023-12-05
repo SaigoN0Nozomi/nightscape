@@ -86,7 +86,7 @@ public class NSBpower {
         SFGenerator = new ConsumeGenerator("solidFuelGenerator"){{
             requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 25));
             powerProduction = 5f / 6f;
-            itemDuration = 45f;
+            itemDuration = 75f;
             size = 2;
             researchCost = ItemStack.with(NSitems.tantalum, 650, NSitems.zirconium, 580, silicon, 550);
 

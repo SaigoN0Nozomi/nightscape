@@ -1,44 +1,17 @@
 package nightscape.generators;
 
 import arc.graphics.Color;
-import arc.math.Angles;
 import arc.math.Mathf;
-import arc.math.geom.Geometry;
-import arc.math.geom.Point2;
-import arc.math.geom.Vec2;
 import arc.math.geom.Vec3;
-import arc.struct.FloatSeq;
-import arc.struct.ObjectMap;
-import arc.struct.ObjectSet;
-import arc.struct.Seq;
-import arc.util.Structs;
 import arc.util.Tmp;
-import arc.util.noise.Noise;
 import arc.util.noise.Ridged;
 import arc.util.noise.Simplex;
-import mindustry.ai.Astar;
-import mindustry.ai.BaseRegistry;
 import mindustry.content.Blocks;
-import mindustry.content.Liquids;
-import mindustry.game.Schematics;
-import mindustry.game.Team;
-import mindustry.graphics.g3d.PlanetGrid;
-import mindustry.maps.generators.BaseGenerator;
 import mindustry.maps.generators.PlanetGenerator;
-import mindustry.maps.planet.SerpuloPlanetGenerator;
-import mindustry.type.Sector;
 import mindustry.world.Block;
-import mindustry.world.Tile;
 import mindustry.world.TileGen;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.SteamVent;
-import mindustry.world.meta.Attribute;
-import nightscape.content.NSBenvironment;
 import nightscape.content.loadouts;
 
-import static arc.graphics.g2d.Draw.scl;
-import static mindustry.Vars.bases;
-import static mindustry.Vars.world;
 import static nightscape.content.NSBenvironment.*;
 
 public class ChordaPlanetGenerator extends PlanetGenerator {
@@ -50,21 +23,22 @@ public class ChordaPlanetGenerator extends PlanetGenerator {
     }
     Block[][] arr =
             {
-                    {ice, icedStone, rainStone, coldStone, ash, ash, natAsh, ash, slate, slate, ash, ash, slate},
-                    {ice, icedStone, coldStone, ash, ash, natAsh, ash, slate, slate, ash, slate, ash, natAsh},
-                    {ice, icedStone, rainStone, ash, natAsh, ash, ash, ash, ash, redStone, slate, ash, slate},
-                    {ice, icedStone, ash, ash, natAsh, ash, slate, ash, natAsh, ash, ash, slate, slate},
-                    {icedStone, ice, icedStone, ash, natAsh, ash, rainStone, ash, natAsh, ash, ash, slate, ash, icedStone},
-                    {icedStone, ice, icedStone, ash, natAsh, rainStone, coldStone, slate, redStone, slate, slate, redStone, icedStone},
-                    {icedStone, ice, ash, ash, slate, slate, redStone, redStone, coldStone, rainStone, redStone, icedStone, ice},
-                    {ice, icedStone, rainStone, coldStone, slate, redStone, slate, rainStone, coldStone, icedStone, ice, icedStone, ice},
-                    {icedStone, rainStone, rainStone, ash, ash, rainStone, slate, slate, coldStone, rainStone, icedStone, icedStone, ice},
-                    {icedStone, rainStone, coldStone, ash, natAsh, coldStone, slate, ice, icedStone, icedStone, ice, ice, icedStone},
-                    {ice, icedStone, ice, icedStone, ash, ash, redStone, rainStone, ice, icedStone,icedStone, icedStone, ice},
-                    {ice, ice, icedStone, ice, ice, ice, icedStone, coldStone, icedStone, ice, icedStone, ice, icedStone},
-                    {ice, ash, ice, ice, icedStone, icedStone, icedStone, ice, ice, icedStone, ice, icedStone, ice}
+                    {ice, coldStone, rainStone, purl, ash, rainStone, rainStone, rainStone, purl, purl, purl, purl, purl},
+                    {slate, ice, coldStone, purl, natAsh, purl, ash, rainStone, purl, purl, purl, purl, purl},
+                    {ice, ice, coldStone, coldStone, natAsh, coldStone, slate, coldStone, slate, ice, ash, ash, ash},
+                    {slate, coldStone, ice, natAsh, natAsh, natAsh, slate, ash, ash, ash, rainStone, ash, purl},
+                    {slate, ice, coldStone, coldStone, natAsh, coldStone, slate, slate, rainStone, rainStone, rainStone, rainStone, purl},
+                    {ice, ice, coldStone, ice, coldStone, slate, natAsh, ash, rainStone, rainStone, purl, rainStone, purl},
+                    {coldStone, coldStone, ice, coldStone, natAsh, natAsh, rainStone, slate, slate, slate, purl, rainStone, purl},
+                    {coldStone, ice, coldStone, coldStone, slate, natAsh, slate, natAsh, slate, purl, rainStone, purl, purl},
+                    {ice, coldStone, slate, coldStone, natAsh, purl, rainStone, slate, slate, purl, rainStone, purl, purl},
+                    {coldStone, coldStone, coldStone, purl, purl, purl, rainStone, rainStone, rainStone, rainStone, purl, purl, purl},
+                    {ice, ice, coldStone, purl, purl, purl, purl, rainStone, rainStone, purl, purl, purl, purl},
+                    {coldStone, ice, coldStone, purl, natAsh, purl, ash, rainStone, purl, purl, purl, purl, purl},
+                    {ice, coldStone, rainStone, purl, ash, rainStone, rainStone, rainStone, purl, purl, purl, purl, purl}
             };
-    float water = 4f / arr[0].length;
+
+    float water = 2f / arr[0].length;
 
     float rawHeight(Vec3 position){
         position = Tmp.v33.set(position).scl(scl);

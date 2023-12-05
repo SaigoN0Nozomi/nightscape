@@ -1,33 +1,35 @@
 package nightscape.content;
 
+import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Interp;
 import mindustry.content.Fx;
 import mindustry.content.Liquids;
-import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.ArtilleryBulletType;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.ExplosionBulletType;
 import mindustry.entities.bullet.LaserBulletType;
-import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
-import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
-import mindustry.type.StatusEffect;
+import mindustry.type.Weapon;
+import mindustry.type.unit.MissileUnitType;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.LiquidTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.draw.DrawTurret;
+import nightscape.content.effects.blockFx;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
-import static mindustry.content.Items.pyratite;
 import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
 
@@ -37,7 +39,9 @@ public class NSBturret {
             //1x1
     victim, flicker,
             //2x2
-    combustion, punctual, stelle;
+    combustion, magnetic, stelle, hornet,
+            //Stations
+    nebulaStation;
 
     public static void load(){
 
@@ -109,6 +113,7 @@ public class NSBturret {
 
         flicker = new ItemTurret("flicker"){{
             requirements(Category.turret, with(NSitems.tantalum, 60, NSitems.zirconium, 45));
+            researchCost = with(NSitems.tantalum, 750, NSitems.zirconium, 355);
             ammo(
                     NSitems.naturit, new ArtilleryBulletType(3f,8){{
                         splashDamage = 12;
@@ -156,6 +161,7 @@ public class NSBturret {
                     frontColor = Color.white;
                     trailWidth = 2f;
                     trailLength = 9;
+                    hittable = false;
                     status = NSstatus.ozoneCorrosion;
                     statusDuration = 120;
                     collidesGround = false;
@@ -202,9 +208,14 @@ public class NSBturret {
                     progress = PartProgress.warmup.curve(Interp.circleOut);
                     moveX = 2f;
                     moveRot = -22f;
-                    heatColor = Color.valueOf("f03b0e");
                     mirror = true;
                     under = true;
+                    heatColor = Color.valueOf("FFFFFF99");
+                }});
+                parts.add(new RegionPart("-glow"){{
+                    blending = Blending.additive;
+                    color = Color.valueOf("FFFFFF66");
+                    outline = false;
                 }});
             }};
         }};
@@ -254,7 +265,7 @@ public class NSBturret {
             size = 2;
         }};
 
-        punctual = new ItemTurret("punctual"){{
+        magnetic = new ItemTurret("punctual"){{
             requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.naturit, 270, NSitems.velonium, 30));
             ammo(
                     NSitems.velonium, new BasicBulletType(6f, 39f){{
@@ -321,6 +332,110 @@ public class NSBturret {
                     under = true;
                 }});
             }};
+        }};
+
+        hornet = new ItemTurret("hornet"){{
+            requirements(Category.turret, with(NSitems.tantalum, 1200, NSitems.zirconium, 930, NSitems.streby, 500));
+
+            ammo(
+                    NSitems.streby, new BasicBulletType(0f, 1){{
+                        shootEffect = Fx.shootBig;
+                        smokeEffect = blockFx.hornetShoot;
+                        ammoMultiplier = 1f;
+
+                        spawnUnit = new MissileUnitType("hornet-missile"){{
+                            speed = 4.6f;
+                            maxRange = 6f;
+                            lifetime = 775/speed;
+                            outlineColor = Color.valueOf("2d2630");
+                            engineColor = trailColor = Color.valueOf("aaffc6");
+                            engineLayer = Layer.effect;
+                            engineSize = 1.8f;
+                            engineOffset = 4f;
+                            rotateSpeed = 0.4f;
+                            trailLength = 8;
+                            missileAccelTime = 25f;
+                            lowAltitude = true;
+                            loopSound = Sounds.missileTrail;
+                            loopSoundVolume = 0.6f;
+                            deathSound = Sounds.largeExplosion;
+                            targetAir = false;
+
+                            fogRadius = 1f;
+
+                            health = 95;
+
+                            weapons.add(new Weapon(){{
+                                shootCone = 360f;
+                                mirror = false;
+                                reload = 1f;
+                                deathExplosionEffect = blockFx.hornetHit;
+                                shootOnDeath = true;
+                                shake = 10f;
+                                bullet = new ExplosionBulletType(120f, 24f){{
+                                    hitEffect = Fx.none;
+                                    collidesAir = false;
+                                    buildingDamageMultiplier = 0.5f;
+                                }};
+                            }});
+                        }};
+                    }}
+            );
+
+            drawer = new DrawTurret("chorda-"){{
+                parts.add(new RegionPart("-blade"){{
+                            progress = PartProgress.warmup;
+                            heatProgress = PartProgress.warmup;
+                            heatColor = Color.red;
+                            moveRot = 14f;
+                            moveX = -2.8f;
+                            moveY = -1f;
+                            mirror = true;
+                        }},
+                        new RegionPart("-missile"){{
+                            progress = PartProgress.reload.curve(Interp.pow2In);
+
+                            colorTo = new Color(1f, 1f, 1f, 0f);
+                            color = Color.white;
+                            mixColorTo = Pal.accent;
+                            mixColor = new Color(1f, 1f, 1f, 0f);
+                            outline = false;
+                            under = true;
+                            layerOffset = -0.01f;
+                            y = 2;
+
+                            moves.add(new PartMove(PartProgress.warmup.inv(), 0f, -2f, 0f));
+                        }});
+            }};
+
+            recoil = 0.5f;
+            shoot.shots = 5;
+            shoot.shotDelay = 15;
+            consumeAmmoOnce = false;
+            squareSprite = false;
+            outlineColor = Color.valueOf("2d2630");
+
+            fogRadiusMultiplier = 0.2f;
+            coolantMultiplier = 6f;
+            shootSound = Sounds.missileLaunch;
+            soundPitchMin = 1.5f;
+            soundPitchMax = 1.7f;
+
+            minWarmup = 0.94f;
+            shootWarmupSpeed = 0.03f;
+            targetAir = false;
+            targetUnderBlocks = false;
+
+            shake = 6f;
+            ammoPerShot = 5;
+            maxAmmo = 40;
+            shootY = -1;
+            size = 2;
+            reload = 900f;
+            range = 650;
+            shootCone = 1f;
+            health = 1200;
+            rotateSpeed = 0.4f;
         }};
     }
 }

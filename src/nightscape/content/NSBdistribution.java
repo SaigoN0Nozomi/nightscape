@@ -13,7 +13,7 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBdistribution {
     public static Block
-            tRouter, tJunction, tBridge, tConveyor, tSorter, tSorterInv, tGate, tGateInv,
+            tRouter, tJunction, tBridge, tConveyor, aConveyor, tSorter, tSorterInv, tGate, tGateInv,
             tcRouter, tcBridge, tConduit, tcJuniction;
 
     public static void load(){
@@ -24,6 +24,15 @@ public class NSBdistribution {
             displayedSpeed = 6f;
             underBullets = false;
             researchCost = ItemStack.with(NSitems.tantalum, 5);
+        }};
+
+        aConveyor = new Conveyor("aConveyor"){{
+            requirements(Category.distribution, with(NSitems.tantalum, 3, NSitems.streby, 1));
+            health = 80;
+            speed = 0.08f;
+            displayedSpeed = 9f;
+            underBullets = false;
+            researchCost = ItemStack.with(NSitems.tantalum, 600, NSitems.streby, 450);
         }};
 
         tJunction = new Junction("tJunction"){{
