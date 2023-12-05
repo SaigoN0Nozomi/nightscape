@@ -44,7 +44,7 @@ public class NSunits {
             this.constructor = MechUnit::create;
 
             mechFrontSway = 0.55f;
-            health = 210f;
+            health = 170f;
             speed = 0.55f;
             armor = 5f;
             hitSize = 8f;
@@ -77,7 +77,7 @@ public class NSunits {
         vector = new UnitType("vector"){{
             this.constructor = MechUnit::create;
 
-            health = 740f;
+            health = 560f;
             mechFrontSway = 0.55f;
             speed = 0.5f;
             armor = 8f;
