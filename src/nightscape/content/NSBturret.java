@@ -144,8 +144,8 @@ public class NSBturret {
         }};
 
         stelle = new LiquidTurret("stelle"){{
-            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.zirconium, 95, silicon, 15));
-            researchCost = with(NSitems.tantalum, 1850, NSitems.zirconium, 670, silicon, 320);
+            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.zirconium, 95, NSitems.velonium, 15));
+            researchCost = with(NSitems.tantalum, 1850, NSitems.zirconium, 670, NSitems.velonium, 320);
 
             ammo(
                 Liquids.ozone, new BasicBulletType(2f, 15){{
@@ -265,7 +265,7 @@ public class NSBturret {
             size = 2;
         }};
 
-        magnetic = new ItemTurret("punctual"){{
+        magnetic = new ItemTurret("magnetic"){{
             requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.naturit, 270, NSitems.velonium, 30));
             ammo(
                     NSitems.velonium, new BasicBulletType(6f, 39f){{
