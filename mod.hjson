@@ -5,7 +5,7 @@ main: "nightscape.nightscape"
 
 description: "Welcome to your personal hell :33"
 
-version: 0.3
+version: 0.4g
 minGameVersion: 146
 java: true
 
