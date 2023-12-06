@@ -54,6 +54,7 @@ public class AttributeCollector extends AttributeCrafter {
         for(int ax = tx - radius; ax < tx + radius + size; ax++){
             for(int ay = ty - radius; ay < ty + radius + size; ay++){
                 Tile t = world.tile(ax, ay);
+                if(t == null){return 0;}
                 if (t.block().attributes.get(attribute) > 0) eff = t.block().attributes.get(attribute) + eff;
                 else eff = t.floor().attributes.get(attribute) + eff;
                 if (!(((ax >= tx)&&(ax < tx+size))&&((ay >= ty)&&(ay < ty+size)))) {
