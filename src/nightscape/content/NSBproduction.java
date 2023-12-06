@@ -40,7 +40,7 @@ public class NSBproduction {
             tier = 3;
             itemCapacity = 20;
 
-            drillTime = 60f * 9f;
+            drillTime = 60f * 6f;
             drillEffect = new MultiEffect(
                     Fx.mineImpact,
                     Fx.drillSteam,
@@ -49,7 +49,7 @@ public class NSBproduction {
             shake = 4f;
             researchCostMultiplier = 0.5f;
             fogRadius = 4;
-            drillMultipliers.put(NSitems.tantalum, 2.1f);
+            drillMultipliers.put(NSitems.tantalum, 1.5f);
 
             arrowOffset = 0;
             arrows = 1;
@@ -204,7 +204,7 @@ public class NSBproduction {
             liquidCapacity = 60f;
             craftTime = 60f;
             consumeLiquid(Liquids.ozone, 3 / 60f);
-            consumeItems(with(NSitems.zirconium, 1, sand, 2));
+            consumeItems(with(NSitems.zirconium, 2));
             outputItem = new ItemStack(NSitems.streby, 1);
             size = 2;
             health = 320;
