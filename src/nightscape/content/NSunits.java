@@ -853,7 +853,7 @@ public class NSunits {
                 bullet = new MissileBulletType(3, 18){{
                     lifetime = 40;
                     status = NSstatus.overCharged;
-                    statusDuration = 10f;
+                    statusDuration = 60f;
                     recoil = 0.05f;
                     healAmount = 20;
                     collidesTeam = true;

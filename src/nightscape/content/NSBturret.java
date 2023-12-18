@@ -112,7 +112,7 @@ public class NSBturret {
             researchCost = with(NSitems.tantalum, 750, NSitems.zirconium, 355);
             ammo(
                     NSitems.naturit, new ArtilleryBulletType(3f,8){{
-                        splashDamage = 12;
+                        splashDamage = 17;
                         lifetime = 20;
                         splashDamageRadius = 30;
                         backColor = frontColor = trailColor = NSitems.naturit.color;

@@ -1,11 +1,11 @@
 displayName: "NightScape"
 name: "NScape"
-author: "Saigo no-nozomi. \n Translation: CyberSirnik"
+author: "Saigo no-nozomi. \nTranslation: CyberSirnik"
 main: "nightscape.nightscape"
 
-description: "Welcome to your personal hell :33"
+description: "Adds new planet with unique content and some new mechanics"
 
-version: 0.4gen
+version: 1.0 first release
 minGameVersion: 146
 java: true
 

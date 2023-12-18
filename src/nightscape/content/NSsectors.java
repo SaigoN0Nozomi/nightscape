@@ -22,12 +22,12 @@ public class NSsectors {
             startWaveTimeMultiplier = 2.5f;
         }};
 
-        shieldValley = new SectorPreset("shieldValley", Chorda, 63){{
+        shieldValley = new SectorPreset("shieldValley", Chorda, 61){{
             difficulty = 5;
             startWaveTimeMultiplier = 1f;
         }};
 
-        purplePlateau = new SectorPreset("purplePlateau", Chorda, 69){{
+        purplePlateau = new SectorPreset("purplePlateau", Chorda, 50){{
             difficulty = 4;
             startWaveTimeMultiplier = 1f;
             captureWave = 25;
