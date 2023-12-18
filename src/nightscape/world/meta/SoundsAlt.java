@@ -13,13 +13,15 @@ public class SoundsAlt {
         plasmaCharge = new Sound(),
         plasmaBlast = new Sound(),
         plasma = new Sound(),
-        shoot = new Sound();
+        shoot = new Sound(),
+        snipeShoot = new Sound();
         public static void load(){
             shoot = loadSound("shootAlt2");
             rocket = loadSound("phh");
             plasmaCharge = loadSound("plasmaCharge");
             plasmaBlast = loadSound("plasmaBlast");
             plasma = loadSound("plasma");
+            snipeShoot = loadSound("snipeShoot");
         }
 
         private static Sound loadSound(String soundName){

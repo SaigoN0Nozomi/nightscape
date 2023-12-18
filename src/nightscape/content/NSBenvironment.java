@@ -1,12 +1,18 @@
 package nightscape.content;
 
 import arc.graphics.Color;
+import mindustry.content.Fx;
 import mindustry.content.Items;
+import mindustry.content.Liquids;
+import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.bullet.LiquidBulletType;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.Attribute;
+import nightscape.content.effects.blockFx;
+import nightscape.world.block.environment.Geyser;
 
 import static mindustry.content.Items.sand;
 
@@ -25,7 +31,7 @@ public class NSBenvironment {
     rainStone, rainStoneWall, rainBoulder,
     coldStone,
     //purl
-    purl, purlWall,
+    purl, purlWall, purlGeyser,
 
     //ore block
     tantalumOre, zirconiumOre;
@@ -43,7 +49,7 @@ public class NSBenvironment {
             walkSoundVolume = 0.08f;
             walkSoundPitchMin = 0.4f;
             walkSoundPitchMax = 0.5f;
-            drownTime = 600f;
+            drownTime = 300f;
         }};
 
         swampWall = new StaticWall("swampWall") {{
@@ -95,6 +101,7 @@ public class NSBenvironment {
             ash.asFloor().decoration = this;
             emitLight = true;
             lightRadius = 16;
+            attributes.set(NSattribute.naturit, 0.5f);
             lightColor = Color.valueOf("eecd7444");
         }};
 
@@ -171,6 +178,18 @@ public class NSBenvironment {
            purl.asFloor().wall = this;
            mapColor = Color.valueOf("6d5869");
             attributes.set(Attribute.sand, 1.5f);
+        }};
+
+        purlGeyser = new Geyser("purlGeyser"){{
+            gTime = 120 * 60;
+            chargeTime = 600 * 60;
+            variants = 2;
+            size = 1;
+            bullet = new LiquidBulletType(Liquids.slag){{
+                damage = 10;
+                speed = 4;
+                lifetime = 20;
+            }};
         }};
 
         //ores

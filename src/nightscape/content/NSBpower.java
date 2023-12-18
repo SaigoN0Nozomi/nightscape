@@ -51,7 +51,6 @@ public class NSBpower {
 
         heatCore = new HeatCore("heatCore"){{
             requirements(Category.power, with(NSitems.tantalum, 135, NSitems.velonium, 120, silicon, 80));
-            researchCostMultiplier = 3f;
 
             drawer = new DrawMulti(
                     new DrawDefault(),
@@ -66,7 +65,7 @@ public class NSBpower {
             consumePower(1f);
             researchCost = ItemStack.with(NSitems.tantalum, 1850, NSitems.velonium, 1150, silicon, 750);
 
-            perEnOutput = 1.5f;
+            EnPerHeat = 70f / 60f;
             heatMin = 1;
             heatMax = 6;
             step = 0.5f;

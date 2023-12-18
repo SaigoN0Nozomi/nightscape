@@ -6,7 +6,7 @@ import static nightscape.content.NSplanets.Chorda;
 
 public class NSsectors {
     public static SectorPreset
-    safeEdge, iceCrater, deepGap;
+    safeEdge, iceCrater, shieldValley, purplePlateau;
 
     public static void load(){
         safeEdge = new SectorPreset("safeEdge", Chorda, 4){{
@@ -17,17 +17,20 @@ public class NSsectors {
         }};
 
         iceCrater = new SectorPreset("IceCrater", Chorda, 33){{
-            alwaysUnlocked = false;
             difficulty = 3;
             captureWave = 20;
             startWaveTimeMultiplier = 2.5f;
         }};
 
-        deepGap = new SectorPreset("deepGap", Chorda, 63){{
-            alwaysUnlocked = false;
+        shieldValley = new SectorPreset("shieldValley", Chorda, 63){{
             difficulty = 5;
-            captureWave = 20;
-            startWaveTimeMultiplier = 2f;
+            startWaveTimeMultiplier = 1f;
+        }};
+
+        purplePlateau = new SectorPreset("purplePlateau", Chorda, 69){{
+            difficulty = 4;
+            startWaveTimeMultiplier = 1f;
+            captureWave = 25;
         }};
     }
 }

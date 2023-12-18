@@ -24,7 +24,7 @@ public class NSitems {
 
         naturit = new Item("naturit", Color.valueOf("eecd74")){{
             cost = 1f;
-            flammability = 1f;
+            flammability = 0.4f;
             hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 

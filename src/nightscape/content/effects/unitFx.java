@@ -9,6 +9,7 @@ import arc.math.Mathf;
 import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Drawf;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 
 import static arc.graphics.g2d.Draw.color;
@@ -218,6 +219,18 @@ public class unitFx {
     }),
     ishiField = new Effect(60, e -> {
         color(Color.valueOf("dbd187"), Color.white, e.fin());
+
+        stroke(2f * e.fout());
+        Lines.circle(e.x, e.y, 75 * e.fin(Interp.circleOut));
+    }),
+
+    komettoTrail = new Effect(42, e -> {
+        color(e.color);
+        Fill.circle(e.x, e.y, e.rotation * e.fout());
+    }).layer(Layer.flyingUnitLow - 0.002f),
+
+    komettoSplash = new Effect(30, e -> {
+        color(Color.valueOf("d297e1"), Color.white, e.fout());
 
         stroke(2f * e.fout());
         Lines.circle(e.x, e.y, 75 * e.fin(Interp.circleOut));

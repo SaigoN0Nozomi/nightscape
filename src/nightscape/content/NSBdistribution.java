@@ -39,6 +39,7 @@ public class NSBdistribution {
             requirements(Category.distribution, with(NSitems.tantalum, 6));
             health = 30;
             ((Conveyor)tConveyor).junctionReplacement = this;
+            ((Conveyor)aConveyor).junctionReplacement = this;
             researchCost = ItemStack.with(NSitems.tantalum, 15);
         }};
 
@@ -82,6 +83,7 @@ public class NSBdistribution {
             hasPower = false;
             itemCapacity = 5;
             ((Conveyor)tConveyor).bridgeReplacement = this;
+            ((Conveyor)aConveyor).bridgeReplacement = this;
             researchCost = ItemStack.with(NSitems.tantalum, 45, NSitems.zirconium, 30);
         }};
 

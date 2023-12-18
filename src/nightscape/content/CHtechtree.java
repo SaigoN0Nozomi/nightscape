@@ -4,6 +4,7 @@ import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.game.Objectives;
+import mindustry.world.blocks.defense.ShieldWall;
 
 import static mindustry.content.TechTree.*;
 import static nightscape.content.NSsectors.*;
@@ -41,11 +42,19 @@ public class CHtechtree {
             node(NSBproduction.nutExtractor, () -> {
                 node(NSBproduction.shockDrill, () -> {
                     node(NSBproduction.veloniumFurnace, Seq.with(new Objectives.OnSector(iceCrater)), () -> {
-                        node(NSBproduction.strebyPress, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
+                        node(NSBproduction.strebyPress, Seq.with(new Objectives.OnSector(purplePlateau)), () -> {});
                     });
-                    node(NSBproduction.cliffCrusher, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
+                    node(NSBproduction.cliffCrusher, Seq.with(new Objectives.OnSector(shieldValley)), () -> {
+                        node(NSBproduction.siliconFurnace, () -> {
+                            node(NSBproduction.ozoneCondenser, () -> {});
+                        });
+                    });
                     node(NSBpower.ozoneHeater,  Seq.with(new Objectives.OnSector(iceCrater)), () -> {
                         node(NSBpower.heatRedirector, () -> {});
+                        node(NSBpower.heatCore, Seq.with(new Objectives.Research(NSBpower.SFGenerator)), () -> {});
+                    });
+                    node(NSBpower.SFGenerator, () -> {
+                        node(NSBpower.node, () -> {});
                     });
                 });
             });
@@ -53,7 +62,12 @@ public class CHtechtree {
             //turrets
             node(NSBturret.victim, () -> {
                 node(NSBturret.flicker);
-                node(NSBturret.magnetic);
+                node(NSBturret.adrenaline, () -> {
+                    node(NSBturret.combustion, () -> {});
+                    node(NSBturret.magnetic, () -> {
+                    });
+                });
+                node(NSBturret.stelle, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
             });
 
             //defense
@@ -63,6 +77,7 @@ public class CHtechtree {
                 node(NSBother.rWall, () -> {
                     node(NSBother.rWall_large);
                 });
+                node(NSBother.radar, () -> {});
             });
 
             //items
@@ -82,7 +97,15 @@ public class CHtechtree {
             //sectors
             node(safeEdge, () -> {
                 node(iceCrater, () -> {
+                    node(shieldValley);
+                    node(purplePlateau);
                 });
+            });
+
+            node(NSBunits.baseConstructor, () -> {
+                node(NSunits.point, () -> {});
+                node(NSunits.procursus, Seq.with(new Objectives.SectorComplete(purplePlateau)),() -> {});
+                node(NSunits.ishi, Seq.with(new Objectives.SectorComplete(shieldValley)), () -> {});
             });
         });
     }

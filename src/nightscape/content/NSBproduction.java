@@ -157,8 +157,8 @@ public class NSBproduction {
         siliconFurnace = new HeatCrafter("siliconFurnace"){{
             requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.velonium, 120, NSitems.zirconium, 90));
             size = 3;
-            heatRequirement = 6f;
-            maxEfficiency = 2;
+            heatRequirement = 4f;
+            maxEfficiency = 3;
             outputItem = new ItemStack(silicon, 2);
             consumeItems(with(sand, 3, NSitems.naturit, 2));
             drawer = new DrawMulti(

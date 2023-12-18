@@ -19,6 +19,8 @@ import mindustry.type.unit.TankUnitType;
 import mindustry.type.weapons.PointDefenseWeapon;
 import nightscape.content.effects.unitFx;
 import nightscape.world.meta.SoundsAlt;
+import nightscape.world.types.abilities.BerserkAbility;
+import nightscape.world.types.abilities.DamageFieldAbility;
 
 public class NSunits {
     public static UnitType
@@ -34,7 +36,7 @@ public class NSunits {
     gutta, pluvia, diluvio,
 
     //defenders
-    ishi, yama,
+    ishi, yama, kometto,
 
     //SUS
     pabbu;
@@ -171,7 +173,7 @@ public class NSunits {
                     sideAngle = 45f;
                     sideWidth = 2f;
                     sideLength = 24f;
-                    length = 120;
+                    length = 80;
                     colors = new Color[]{Color.valueOf("d297e1"), Color.valueOf("aa62ac")};
                 }};
             }});
@@ -331,7 +333,7 @@ public class NSunits {
 
             weapons.add(new Weapon(name + "-mount"){{
                 mirror = true;
-                reload = 70f;
+                reload = 40f;
                 rotate = true;
                 rotateSpeed = 4;
 
@@ -341,8 +343,8 @@ public class NSunits {
                 x = -10;
                 y = -3;
                 shoot.shots = 5;
-                shoot.shotDelay = 4;
-                bullet = new BasicBulletType(7f, 7f){{
+                shoot.shotDelay = 3;
+                bullet = new BasicBulletType(7f, 12f){{
                     width = 7f;
                     height = 12f;
                     lifetime = 20f;
@@ -369,7 +371,7 @@ public class NSunits {
                 shoot.shots = 4;
                 shoot.shotDelay = 4;
                 xRand = 2;
-                bullet = new MissileBulletType(3f, 32f){{
+                bullet = new MissileBulletType(3f, 42f){{
                     width = 7f;
                     height = 12f;
                     lifetime = 66.6f;
@@ -488,6 +490,7 @@ public class NSunits {
                     sprite = "nscape-arrow";
                 }};
             }});
+            abilities.add(new BerserkAbility(){{accMultiplier = 1.5f;}});
         }};
 
         diluvio = new UnitType("diluvio"){{
@@ -508,7 +511,7 @@ public class NSunits {
             range = 180f;
             weapons.add(new Weapon(){{
                 shoot.firstShotDelay = 180;
-                reload = 1200;
+                reload = 750;
                 recoil = 12;
                 mirror = false;
                 rotate = false;
@@ -543,6 +546,10 @@ public class NSunits {
                     chargeSound = SoundsAlt.plasmaCharge;
                     hitEffect = unitFx.diluvioHit;
                 }};
+                abilities.add(new BerserkAbility(){{
+                    accMultiplier = 1f;
+                    healMultiplier = 20 / 60f;
+                }});
             }});
             setEnginesMirror(
                     new UnitEngine(10, -7, 5f, 315f)
@@ -567,7 +574,7 @@ public class NSunits {
 
             armor = 3f;
             health = 270;
-            speed = 1.3f;
+            speed = 1.6f;
             rotateSpeed = 1.8f;
             accel = 0.06f;
             drag = 0.026f;
@@ -640,6 +647,70 @@ public class NSunits {
             }});
             abilities.add(new RepairFieldAbility(15, 2 * 60, 75));
         }};
+
+        kometto = new UnitType("kometto"){{
+            this.constructor = UnitEntity::create;
+            outlineColor = Color.valueOf("2d2630");
+
+            armor = 4f;
+            health = 1120;
+            speed = 1.1f;
+            rotateSpeed = 3.5f;
+            accel = 0.03f;
+            drag = 0.015f;
+            lowAltitude = true;
+            range = 80;
+
+            flying = true;
+            engineOffset = -1f;
+            engineSize = 6f;
+            engineColor = Color.valueOf("d297e1");
+            faceTarget = true;
+            hitSize = 24f;
+
+            abilities.add(new MoveEffectAbility(0f, -7f, Color.valueOf("d297e1"), unitFx.komettoTrail, 4f));
+            weapons.add(new Weapon(){{
+                ejectEffect = Fx.none;
+                rotate = true;
+                bullet = new BulletType(40, 0){{
+
+                    shootEffect = despawnEffect = smokeEffect = Fx.none;
+                    shootSound = Sounds.none;
+                    lifetime = 3;
+                    collides = false;
+                }};
+            }});
+            abilities.add(new DamageFieldAbility(){{
+                damage = 10;
+                radius = 90;
+                reload = 30;
+                rotateSpeed = 2;
+                sectors = 12;
+                secRad = 0.03f;
+                effect = NSstatus.overCharged;
+                radColor = Color.valueOf("d297e1");
+                useEffect = unitFx.komettoSplash;
+            }});
+            abilities.add(new ShieldArcAbility(){{
+                radius = 45f;
+                angle = 220f;
+                regen = 3f;
+                cooldown = 60f * 40f;
+                max = 2400f;
+                y = 0;
+                width = 6f;
+                whenShooting = true;
+            }});
+            parts.add(new RegionPart("-generator"){{
+                progress = PartProgress.warmup;
+                moveY = -0.7f;
+                moveRot = -23;
+                mirror = true;
+                under = true;
+                layerOffset = -0.0001f;
+            }});
+        }};
+
         pabbu = new UnitType("PABBU"){{
             this.constructor = UnitEntity::create;
             outlineColor = Color.valueOf("2d2630");
@@ -655,7 +726,7 @@ public class NSunits {
             rotateSpeed = 0.7f;
             hitSize = 28f;
             health = 4750;
-            range = 1f;
+            range = 100f;
             lowAltitude = true;
             weapons.add(new Weapon(name + "-cannon"){{
                 reload = 450f;
@@ -741,6 +812,7 @@ public class NSunits {
             }});
 
             abilities.add(new RegenAbility(){{amount = 0.5f;}});
+            abilities.add(new BerserkAbility(){{accMultiplier = 0.75f;}});
 
             engineSize = 9f;
             engineOffset = 0f;

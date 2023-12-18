@@ -30,7 +30,7 @@ public class ProjectileWeather extends RainWeather {
             for (i = 1; i <= dropAmount; i++){
                 x = ThreadLocalRandom.current().nextInt(0, 3601);
                 y = ThreadLocalRandom.current().nextInt(0, 3601);
-                projectile.create(null, Team.blue, x, y, 0f, 0f, 0f);
+                projectile.create(null, Team.neoplastic, x, y, 0f, 0f, 0f);
             }
         });
     }

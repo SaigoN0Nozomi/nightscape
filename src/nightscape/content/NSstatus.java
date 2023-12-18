@@ -30,12 +30,11 @@ public class NSstatus {
             speedMultiplier = 0.7f;
             reloadMultiplier = 0.7f;
             damageMultiplier = 0.7f;
-            damage = 10f/60f;
         }};
 
         ascent = new StatusEffect("Ascent"){{
-            speedMultiplier = 1.05f;
-            healthMultiplier = 1.05f;
+            speedMultiplier = 1.1f;
+            healthMultiplier = 1.1f;
             damageMultiplier = 1.1f;
         }};
     }

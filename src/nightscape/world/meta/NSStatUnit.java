@@ -7,8 +7,9 @@ import mindustry.world.meta.StatUnit;
 public class NSStatUnit{
     public static final StatUnit
 
-    heatPerEn = new StatUnit("EnPerHeat", "[accent]" + Iconc.power + "[]"),
-    heatMax = new StatUnit("heatMax", "[red]" + Iconc.waves + "[]");
+    EnPerHeat = new StatUnit("EnPerHeat", "[accent]" + Iconc.power + "[]"),
+    heatMax = new StatUnit("heatMax", "[red]" + Iconc.waves + "[]"),
+    upto = new StatUnit("upto");
 
     public final boolean space;
     public final String name;

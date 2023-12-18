@@ -7,7 +7,7 @@ import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 import nightscape.content.effects.blockFx;
 
-public class HealingWall extends Wall {
+public class HealingWall extends Wall{
     public float healPercent = 0;
     public int reload = 30;
     public Color healColor = Color.valueOf("84f49144");

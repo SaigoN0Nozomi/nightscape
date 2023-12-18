@@ -5,6 +5,7 @@ import mindustry.content.Planets;
 import mindustry.mod.*;
 import mindustry.type.Planet;
 import nightscape.content.*;
+import nightscape.world.UpdEnvContainer;
 import nightscape.world.meta.SoundsAlt;
 
 public class nightscape extends Mod{
@@ -38,5 +39,9 @@ public class nightscape extends Mod{
         NSplanets.load();
         NSsectors.load();
         CHtechtree.load();
+    }
+    @Override
+    public void init(){
+        UpdEnvContainer.load();
     }
 }
