@@ -653,7 +653,7 @@ public class NSunits {
             outlineColor = Color.valueOf("2d2630");
 
             armor = 4f;
-            health = 1120;
+            health = 920;
             speed = 1.1f;
             rotateSpeed = 3.5f;
             accel = 0.03f;
@@ -691,16 +691,7 @@ public class NSunits {
                 radColor = Color.valueOf("d297e1");
                 useEffect = unitFx.komettoSplash;
             }});
-            abilities.add(new ShieldArcAbility(){{
-                radius = 45f;
-                angle = 220f;
-                regen = 3f;
-                cooldown = 60f * 40f;
-                max = 2400f;
-                y = 0;
-                width = 6f;
-                whenShooting = true;
-            }});
+            abilities.add(new ForceFieldAbility(70f, 0.5f, 3000f, 60f * 20, 4, 45f));
             parts.add(new RegionPart("-generator"){{
                 progress = PartProgress.warmup;
                 moveY = -0.7f;

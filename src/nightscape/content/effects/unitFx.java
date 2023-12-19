@@ -229,10 +229,10 @@ public class unitFx {
         Fill.circle(e.x, e.y, e.rotation * e.fout());
     }).layer(Layer.flyingUnitLow - 0.002f),
 
-    komettoSplash = new Effect(30, e -> {
+    komettoSplash = new Effect(20, e -> {
         color(Color.valueOf("d297e1"), Color.white, e.fout());
 
         stroke(2f * e.fout());
-        Lines.circle(e.x, e.y, 75 * e.fin(Interp.circleOut));
+        Lines.circle(e.x, e.y, 90 * e.fin(Interp.circleOut));
     });
 }
