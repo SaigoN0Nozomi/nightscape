@@ -96,9 +96,9 @@ public class CHtechtree {
 
             //sectors
             node(safeEdge, () -> {
-                node(iceCrater, () -> {
-                    node(shieldValley);
-                    node(purplePlateau);
+                node(iceCrater, Seq.with(new Objectives.SectorComplete(safeEdge)), () -> {
+                    node(shieldValley, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
+                    node(purplePlateau, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
                 });
             });
 
