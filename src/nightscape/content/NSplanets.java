@@ -4,12 +4,10 @@ import arc.graphics.*;
 import mindustry.content.Planets;
 import mindustry.game.*;
 import mindustry.graphics.g3d.*;
-import mindustry.maps.planet.*;
 import mindustry.type.*;
+import nightscape.content.blocks.NSBother;
 import nightscape.generators.ChordaPlanetGenerator;
 
-import static mindustry.content.Items.*;
-import static mindustry.content.Planets.*;
 import static nightscape.content.NSitems.*;
 
 public class NSplanets {
@@ -20,13 +18,13 @@ public class NSplanets {
         generator = new ChordaPlanetGenerator();
         meshLoader = () -> new HexMesh(this, 6);
         cloudMeshLoader = () -> new MultiMesh(
-                new HexSkyMesh(this, 23, 0.35f, 0.12f, 5, Color.valueOf("a42283").a(0.55f), 2, 0.45f, 0.9f, 0.38f),
-                new HexSkyMesh(this, 33, 0.7f, 0.17f, 5, Color.valueOf("fc81dd").a(0.45f), 2, 0.45f, 1f, 0.41f)
+                new HexSkyMesh(this, 23, 0.35f, 0.16f, 5, Color.valueOf("a42283").a(0.55f), 2, 0.45f, 0.9f, 0.38f),
+                new HexSkyMesh(this, 33, 0.7f, 0.20f, 5, Color.valueOf("fc81dd").a(0.45f), 2, 0.45f, 1f, 0.41f)
         );
         launchCapacityMultiplier = 0.3f;
         tidalLock = false;
-        orbitTime = 240f * 60f * 60f * 60f;
-        rotateTime = 0.1f * 60f * 60f * 60f;
+        orbitTime = 40f * 60f * 60f * 60f;
+        rotateTime = 60f * 60f;
 
         allowLaunchToNumbered = false;
         allowWaves = true;
@@ -39,7 +37,7 @@ public class NSplanets {
         iconColor = Color.valueOf("625160");
         atmosphereColor = Color.valueOf("625160");
         defaultCore = NSBother.coreSatellite;
-        atmosphereRadIn = 0.02f;
+        atmosphereRadIn = 0.04f;
         atmosphereRadOut = 0.35f;
         startSector = 4;
         orbitRadius = 78f;

@@ -1,4 +1,4 @@
-package nightscape.world;
+package nightscape.world.types.weather;
 import arc.util.Time;
 import mindustry.entities.bullet.BulletType;
 import mindustry.game.Team;

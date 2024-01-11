@@ -1,10 +1,9 @@
 package nightscape;
 
 import arc.util.*;
-import mindustry.content.Planets;
 import mindustry.mod.*;
-import mindustry.type.Planet;
 import nightscape.content.*;
+import nightscape.content.blocks.*;
 import nightscape.world.UpdEnvContainer;
 import nightscape.world.meta.SoundsAlt;
 
@@ -24,17 +23,11 @@ public class nightscape extends Mod{
         NSstatus.load();
         NSweather.load();
         NSitems.load();
+        NSLiquids.load();
         Log.info("Loading a lot of units.");
         NSunits.load();
         Log.info("Loading even more blocks.");
-        NSBenvironment.load();
-        NSBdistribution.load();
-        NSBpower.load();
-        NSBproduction.load();
-        NSBturret.load();
-        NSBother.load();
-        NSBunits.load();
-        loadouts.load();
+        BlockLoad.load();
         Log.info("Planets and tech tree for them.");
         NSplanets.load();
         NSsectors.load();

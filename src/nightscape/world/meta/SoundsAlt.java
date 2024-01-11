@@ -10,13 +10,17 @@ import mindustry.*;
 public class SoundsAlt {
     public static Sound
         rocket = new Sound(),
+        shoot2 = new Sound(),
         plasmaCharge = new Sound(),
         plasmaBlast = new Sound(),
         plasma = new Sound(),
         shoot = new Sound(),
+        bigsap = new Sound(),
         snipeShoot = new Sound();
         public static void load(){
             shoot = loadSound("shootAlt2");
+            shoot2 = loadSound("shootAlt");
+            bigsap = loadSound("bigsap");
             rocket = loadSound("phh");
             plasmaCharge = loadSound("plasmaCharge");
             plasmaBlast = loadSound("plasmaBlast");

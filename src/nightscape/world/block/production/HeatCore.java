@@ -1,4 +1,4 @@
-package nightscape.world;
+package nightscape.world.block.production;
 
 import arc.Core;
 import arc.scene.ui.layout.Table;

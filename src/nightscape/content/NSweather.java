@@ -7,7 +7,7 @@ import mindustry.entities.bullet.LiquidBulletType;
 import mindustry.gen.Sounds;
 import mindustry.type.Weather;
 import mindustry.world.meta.Attribute;
-import nightscape.world.ProjectileWeather;
+import nightscape.world.types.weather.ProjectileWeather;
 
 
 public class NSweather {

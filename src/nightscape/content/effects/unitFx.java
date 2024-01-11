@@ -12,10 +12,12 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 
+import static arc.graphics.g2d.Draw.alpha;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
+import static arc.math.Mathf.rand;
 
 public class unitFx {
     public static Effect
@@ -154,6 +156,15 @@ public class unitFx {
         });
     }),
 
+    blueSmokeBig = new Effect(25, e -> {
+        color(Color.valueOf("d8f3f4"), Color.lightGray, e.fin());
+
+        randLenVectors(e.id, 5, e.finpow() * 14, e.rotation, 35, (x, y) -> {
+            Fill.square(e.x + x, e.y + y, e.fout() * 2, 45);
+        });
+    }),
+
+
     blueHitBig = new Effect(20, e -> {
         color(Color.white, Color.valueOf("d8f3f4"), e.fin());
 
@@ -234,5 +245,36 @@ public class unitFx {
 
         stroke(2f * e.fout());
         Lines.circle(e.x, e.y, 90 * e.fin(Interp.circleOut));
+    }),
+    OVERheat = new Effect(15, e -> {
+        stroke(0.5f + e.fout());
+
+        randLenVectors(e.id, 14, e.finpow() * 38f, (x, y) -> {
+            color(Color.orange, Color.white, e.fin());
+
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.foutpow() * 3);
+        });
+    }),
+    volumineDeathWish = new Effect(320, 500, b -> {
+        float intensity = 5.6f;
+        b.lifetime = 50f + intensity * 65f;
+
+        color(Color.valueOf("d297e1"));
+        alpha(0.7f);
+        for(int i = 0; i < 4; i++){
+            rand.setSeed(b.id*2 + i);
+            float lenScl = rand.random(0.4f, 1f);
+            int fi = i;
+            b.scaled(b.lifetime * lenScl, e -> {
+                randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int)(2.9f * intensity), 19f * intensity, (x, y, in, out) -> {
+                    float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+                    float rad = fout * ((2f + intensity) * 1.45f);
+
+                    Fill.circle(e.x + x, e.y + y, rad);
+                    Drawf.light(e.x + x, e.y + y, rad * 2.5f, Pal.reactorPurple, 0.5f);
+                });
+            });
+        }
     });
 }

@@ -3,20 +3,29 @@ package nightscape.generators;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.math.geom.Vec3;
+import arc.struct.ObjectIntMap;
+import arc.struct.ObjectSet;
+import arc.struct.Seq;
 import arc.util.Tmp;
 import arc.util.noise.Ridged;
 import arc.util.noise.Simplex;
 import mindustry.content.Blocks;
+import mindustry.content.Liquids;
+import mindustry.content.Weathers;
+import mindustry.ctype.UnlockableContent;
+import mindustry.game.Rules;
 import mindustry.maps.generators.PlanetGenerator;
-import mindustry.world.Block;
-import mindustry.world.TileGen;
+import mindustry.type.*;
+import mindustry.type.Weather.WeatherEntry;
+import mindustry.world.*;
 import nightscape.content.loadouts;
 
-import static nightscape.content.NSBenvironment.*;
+import static mindustry.Vars.world;
+import static nightscape.content.blocks.NSBenvironment.*;
 
 public class ChordaPlanetGenerator extends PlanetGenerator {
     float scl = 5f;
-    float waterOffset = 0.07f;
+    float waterOffset = 0.2f;
 
     {
         defaultLoadout = loadouts.core;

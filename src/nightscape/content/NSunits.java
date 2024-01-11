@@ -11,6 +11,9 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.part.HoverPart;
 import mindustry.entities.part.RegionPart;
+import mindustry.entities.pattern.ShootBarrel;
+import mindustry.entities.pattern.ShootMulti;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
@@ -21,16 +24,18 @@ import nightscape.content.effects.unitFx;
 import nightscape.world.meta.SoundsAlt;
 import nightscape.world.types.abilities.BerserkAbility;
 import nightscape.world.types.abilities.DamageFieldAbility;
+import nightscape.world.types.abilities.DeathWishAbility;
+import nightscape.world.types.abilities.MinigunAbility;
 
 public class NSunits {
     public static UnitType
     //core
     observer,
     //static
-    point, vector, planum,
+    point, vector, planum, volumine,
 
     //flash
-    procursus, radius, fluor,
+    procursus, radius, fluor, flumen,
 
     //K.YS.N.
     gutta, pluvia, diluvio,
@@ -51,7 +56,7 @@ public class NSunits {
             armor = 5f;
             hitSize = 8f;
             rotateSpeed = 4f;
-
+            fogRadius = 10;
             flying = false;
 
             weapons.add(new Weapon(name + "-weapon"){{
@@ -85,6 +90,7 @@ public class NSunits {
             armor = 8f;
             hitSize = 10f;
             rotateSpeed = 1.8f;
+            fogRadius = 8;
             flying = false;
             targetAir = false;
 
@@ -183,6 +189,7 @@ public class NSunits {
             hitSize = 20f;
             rotateSpeed = 1.5f;
             flying = false;
+            fogRadius = 12;
 
             legCount = 6;
             legLength = 18;
@@ -213,6 +220,69 @@ public class NSunits {
             outlineColor = Color.valueOf("4c3d4e");
         }};
 
+        volumine = new UnitType("volumine"){{
+            this.constructor = LegsUnit::create;
+            health = 3666f;
+            speed = 0.42f;
+            armor = 15f;
+            hitSize = 32f;
+            rotateSpeed = 1.5f;
+            flying = false;
+            fogRadius = 13;
+
+            legCount = 6;
+            legLength = 26;
+            legBaseOffset = 2f;
+            legExtension = -4;
+            lockLegBase = true;
+            legContinuousMove = true;
+            outlineColor = Color.valueOf("4c3d4e");
+
+            weapons.add(new Weapon(name + "-mg"){{
+                reload = 4;
+                recoil = 0.5f;
+                shootY = -2;
+                rotationLimit = 15;
+                minWarmup = 0.8f;
+                inaccuracy = 12;
+                top = false;
+                layerOffset = -0.001f;
+                shootSound = SoundsAlt.bigsap;
+                x = -12;
+                bullet = new SapBulletType(){{
+                    damage = 46;
+                    smokeEffect = Fx.none;
+                    color = Color.valueOf("d297e1");
+                    sapStrength = 0.1f;
+                    length = 60f;
+                    width = 0.75f;
+                    lifetime = 15;
+                }};
+                parts.add(new RegionPart("-backs"){{
+                    moveY = -3;
+                    moveX = -3;
+                    under = true;
+                }});
+                parts.add(new RegionPart("-wing"){{
+                    moveY = -3;
+                    moveRot = 35;
+                }});
+            }});
+            abilities.add(new SuppressionFieldAbility(){{
+                orbRadius = 3.4f;
+                y = -5f;
+                particleLen = 3;
+                particleSize = 1.6f;
+                color = Color.valueOf("d297e1");
+                range = 150;
+            }});
+            abilities.add(new DeathWishAbility(){{
+                radius = 150;
+                damage = 2460;
+                deathWish = unitFx.volumineDeathWish;
+            }});
+        }};
+
         procursus = new TankUnitType("procursus"){{
             this.constructor = TankUnit::create;
 
@@ -221,6 +291,7 @@ public class NSunits {
             hitSize = 13f;
             rotateSpeed = 2f;
             speed = 1f;
+            fogRadius = 8;
             flying = false;
             targetAir = true;
             outlineColor = Color.valueOf("2d2630");
@@ -257,6 +328,7 @@ public class NSunits {
             hitSize = 20f;
             rotateSpeed = 1.8f;
             speed = 0.8f;
+            fogRadius = 9;
             flying = false;
             targetAir = true;
             outlineColor = Color.valueOf("2d2630");
@@ -280,7 +352,7 @@ public class NSunits {
                 bullet = new BasicBulletType(2.5f, 20f){{
                     width = 15f;
                     height = 15f;
-                    lifetime = 70f;
+                    lifetime = 55f;
                     hitColor = backColor = trailColor = Color.valueOf("d8f3f4");
                     frontColor = Color.white;
                     trailWidth = 1.5f;
@@ -320,6 +392,7 @@ public class NSunits {
             armor = 6f;
             hitSize = 26f;
             rotateSpeed = 1.7f;
+            fogRadius = 13;
             range = 200;
             speed = 0.7f;
             flying = false;
@@ -390,7 +463,105 @@ public class NSunits {
             }});
         }};
 
-        gutta = new ErekirUnitType("gutta"){{
+        flumen = new TankUnitType("flumen"){{
+            this.constructor = TankUnit::create;
+
+            health = 5350f;
+            armor = 7f;
+            hitSize = 34f;
+            rotateSpeed = 1.6f;
+            fogRadius = 16;
+            range = 260;
+            speed = 0.6f;
+            flying = false;
+            targetAir = true;
+            outlineColor = Color.valueOf("2d2630");
+
+            treadRects = new Rect[]{
+                    new Rect(27 - 85f, 121 - 93f, 30, 54),
+                    new Rect(22 - 85f, 20 - 93f, 34, 51)
+            };
+            weapons.add(new Weapon(name + "-weapon"){{
+                mirror = false;
+                top = true;
+                reload = 60;
+                recoilTime = 120;
+                recoils = 3;
+                minWarmup = 0.8f;
+                shootWarmupSpeed = 0.04f;
+                x = 0;
+                rotate = true;
+                rotateSpeed = 1.2f;
+                layerOffset = 0.001f;
+                shootY = 7;
+                shootSound = Sounds.shootBig;
+                shake = 1.9f;
+                shoot = new ShootMulti(
+                        new ShootBarrel(){{
+                    barrels = new float[]{-4, 0, 0,
+                                           0, 0, 0,
+                                           4, 0, 0};
+                }}, new ShootSpread(3, 2));
+                parts.addAll(new RegionPart("-barrel"){{
+                    mirror = false;
+                    progress = PartProgress.recoil.curve(Interp.pow2In);
+                    moveY = -4;
+                    recoilIndex = 1;
+                    under = true;
+                }}, new RegionPart("-barrel"){{
+                    mirror = false;
+                    x = -3.9f;
+                    recoilIndex = 0;
+                    under = true;
+                    progress = PartProgress.recoil.curve(Interp.pow2In);
+                    moveY = -4;
+                }}, new RegionPart("-barrel"){{
+                    mirror = false;
+                    x = 3.9f;
+                    recoilIndex = 2;
+                    under = true;
+                    progress = PartProgress.recoil.curve(Interp.pow2In);
+                    moveY = -4;
+                }});
+                parts.addAll(new RegionPart("-ring"){{
+                    mirror = false;
+                    under = true;
+                }}, new RegionPart("-blade"){{
+                    mirror = true;
+                    moveRot = -45;
+                    moveY = -2;
+                    layerOffset = 0.0003f;
+                    progress = PartProgress.warmup.curve(Interp.pow2);
+                }}, new RegionPart("-blade"){{
+                    mirror = true;
+                    progress = PartProgress.warmup.curve(Interp.pow2);
+                    layerOffset = 0.0001f;
+                    moveRot = -22.5f;
+                }});
+                bullet = new BasicBulletType(8f, 24f){{
+                    width = 6f;
+                    height = 6f;
+                    sprite = "circle-bullet";
+                    pierceCap = 3;
+                    pierceBuilding = true;
+                    lifetime = 20f;
+                    backColor = trailColor = Color.valueOf("d8f3f4");
+                    frontColor = Color.white;
+                    smokeEffect = unitFx.blueSmokeBig;
+                    hitEffect = unitFx.blueHitBig;
+                    despawnEffect = unitFx.blueHit;
+                    trailWidth = 1.2f;
+                    trailLength = 8;
+                }};
+            }});
+            abilities.add(new MinigunAbility(){{
+                heatDamage = 100;
+                heatMax = 175;
+                heatReloadMultiplier = 2;
+            }});
+        }};
+
+            gutta = new ErekirUnitType("gutta"){{
             this.constructor = ElevationMoveUnit::create;
             hovering = true;
             useEngineElevation = false;
@@ -404,6 +575,7 @@ public class NSunits {
             hitSize = 8f;
             faceTarget = false;
             health = 160;
+            fogRadius = 6;
             range = 20f;
 
             for(float f : new float[]{-2.5f, 2.5f}){
@@ -459,6 +631,7 @@ public class NSunits {
             rotateSpeed = 3f;
             hitSize = 18f;
             health = 670;
+            fogRadius = 10;
             range = 180f;
 
             setEnginesMirror(
@@ -473,7 +646,7 @@ public class NSunits {
                 top = true;
                 x = -5;
                 y = -1.5f;
-                shootSound = Sounds.shootAlt;
+                shootSound = SoundsAlt.shoot2;
                 rotateSpeed = 5f;
                 rotate = true;
                 reload = 10;
@@ -509,6 +682,7 @@ public class NSunits {
             hitSize = 28f;
             health = 2120;
             range = 180f;
+            fogRadius = 16;
             weapons.add(new Weapon(){{
                 shoot.firstShotDelay = 180;
                 reload = 750;
@@ -579,6 +753,7 @@ public class NSunits {
             accel = 0.06f;
             drag = 0.026f;
             lowAltitude = true;
+            fogRadius = 10;
 
             flying = true;
             engineOffset = 3f;
@@ -611,6 +786,7 @@ public class NSunits {
             accel = 0.05f;
             drag = 0.021f;
             lowAltitude = true;
+            fogRadius = 10;
 
             flying = true;
             engineOffset = 2.5f;
@@ -660,6 +836,7 @@ public class NSunits {
             drag = 0.015f;
             lowAltitude = true;
             range = 80;
+            fogRadius = 14;
 
             flying = true;
             engineOffset = -1f;
@@ -673,7 +850,6 @@ public class NSunits {
                 ejectEffect = Fx.none;
                 rotate = true;
                 bullet = new BulletType(40, 0){{
-
                     shootEffect = despawnEffect = smokeEffect = Fx.none;
                     shootSound = Sounds.none;
                     lifetime = 3;

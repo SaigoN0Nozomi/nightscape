@@ -1,4 +1,4 @@
-package nightscape.content;
+package nightscape.content.blocks;
 
 import arc.graphics.Color;
 import mindustry.content.Fx;
@@ -11,9 +11,11 @@ import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
+import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.consumers.ConsumeItemFlammable;
 import mindustry.world.draw.*;
-import nightscape.world.HeatCore;
+import nightscape.content.NSitems;
+import nightscape.world.block.production.HeatCore;
 
 import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
@@ -21,7 +23,7 @@ import static mindustry.type.ItemStack.with;
 public class NSBpower {
     public static Block
     ozoneHeater, heatRedirector, heatCore,
-    node, SFGenerator;
+    node, SFGenerator, solarPanel;
     public static void load(){
         heatRedirector = new HeatConductor("heatRedirector"){{
             requirements(Category.power, with(NSitems.tantalum, 45, NSitems.velonium, 25));
@@ -100,5 +102,10 @@ public class NSBpower {
             );
         }};
 
+        solarPanel = new SolarGenerator("solarPanel"){{
+           requirements(Category.power, with(NSitems.velonium, 30, silicon, 25));
+           size = 2;
+           powerProduction = 20/60f;
+        }};
     }
 }

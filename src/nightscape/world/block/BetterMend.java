@@ -1,4 +1,4 @@
-package nightscape.world;
+package nightscape.world.block;
 
 import arc.Core;
 import arc.math.Mathf;

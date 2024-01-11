@@ -17,6 +17,7 @@ public class HealingWall extends Wall{
     public HealingWall(String name){
         super(name);
         update = true;
+        suppressable = true;
     }
 
     @Override
@@ -29,8 +30,11 @@ public class HealingWall extends Wall{
     public class HealingWallBuild extends WallBuild{
         public int charge;
         public void updateTile(){
+
+            boolean canHeal = !checkSuppression();
+
             charge++;
-            if(charge >= reload) {
+            if(charge >= reload && canHeal) {
                 heal(health * healPercent / 100);
                 blockFx.healWall.at(x, y, size, healColor, block);
                 charge = 0;

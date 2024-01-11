@@ -4,7 +4,7 @@ import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.game.Objectives;
-import mindustry.world.blocks.defense.ShieldWall;
+import nightscape.content.blocks.*;
 
 import static mindustry.content.TechTree.*;
 import static nightscape.content.NSsectors.*;
@@ -27,6 +27,7 @@ public class CHtechtree {
                         });
                     });
                     node(NSBdistribution.tBridge);
+                    node(NSBdistribution.driver, Seq.with(new Objectives.Research(NSLiquids.ammonia)), () -> {});
                 });
             });
 
@@ -47,7 +48,9 @@ public class CHtechtree {
                     node(NSBproduction.cliffCrusher, Seq.with(new Objectives.OnSector(shieldValley)), () -> {
                         node(NSBproduction.siliconFurnace, () -> {
                             node(NSBproduction.ozoneCondenser, () -> {});
+                            node(NSBproduction.naturitSeparator, Seq.with(new Objectives.OnSector(passage)), () -> {});
                         });
+                        node(NSBproduction.eruptionDrill, Seq.with(new Objectives.Research(NSLiquids.ammonia)), () -> {});
                     });
                     node(NSBpower.ozoneHeater,  Seq.with(new Objectives.OnSector(iceCrater)), () -> {
                         node(NSBpower.heatRedirector, () -> {});
@@ -65,6 +68,7 @@ public class CHtechtree {
                 node(NSBturret.adrenaline, () -> {
                     node(NSBturret.combustion, () -> {});
                     node(NSBturret.magnetic, () -> {
+                        node(NSBturret.hornet, Seq.with(new Objectives.SectorComplete(passage), new Objectives.Research(NSLiquids.ammonia)), () -> {});
                     });
                 });
                 node(NSBturret.stelle, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
@@ -76,15 +80,18 @@ public class CHtechtree {
                 node(NSBother.mender);
                 node(NSBother.rWall, () -> {
                     node(NSBother.rWall_large);
+                    node(NSBother.armoredDoor, Seq.with(new Objectives.SectorComplete(frozenFault)), () -> {});
                 });
-                node(NSBother.radar, () -> {});
+                node(NSBother.radar, Seq.with(new Objectives.SectorComplete(frozenFault)), () -> {});
             });
 
             //items
             nodeProduce(NSitems.tantalum, () -> {
                 nodeProduce(NSitems.velonium, () -> {});
                 nodeProduce(NSitems.naturit, () -> {
-                    nodeProduce(Liquids.ozone, () -> {});
+                    nodeProduce(Liquids.ozone, () -> {
+                        nodeProduce(NSLiquids.ammonia, () -> {});
+                    });
                     nodeProduce(Items.sand, () -> {
                         nodeProduce(Items.silicon, () -> {});
                     });
@@ -97,8 +104,12 @@ public class CHtechtree {
             //sectors
             node(safeEdge, () -> {
                 node(iceCrater, Seq.with(new Objectives.SectorComplete(safeEdge)), () -> {
-                    node(shieldValley, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
-                    node(purplePlateau, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {});
+                    node(shieldValley, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {
+                        node(frozenFault, Seq.with(new Objectives.SectorComplete(shieldValley), new Objectives.Research(NSitems.streby), new Objectives.Research(NSBunits.baseConstructor) ), () -> {});
+                    });
+                    node(purplePlateau, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {
+                        node(passage, Seq.with(new Objectives.SectorComplete(purplePlateau), new Objectives.SectorComplete(shieldValley)), () -> {});
+                    });
                 });
             });
 
@@ -106,6 +117,10 @@ public class CHtechtree {
                 node(NSunits.point, () -> {});
                 node(NSunits.procursus, Seq.with(new Objectives.SectorComplete(purplePlateau)),() -> {});
                 node(NSunits.ishi, Seq.with(new Objectives.SectorComplete(shieldValley)), () -> {});
+                node(NSBunits.supplementReconstructor, Seq.with(new Objectives.OnSector(frozenFault)), () -> {
+                    node(NSunits.vector, Seq.with(new Objectives.OnSector(frozenFault)), () -> {});
+                    node(NSunits.radius, Seq.with(new Objectives.OnSector(frozenFault)), () -> {});
+                });
             });
         });
     }
