@@ -5,7 +5,7 @@ main: "nightscape.nightscape"
 
 description: "Adds new planet with unique content and some new mechanics"
 
-version: 1.1 exploring update
+version: 1.0 first release
 minGameVersion: 146
 java: true
 
