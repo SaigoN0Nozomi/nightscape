@@ -50,7 +50,7 @@ public class NSBunits {
             );
         }};
 
-        payConv = new PayloadConveyor("payConv"){{
+        payConv = new PayloadConveyor("payConveyor"){{
             requirements(Category.units, with(NSitems.velonium, 20, NSitems.zirconium, 15));
             researchCost = with(NSitems.velonium, 960, NSitems.zirconium, 620);
             moveTime = 60f;
