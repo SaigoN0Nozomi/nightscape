@@ -29,7 +29,7 @@ public class NSplanets {
         allowWaves = true;
         allowWaveSimulation = true;
         allowSectorInvasion = false;
-        allowLaunchSchematics = true;
+        allowLaunchSchematics = false;
         enemyCoreSpawnReplace = true;
         allowLaunchLoadout = false;
         clearSectorOnLose = true;
