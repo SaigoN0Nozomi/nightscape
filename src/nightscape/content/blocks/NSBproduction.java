@@ -30,7 +30,7 @@ public class NSBproduction {
     public static Block
     shockDrill, nutExtractor, veloniumFurnace, naturitSeparator,
     cliffCrusher, siliconFurnace, ozoneCondenser,
-    strebyPress, eruptionDrill;
+    strebyPress, eruptionDrill, ozoneIncinerator;
     public static void load(){
 
 
@@ -231,13 +231,20 @@ public class NSBproduction {
             hasPower = true;
             craftEffect = Fx.none;
             drawer = new DrawMulti(
-                    new DrawRegion("-bottom"),
-                    new DrawLiquidTile(Liquids.ozone, 1.5f),
-                    new DrawPistons(){{
-                        sinMag = 2.5f;
-                    }},
-                    new DrawDefault()
+                new DrawRegion("-bottom"),
+                new DrawLiquidTile(Liquids.ozone, 1.5f),
+                new DrawPistons(){{
+                    sinMag = 2.5f;
+                }},
+                new DrawDefault()
             );
+        }};
+
+        ozoneIncinerator = new Incinerator("inc"){{
+            requirements(Category.crafting, with(NSitems.tantalum, 35, NSitems.velonium, 15));
+            researchCost = with(NSitems.tantalum, 650, NSitems.velonium, 375);
+            size = 1;
+            consumePower(20 / 60f);
         }};
     }
 }

@@ -1,4 +1,4 @@
-package nightscape.world.types.abilities;
+package nightscape.entity.abilities;
 
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
@@ -8,7 +8,6 @@ import mindustry.entities.abilities.Ability;
 import mindustry.gen.Unit;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
-import nightscape.world.meta.NSStatUnit;
 
 public class DeathWishAbility extends Ability {
     public float radius, damage;

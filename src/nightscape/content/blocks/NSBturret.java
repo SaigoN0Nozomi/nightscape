@@ -27,6 +27,7 @@ import nightscape.content.NSLiquids;
 import nightscape.content.NSitems;
 import nightscape.content.NSstatus;
 import nightscape.content.effects.blockFx;
+import nightscape.world.block.turrets.AdrenalineTurret;
 import nightscape.world.meta.SoundsAlt;
 
 import static arc.graphics.g2d.Draw.color;
@@ -117,26 +118,29 @@ public class NSBturret {
             requirements(Category.turret, with(NSitems.tantalum, 60, NSitems.zirconium, 45));
             researchCost = with(NSitems.tantalum, 750, NSitems.zirconium, 355);
             ammo(
-                    NSitems.naturit, new ArtilleryBulletType(3f,8){{
-                        splashDamage = 17;
-                        lifetime = 20;
-                        splashDamageRadius = 30;
-                        backColor = frontColor = trailColor = NSitems.naturit.color;
-                        despawnEffect = hitEffect = new Effect(30f, e -> {
-                                    color(NSitems.naturit.color, Color.gray, e.fin());
+                NSitems.naturit, new ArtilleryBulletType(3f,15){{
+                    splashDamage = 23;
+                    lifetime = 20;
+                    splashDamageRadius = 45;
+                    sprite = "circle-bullet";
+                    backColor = frontColor = trailColor = NSitems.naturit.color;
+                    despawnEffect = hitEffect = new Effect(30f, e -> {
+                        color(NSitems.naturit.color, Color.gray, e.fin());
 
-                                    randLenVectors(e.id, 8, e.finpow() * 30f, e.rotation, 360f, (x, y) -> {
-                                        Fill.circle(e.x + x, e.y +y, e.fout() * 3f + 0.3f);
-                                    });
-                                });
-                    }}
+                        randLenVectors(e.id, 12, e.finpow() * 45f, e.rotation, 360f, (x, y) -> {
+                            Fill.circle(e.x + x, e.y +y, e.fout() * 3f + 0.3f);
+                        });
+                    });
+                }}
             );
             researchCostMultiplier = 1f;
+            ammoPerShot = 4;
+            itemCapacity = 12;
             targetAir = false;
             inaccuracy = 5;
             squareSprite = false;
             recoil = 1f;
-            reload = 110f;
+            reload = 160f;
             range = 180;
             minRange = 40;
             ammoUseEffect = Fx.casing1;
@@ -147,49 +151,54 @@ public class NSBturret {
             coolant = consume(new ConsumeLiquid(NSLiquids.ammonia, 0.05f));
         }};
 
-        adrenaline = new ItemTurret("adrenaline"){{
+        adrenaline = new AdrenalineTurret("adrenaline"){{
             requirements(Category.turret, with(NSitems.velonium, 230, NSitems.zirconium, 125));
             researchCost = with(NSitems.velonium, 1650, NSitems.zirconium, 635);
-            reload = 100f;
-            health = 450;
-            range = 180;
+            baseReload = 50f;
+            reloadPerHp = 0.3f;
+            recoilTime = 80;
+            health = 520;
+            range = 140;
             smokeEffect = blockFx.adrenalineShoot;
-            itemCapacity = 30;
+            itemCapacity = 20;
             shootY = 5.5f;
             recoil = 2;
             size = 2;
             rotateSpeed = 1.5f;
             shootSound = SoundsAlt.snipeShoot;
-            ammoPerShot = 3;
+            ammoPerShot = 1;
             ammo(
-                NSitems.tantalum, new BasicBulletType(15, 35){{
-                    lifetime = 180/speed;
-                    width = 10;
-                    height = 15;
-                    ammoMultiplier = 3;
+                NSitems.tantalum, new BasicBulletType(5, 28){{
+                    lifetime = 140/speed;
+                    width = 20;
+                    height = 30;
+                    sprite = "nscape-expans-bullet";
+                    ammoMultiplier = 1;
                     trailLength = 4;
                     trailWidth = 1f;
                     hitEffect = despawnEffect = blockFx.adrenalinHitTantal;
                     backColor = trailColor = NSitems.tantalum.color;
                 }},
-                NSitems.zirconium, new BasicBulletType(20, 50){{
-                    lifetime = 230/speed;
-                    width = 8;
-                    height = 22;
+                NSitems.zirconium, new BasicBulletType(8, 42){{
+                    lifetime = 190/speed;
+                    width = 15;
+                    height = 37;
+                    sprite = "nscape-expans-bullet-long";
                     pierceArmor = true;
                     trailLength = 6;
-                    ammoMultiplier = 4;
+                    ammoMultiplier = 1;
                     trailWidth = 2f;
                     reloadMultiplier = 0.5f;
                     rangeChange = 50;
                     hitEffect = despawnEffect = blockFx.adrenalinHitZirconium;
                     backColor = trailColor = NSitems.zirconium.color;
                     }},
-                NSitems.streby, new BasicBulletType(25, 30){{
-                    lifetime = 170/speed;
+                NSitems.streby, new BasicBulletType(6, 22){{
+                    lifetime = 140/speed;
                     width = 12;
                     ammoMultiplier = 2;
-                    height = 17;
+                    height = 24;
+                    sprite = "nscape-expans-bullet-big";
                     trailLength = 4;
                     trailWidth = 1f;
                     hitSound = Sounds.shotgun;
@@ -201,16 +210,23 @@ public class NSBturret {
                     hitEffect = despawnEffect = Fx.none;
                     fragBullet = new ShrapnelBulletType(){{
                         length = 25;
-                        damage = 44f;
+                        damage = 21f;
                         width = 8f;
                         toColor = NSitems.streby.color;
                     }};
                 }}
             );
             drawer = new DrawTurret("chorda-"){{
+                parts.add(new RegionPart("-wing"){{
+                    progress = PartProgress.recoil;
+                    moveY = -1;
+                    moveX = 4;
+                    moveRot = -44;
+                    mirror = true;
+                }});
                 parts.add(new RegionPart("-barrel"){{
                     progress = PartProgress.recoil;
-                    moveY = -2;
+                    moveY = -5;
                 }});
             }};
 
@@ -285,6 +301,7 @@ public class NSBturret {
                 }}
             );
             size = 2;
+            extinguish = false;
             shootWarmupSpeed = 0.2f;
             ammoPerShot = 10;
             targetGround = false;
@@ -372,25 +389,43 @@ public class NSBturret {
         magnetic = new ItemTurret("magnetic"){{
             requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.streby, 270, NSitems.velonium, 30));
             ammo(
-                    NSitems.velonium, new BasicBulletType(6f, 32f){{
-                        width = 10f;
-                        height = 16f;
-                        lifetime = 25f;
-                        ammoMultiplier = 2;
-                        homingRange = 60f;
-                        homingDelay = 3;
-                        homingPower = 0.07f;
-                        backColor = Color.valueOf("d8f3f4");
-                        hitEffect = despawnEffect = blockFx.magneticHit;
-                        frontColor = Color.white;
-                        smokeEffect = new Effect(17f, e -> {
-                            color(Color.valueOf("d8f3f4"), Color.lightGray, Color.gray, e.fin());
+                NSitems.tantalum, new BasicBulletType(6f, 16f){{
+                    width = 6f;
+                    height = 11f;
+                    lifetime = 25f;
+                    ammoMultiplier = 1;
+                    homingRange = 20f;
+                    homingDelay = 3;
+                    homingPower = 0.02f;
+                    backColor = Color.valueOf("d8f3f4");
+                    hitEffect = despawnEffect = blockFx.magneticHit;
+                    frontColor = Color.white;
+                    smokeEffect = new Effect(17f, e -> {
+                        color(Color.valueOf("d8f3f4"), Color.lightGray, Color.gray, e.fin());
 
-                            randLenVectors(e.id, 8, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
-                                Fill.square(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
-                            });
+                        randLenVectors(e.id, 8, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
+                            Fill.square(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
                         });
-                    }});
+                    });
+                }}, NSitems.velonium, new BasicBulletType(6f, 32f){{
+                    width = 10f;
+                    height = 16f;
+                    lifetime = 25f;
+                    ammoMultiplier = 2;
+                    homingRange = 60f;
+                    homingDelay = 3;
+                    homingPower = 0.07f;
+                    backColor = Color.valueOf("d8f3f4");
+                    hitEffect = despawnEffect = blockFx.magneticHit;
+                    frontColor = Color.white;
+                    smokeEffect = new Effect(17f, e -> {
+                        color(Color.valueOf("d8f3f4"), Color.lightGray, Color.gray, e.fin());
+
+                        randLenVectors(e.id, 8, e.finpow() * 13f, e.rotation, 25f, (x, y) -> {
+                            Fill.square(e.x + x, e.y +y, e.fout() * 2f + 0.2f);
+                        });
+                    });
+                }});
             ammoEjectBack = 4f;
             squareSprite = false;
             recoil = 0.5f;
@@ -440,52 +475,52 @@ public class NSBturret {
         }};
 
         hornet = new ItemTurret("hornet"){{
-            requirements(Category.turret, with(NSitems.tantalum, 1200, NSitems.zirconium, 930, NSitems.streby, 500));
+            requirements(Category.turret, with(NSitems.tantalum, 700, NSitems.zirconium, 570, NSitems.streby, 400));
             researchCost = with(NSitems.tantalum, 2900, NSitems.zirconium, 1900, NSitems.streby, 1150);
 
             ammo(
-                    NSitems.streby, new BasicBulletType(0f, 1){{
-                        shootEffect = Fx.shootBig;
-                        smokeEffect = blockFx.hornetShoot;
-                        ammoMultiplier = 1f;
+                NSitems.streby, new BasicBulletType(0f, 1){{
+                    shootEffect = Fx.shootBig;
+                    smokeEffect = blockFx.hornetShoot;
+                    ammoMultiplier = 1f;
 
-                        spawnUnit = new MissileUnitType("hornet-missile"){{
-                            speed = 4.6f;
-                            maxRange = 6f;
-                            lifetime = 530/speed;
-                            outlineColor = Color.valueOf("2d2630");
-                            engineColor = trailColor = Color.valueOf("aaffc6");
-                            engineLayer = Layer.effect;
-                            engineSize = 1.8f;
-                            engineOffset = 4f;
-                            rotateSpeed = 0.4f;
-                            trailLength = 8;
-                            missileAccelTime = 25f;
-                            lowAltitude = true;
-                            loopSound = Sounds.missileTrail;
-                            loopSoundVolume = 0.6f;
-                            deathSound = Sounds.largeExplosion;
-                            targetAir = false;
+                    spawnUnit = new MissileUnitType("hornet-missile"){{
+                        speed = 4.6f;
+                        maxRange = 6f;
+                        lifetime = 530/speed;
+                        outlineColor = Color.valueOf("2d2630");
+                        engineColor = trailColor = Color.valueOf("aaffc6");
+                        engineLayer = Layer.effect;
+                        engineSize = 1.8f;
+                        engineOffset = 4f;
+                        rotateSpeed = 0.4f;
+                        trailLength = 8;
+                        missileAccelTime = 25f;
+                        lowAltitude = true;
+                        loopSound = Sounds.missileTrail;
+                        loopSoundVolume = 0.6f;
+                        deathSound = Sounds.largeExplosion;
+                        targetAir = false;
 
-                            fogRadius = 1f;
+                        fogRadius = 1f;
 
-                            health = 95;
+                        health = 95;
 
-                            weapons.add(new Weapon(){{
-                                shootCone = 360f;
-                                mirror = false;
-                                reload = 1f;
-                                deathExplosionEffect = blockFx.hornetHit;
-                                shootOnDeath = true;
-                                shake = 10f;
-                                bullet = new ExplosionBulletType(75f, 40f){{
-                                    hitEffect = Fx.none;
-                                    collidesAir = false;
-                                    buildingDamageMultiplier = 0.5f;
-                                }};
-                            }});
-                        }};
-                    }}
+                        weapons.add(new Weapon(){{
+                            shootCone = 360f;
+                            mirror = false;
+                            reload = 1f;
+                            deathExplosionEffect = blockFx.hornetHit;
+                            shootOnDeath = true;
+                            shake = 10f;
+                            bullet = new ExplosionBulletType(120f, 48f){{
+                                hitEffect = Fx.none;
+                                collidesAir = false;
+                                buildingDamageMultiplier = 0.3f;
+                            }};
+                        }});
+                    }};
+                }}
             );
 
             drawer = new DrawTurret("chorda-"){{

@@ -19,7 +19,7 @@ import static mindustry.type.ItemStack.with;
 public class NSBdistribution {
     public static Block
             tRouter, tJunction, tBridge, tConveyor, aConveyor, tSorter, tSorterInv, tGate, tGateInv,
-            tcRouter, tcBridge, tConduit, tcJuniction, driver;
+            tcRouter, tcBridge, tConduit, tcJuniction, liquidContainer, driver;
 
     public static void load(){
         tConveyor = new Conveyor("tConveyor"){{
@@ -122,6 +122,15 @@ public class NSBdistribution {
             hasPower = false;
             ((Conduit)tConduit).bridgeReplacement = this;
             researchCost = ItemStack.with(NSitems.tantalum, 50, NSitems.naturit, 30, NSitems.zirconium, 25);
+        }};
+
+        liquidContainer = new LiquidRouter("liquidContainer"){{
+            requirements(Category.liquid, with(NSitems.tantalum, 280, NSitems.velonium, 120));
+            size = 2;
+            squareSprite = false;
+            solid = true;
+            liquidCapacity = 1200f;
+            health = 380;
         }};
 
         driver = new MassDriver("driver"){{

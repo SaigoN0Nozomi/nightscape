@@ -2,6 +2,7 @@ package nightscape.content.blocks;
 
 import arc.graphics.Color;
 import mindustry.content.Fx;
+import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
@@ -13,6 +14,7 @@ import mindustry.world.blocks.power.BeamNode;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.power.SolarGenerator;
 import mindustry.world.consumers.ConsumeItemFlammable;
+import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.*;
 import nightscape.content.NSitems;
 import nightscape.world.block.production.HeatCore;
@@ -48,7 +50,7 @@ public class NSBpower {
             squareSprite = false;
             regionRotated1 = 1;
             ambientSound = Sounds.hum;
-            consumeLiquid(Liquids.ozone, 0.75f/60);
+            consumeLiquid(Liquids.ozone, 1.5f/60);
         }};
 
         heatCore = new HeatCore("heatCore"){{
@@ -95,7 +97,7 @@ public class NSBpower {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.06f;
 
-            consume(new ConsumeItemFlammable());
+            consumeItem(NSitems.naturit);
             drawer = new DrawMulti(
                     new DrawDefault(),
                     new DrawFlame(Color.valueOf("e6dd8bs"))

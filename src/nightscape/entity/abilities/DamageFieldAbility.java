@@ -1,10 +1,9 @@
-package nightscape.world.types.abilities;
+package nightscape.entity.abilities;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.scene.ui.layout.Table;
-import arc.util.Nullable;
 import arc.util.Strings;
 import arc.util.Time;
 import mindustry.entities.Damage;

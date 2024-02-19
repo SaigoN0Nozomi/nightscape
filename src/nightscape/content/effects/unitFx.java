@@ -1,19 +1,25 @@
 package nightscape.content.effects;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Angles;
 import arc.math.Interp;
 import arc.math.Mathf;
 import mindustry.entities.Effect;
+import mindustry.entities.Units;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.gen.Building;
+import mindustry.gen.Teamc;
+import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
+import mindustry.type.UnitType;
+import mindustry.world.Block;
 
-import static arc.graphics.g2d.Draw.alpha;
-import static arc.graphics.g2d.Draw.color;
+import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
@@ -221,6 +227,37 @@ public class unitFx {
         Fill.circle(e.x, e.y, 3f * e.fout());
         Drawf.light(e.x, e.y, 50 * 1.6f, Color.valueOf("d8f3f4"), e.fout());
     }),
+
+    tormentaHit = new Effect(50f, 100f, e -> {
+        e.scaled(7f, b -> {
+            color(Color.valueOf("d8f3f4"), b.fout());
+            Fill.circle(e.x, e.y, 50);
+        });
+
+        color(Color.valueOf("d8f3f4"));
+        stroke(e.fout() * 3f);
+        Lines.circle(e.x, e.y, 32);
+
+        Drawf.tri(e.x, e.y, 10 * e.fout(), 10, e.rotation);
+        Drawf.tri(e.x, e.y, 10 * e.fout(), -10, e.rotation);
+
+        int points = 5;
+        float offset = Mathf.randomSeed(e.id, 360f);
+        for(int i = 0; i < points; i++){
+            float angle = i* 360f / points + offset;
+            Drawf.tri(e.x + Angles.trnsx(angle, 32), e.y + Angles.trnsy(angle, 32), 5f, 20f * e.fout(), angle);
+        }
+        for(int i = 0; i < points; i++){
+            float angle = i* 360f / points + offset;
+            Drawf.tri(e.x + Angles.trnsx(angle, 32), e.y + Angles.trnsy(angle, 32), 5f, -20f * e.fout(), angle);
+        }
+
+        Fill.circle(e.x, e.y, 6f * e.fout());
+        color();
+        Fill.circle(e.x, e.y, 3f * e.fout());
+        Drawf.light(e.x, e.y, 50 * 1.6f, Color.valueOf("d8f3f4"), e.fout());
+    }),
+
     hitLaser = new Effect(8, e -> {
         color(Color.white, Pal.accent, e.fin());
         stroke(0.5f + e.fout());
@@ -228,6 +265,7 @@ public class unitFx {
 
         Drawf.light(e.x, e.y, 23f, Pal.accent, e.fout() * 0.7f);
     }),
+
     ishiField = new Effect(60, e -> {
         color(Color.valueOf("dbd187"), Color.white, e.fin());
 
@@ -235,10 +273,42 @@ public class unitFx {
         Lines.circle(e.x, e.y, 75 * e.fin(Interp.circleOut));
     }),
 
+    sutaField = new Effect(120, e -> {
+        color(Color.valueOf("889af0"), Color.white, e.fin());
+
+        float rad = 160 * e.fin(Interp.pow2Out);
+
+        stroke(5f * e.fout());
+        Lines.circle(e.x, e.y, rad);
+
+        int points = 12;
+        float offset = Mathf.randomSeed(e.id, 360f);
+        for(int i = 0; i < points; i++){
+            float angle = i* 360f / points + offset;
+            Drawf.tri(e.x + Angles.trnsx(angle, rad), e.y + Angles.trnsy(angle, rad), 10f * e.fout(), -50f * e.finpow(), angle);
+        }
+    }),
+
     komettoTrail = new Effect(42, e -> {
         color(e.color);
         Fill.circle(e.x, e.y, e.rotation * e.fout());
     }).layer(Layer.flyingUnitLow - 0.002f),
+
+    sutaTrail = new Effect(82, e -> {
+        color(e.color);
+        randLenVectors(e.id, 1, e.finpow() * 4f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, e.rotation * e.fout());
+        });
+    }).layer(Layer.flyingUnitLow - 0.002f),
+
+    drain = new Effect(30, e -> {
+        color(Color.white, Color.valueOf("d297e1"), e.fin());
+        stroke(0.5f + e.fout());
+
+        randLenVectors(e.id, 5, e.fin(Interp.circleOut) * 12f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, 1 * e.fout());
+        });
+    }),
 
     komettoSplash = new Effect(20, e -> {
         color(Color.valueOf("d297e1"), Color.white, e.fout());

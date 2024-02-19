@@ -29,7 +29,7 @@ public class Geyser extends StaticWall implements UpdateEnvironment<Interval>{
     }
 
     public void updateTile(Tile tile, Interval data){
-        if(!Vars.state.isPaused()) {
+        if(!Vars.state.isPaused() && !Vars.state.isEditor()) {
             charge++;
             if (charge >= chargeTime) {
                 charge2++;

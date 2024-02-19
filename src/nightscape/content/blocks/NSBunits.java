@@ -1,13 +1,11 @@
 package nightscape.content.blocks;
 
-import arc.graphics.g2d.TextureRegion;
 import arc.struct.Seq;
 import mindustry.type.Category;
-import mindustry.type.PayloadSeq;
-import mindustry.type.PayloadStack;
 import mindustry.type.UnitType;
 import mindustry.world.Block;
-import mindustry.world.blocks.legacy.LegacyMechPad;
+import mindustry.world.blocks.payloads.PayloadConveyor;
+import mindustry.world.blocks.payloads.PayloadRouter;
 import mindustry.world.blocks.units.Reconstructor;
 import mindustry.world.blocks.units.UnitFactory;
 import nightscape.content.NSitems;
@@ -18,7 +16,8 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBunits {
     public static Block
-    baseConstructor, supplementReconstructor;
+    baseConstructor, supplementReconstructor,
+    payConv, payRout;
 
     public static void load(){
         baseConstructor = new UnitFactory("baseConstructor"){{
@@ -49,6 +48,24 @@ public class NSBunits {
                     new UnitType[]{NSunits.gutta, NSunits.pluvia},
                 new UnitType[]{NSunits.ishi, NSunits.yama}
             );
+        }};
+
+        payConv = new PayloadConveyor("payConv"){{
+            requirements(Category.units, with(NSitems.velonium, 20, NSitems.zirconium, 15));
+            researchCost = with(NSitems.velonium, 960, NSitems.zirconium, 620);
+            moveTime = 60f;
+            canOverdrive = false;
+            health = 300;
+            underBullets = false;
+        }};
+
+        payRout = new PayloadRouter("payRout"){{
+            requirements(Category.units, with(NSitems.velonium, 50, NSitems.zirconium, 35));
+            researchCost = with(NSitems.velonium, 1780, NSitems.zirconium, 980);
+            moveTime = 60f;
+            canOverdrive = false;
+            health = 420;
+            underBullets = false;
         }};
     }
 }

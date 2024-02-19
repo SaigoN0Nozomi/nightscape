@@ -7,7 +7,10 @@ import mindustry.world.Block;
 import mindustry.world.blocks.defense.AutoDoor;
 import mindustry.world.blocks.defense.Radar;
 import mindustry.world.blocks.defense.Wall;
+import mindustry.world.blocks.power.LightBlock;
 import mindustry.world.blocks.storage.CoreBlock;
+import mindustry.world.blocks.storage.StorageBlock;
+import mindustry.world.blocks.storage.Unloader;
 import mindustry.world.meta.BuildVisibility;
 import nightscape.content.NSitems;
 import nightscape.content.NSunits;
@@ -19,10 +22,11 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBother {
     public static Block
-            coreSatellite,
+            coreSatellite, coreSystem,
             tWall, tWall_large, rWall, rWall_large,
             armoredDoor, armoredDoorBig,
-            mender, radar;
+            mender, radar, luminaire,
+            storage, unloader;
 
     public static void load(){
         tWall = new Wall("tWall") {{
@@ -70,7 +74,7 @@ public class NSBother {
             requirements(Category.effect, with(NSitems.tantalum, 1500, NSitems.naturit, 750));
             isFirstTier = true;
             unitType = NSunits.observer;
-            health = 1800;
+            health = 1200;
             itemCapacity = 3000;
             size = 3;
             squareSprite = false;
@@ -80,6 +84,21 @@ public class NSBother {
 
             buildCostMultiplier = 0.5f;
             unitCapModifier = 6;
+        }};
+
+        coreSystem = new CoreBlock("Core_System") {{
+            requirements(Category.effect, with(NSitems.tantalum, 2400, NSitems.streby, 1200, silicon, 800));
+            researchCost = with(NSitems.tantalum, 8000, NSitems.streby, 6400, silicon, 5200);
+            unitType = NSunits.suppressor;
+            health = 1900;
+            itemCapacity = 5500;
+            size = 4;
+            squareSprite = false;
+            armor = 6f;
+            incinerateNonBuildable = true;
+
+            buildCostMultiplier = 0.5f;
+            unitCapModifier = 10;
         }};
 
         mender = new BetterMend("mender"){{
@@ -106,6 +125,26 @@ public class NSBother {
             researchCost = with(NSitems.velonium, 600, silicon, 480);
 
             consumePower(4f);
+        }};
+
+        luminaire = new LightBlock("luminaire"){{
+            requirements(Category.effect, BuildVisibility.lightingOnly, with(NSitems.zirconium, 20, silicon, 12));
+            brightness = 0.75f;
+            radius = 100f;
+            consumePower(0.1f);
+        }};
+
+        storage = new StorageBlock("storage"){{
+            requirements(Category.effect, with(NSitems.tantalum, 350, NSitems.streby, 195));
+            size = 2;
+            squareSprite = false;
+            itemCapacity = 400;
+            health = 600;
+        }};
+
+        unloader = new Unloader("unloader"){{
+            requirements(Category.effect, with(NSitems.tantalum, 70, NSitems.streby, 40));
+            speed = 4;
         }};
     }
 }

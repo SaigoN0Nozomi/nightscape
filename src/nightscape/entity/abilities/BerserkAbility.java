@@ -1,4 +1,4 @@
-package nightscape.world.types.abilities;
+package nightscape.entity.abilities;
 
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;

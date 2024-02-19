@@ -1,14 +1,10 @@
-package nightscape.world.types.abilities;
+package nightscape.entity.abilities;
 
-import arc.flabel.effects.ShakeEffect;
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
-import arc.util.Time;
 import mindustry.content.StatusEffects;
-import mindustry.entities.Effect;
 import mindustry.entities.abilities.Ability;
 import mindustry.gen.Unit;
-import mindustry.type.StatusEffect;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 import nightscape.content.effects.unitFx;

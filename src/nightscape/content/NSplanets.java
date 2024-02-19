@@ -16,12 +16,11 @@ public class NSplanets {
     public static void load(){
         Chorda = new Planet("Chorda", Planets.sun, 1.1f, 2){{
         generator = new ChordaPlanetGenerator();
-        meshLoader = () -> new HexMesh(this, 6);
+        meshLoader = () -> new HexMesh(this, 5);
         cloudMeshLoader = () -> new MultiMesh(
-                new HexSkyMesh(this, 23, 0.35f, 0.16f, 5, Color.valueOf("a42283").a(0.55f), 2, 0.45f, 0.9f, 0.38f),
-                new HexSkyMesh(this, 33, 0.7f, 0.20f, 5, Color.valueOf("fc81dd").a(0.45f), 2, 0.45f, 1f, 0.41f)
+                new HexSkyMesh(this, 23, 0.35f, 0.13f, 5, Color.valueOf("a42283").a(0.40f), 2, 0.35f, 1f, 0.38f)
         );
-        launchCapacityMultiplier = 0.3f;
+        launchCapacityMultiplier = 0.5f;
         tidalLock = false;
         orbitTime = 40f * 60f * 60f * 60f;
         rotateTime = 60f * 60f;
@@ -30,7 +29,7 @@ public class NSplanets {
         allowWaves = true;
         allowWaveSimulation = true;
         allowSectorInvasion = false;
-        allowLaunchSchematics = false;
+        allowLaunchSchematics = true;
         enemyCoreSpawnReplace = true;
         allowLaunchLoadout = false;
         clearSectorOnLose = true;
@@ -38,7 +37,7 @@ public class NSplanets {
         atmosphereColor = Color.valueOf("625160");
         defaultCore = NSBother.coreSatellite;
         atmosphereRadIn = 0.04f;
-        atmosphereRadOut = 0.35f;
+        atmosphereRadOut = 0.41f;
         startSector = 4;
         orbitRadius = 78f;
         accessible = true;

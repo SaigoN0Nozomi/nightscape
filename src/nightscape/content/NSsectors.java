@@ -8,7 +8,7 @@ import static nightscape.content.NSplanets.Chorda;
 
 public class NSsectors {
     public static SectorPreset
-    safeEdge, iceCrater, shieldValley, purplePlateau, frozenFault, passage;
+    safeEdge, iceCrater, shieldValley, purplePlateau, frozenFault, passage, badelaire;
 
     public static void load(){
         safeEdge = new SectorPreset("safeEdge", Chorda, 4){{
@@ -30,7 +30,6 @@ public class NSsectors {
 
         purplePlateau = new SectorPreset("purplePlateau", Chorda, 38){{
             difficulty = 4;
-            startWaveTimeMultiplier = 1f;
             captureWave = 25;
         }};
 
@@ -41,7 +40,11 @@ public class NSsectors {
         passage = new SectorPreset("passage", Chorda, 78){{
             difficulty = 4;
             captureWave = 20;
-            startWaveTimeMultiplier = 1f;
+        }};
+
+        badelaire = new SectorPreset("badelaire", Chorda, 12){{
+            difficulty = 6;
+            startWaveTimeMultiplier = 1.5f;
         }};
     }
 }

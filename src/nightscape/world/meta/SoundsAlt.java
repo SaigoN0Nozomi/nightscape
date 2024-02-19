@@ -15,6 +15,7 @@ public class SoundsAlt {
         plasmaBlast = new Sound(),
         plasma = new Sound(),
         shoot = new Sound(),
+        blast = new Sound(),
         bigsap = new Sound(),
         snipeShoot = new Sound();
         public static void load(){
@@ -26,6 +27,7 @@ public class SoundsAlt {
             plasmaBlast = loadSound("plasmaBlast");
             plasma = loadSound("plasma");
             snipeShoot = loadSound("snipeShoot");
+            blast = loadSound("blast");
         }
 
         private static Sound loadSound(String soundName){
