@@ -85,7 +85,9 @@ public class CHtechtree {
             //defense
             node(NSBother.tWall, () ->{
                 node(NSBother.tWall_large);
-                node(NSBother.mender);
+                node(NSBother.mender, () -> {
+                    node(NSBother.umbrella, Seq.with(new Objectives.Research(NSBpower.SFGenerator)), () -> {});
+                });
                 node(NSBother.rWall, () -> {
                     node(NSBother.rWall_large);
                     node(NSBother.armoredDoor, Seq.with(new Objectives.SectorComplete(frozenFault)), () -> {});
