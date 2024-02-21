@@ -5,6 +5,7 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.AutoDoor;
+import mindustry.world.blocks.defense.ForceProjector;
 import mindustry.world.blocks.defense.Radar;
 import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.power.LightBlock;
@@ -14,6 +15,7 @@ import mindustry.world.blocks.storage.Unloader;
 import mindustry.world.meta.BuildVisibility;
 import nightscape.content.NSitems;
 import nightscape.content.NSunits;
+import nightscape.content.effects.blockFx;
 import nightscape.world.block.BetterMend;
 import nightscape.world.block.HealingWall;
 
@@ -26,7 +28,7 @@ public class NSBother {
             tWall, tWall_large, rWall, rWall_large,
             armoredDoor, armoredDoorBig,
             mender, radar, luminaire,
-            storage, unloader;
+            storage, unloader, umbrella;
 
     public static void load(){
         tWall = new Wall("tWall") {{
@@ -145,6 +147,18 @@ public class NSBother {
         unloader = new Unloader("unloader"){{
             requirements(Category.effect, with(NSitems.tantalum, 70, NSitems.streby, 40));
             speed = 4;
+        }};
+
+        umbrella = new ForceProjector("umbrella"){{
+            requirements(Category.effect, with(NSitems.tantalum, 540, NSitems.velonium, 350, NSitems.streby, 180));
+            size = 4;
+            hasItems = false;
+            radius = 240f;
+            shieldHealth = 100f;
+            shieldBreakEffect = blockFx.shieldBrokeFx;
+            cooldownNormal = 2f;
+            cooldownBrokenBase = 0.3f;
+            consumePower(5f / 6);
         }};
     }
 }

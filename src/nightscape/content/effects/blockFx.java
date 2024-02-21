@@ -8,6 +8,8 @@ import arc.math.Interp;
 import arc.math.Mathf;
 import mindustry.content.Liquids;
 import mindustry.entities.Effect;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.world.Block;
@@ -94,5 +96,35 @@ public class blockFx {
         randLenVectors(e.id, 8, e.fin(Interp.pow3Out) * 25, e.rotation, 45, (x, y) ->{
             Fill.circle(e.x + x, e.y + y, e.fout() * 3);
         });
-    });
+    }),
+
+    shieldBrokeFx = new MultiEffect( new Effect(140, b -> {
+        b.lifetime = 21 + 5 * 45f;
+
+        color(Color.valueOf("c8b591"));
+        alpha(0.7f);
+        for(int i = 0; i < 4; i++){
+            rand.setSeed(b.id*2 + i);
+            float lenScl = rand.random(0.4f, 1f);
+            int fi = i;
+            b.scaled(b.lifetime * lenScl, e -> {
+                randLenVectors(e.id + fi - 1, e.fin(Interp.pow10Out), (int)(2.9f * 5), 8f * 3, (x, y, in, out) -> {
+                    float fout = e.fout(Interp.pow5Out) * rand.random(0.5f, 1f);
+                    float rad = fout * (7 * 0.87f);
+
+                    Fill.circle(e.x + x, e.y + y, rad);
+                    Drawf.light(e.x + x, e.y + y, rad * 2.5f, Color.valueOf("c8b591"), 0.5f);
+                });
+            });
+        }
+    }), new Effect(40, e -> {
+        stroke(0.8f + e.fout());
+
+        randLenVectors(e.id, 9, e.finpow() * 23f, (x, y) -> {
+            color(Color.valueOf("dea63f"), Color.white, e.fin());
+
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.fout() * 9);
+        });
+    }));
 }

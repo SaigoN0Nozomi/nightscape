@@ -117,7 +117,7 @@ public class CHtechtree {
                     });
                     node(purplePlateau, Seq.with(new Objectives.SectorComplete(iceCrater)), () -> {
                         node(passage, Seq.with(new Objectives.SectorComplete(purplePlateau), new Objectives.SectorComplete(shieldValley)), () -> {
-                            node(badelaire, Seq.with(new Objectives.SectorComplete(passage), new Objectives.SectorComplete(frozenFault)), () -> {});
+                            node(badelaire, Seq.with(new Objectives.SectorComplete(passage), new Objectives.SectorComplete(frozenFault), new Objectives.Research(NSBother.coreSystem)), () -> {});
                         });
                     });
                 });

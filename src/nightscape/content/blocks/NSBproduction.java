@@ -213,7 +213,7 @@ public class NSBproduction {
             hasLiquids = true;
             boostScale = 1f / 9f;
             outputLiquid = new LiquidStack(Liquids.ozone, 2 / 6f);
-            consumePower(2f);
+            consumePower(8f/ 6);
             liquidCapacity = 60f;
         }};
 

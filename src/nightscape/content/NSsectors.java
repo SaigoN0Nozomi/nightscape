@@ -44,7 +44,7 @@ public class NSsectors {
 
         badelaire = new SectorPreset("badelaire", Chorda, 12){{
             difficulty = 6;
-            startWaveTimeMultiplier = 1.5f;
+            startWaveTimeMultiplier = 1f;
         }};
     }
 }

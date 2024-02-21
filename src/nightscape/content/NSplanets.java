@@ -5,6 +5,7 @@ import mindustry.content.Planets;
 import mindustry.game.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
+import mindustry.type.weather.*;
 import nightscape.content.blocks.NSBother;
 import nightscape.generators.ChordaPlanetGenerator;
 
@@ -18,7 +19,8 @@ public class NSplanets {
         generator = new ChordaPlanetGenerator();
         meshLoader = () -> new HexMesh(this, 5);
         cloudMeshLoader = () -> new MultiMesh(
-                new HexSkyMesh(this, 23, 0.35f, 0.13f, 5, Color.valueOf("a42283").a(0.40f), 2, 0.35f, 1f, 0.38f)
+                new HexSkyMesh(this, 23, 0.35f, 0.08f, 5, Color.valueOf("a42283").a(0.40f), 2, 0.35f, 1f, 0.38f),
+                new HexSkyMesh(this, 24, 0.45f, 0.11f, 5, Color.valueOf("c442a3").a(0.60f), 2, 0.35f, 1f, 0.38f)
         );
         launchCapacityMultiplier = 0.5f;
         tidalLock = false;
@@ -51,6 +53,8 @@ public class NSplanets {
             r.showSpawns = true;
             r.fog = true;
             r.coreIncinerates = true;
+            Weather.WeatherEntry weather = new Weather.WeatherEntry(NSweather.ozoneRain);
+            r.weather.add(weather);
             r.staticFog = true;
             r.lighting = false;
             r.coreDestroyClear = false;
