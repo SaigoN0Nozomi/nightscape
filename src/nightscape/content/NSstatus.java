@@ -12,7 +12,7 @@ import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
 
 public class NSstatus {
-    public static StatusEffect ozoneCorrosion, overCharged, ascent, defended;
+    public static StatusEffect ozoneCorrosion, overCharged, ascent, defended, armorNull;
 
     public static void load(){
         ozoneCorrosion = new StatusEffect("OzoneCorrosion"){{
@@ -40,11 +40,15 @@ public class NSstatus {
         }};
 
         defended = new ArmorStatus("Defended"){{
-            armorAdd = 5;
+            armorAdd = 2;
             buildSpeedMultiplier = 2f;
             damage = -0.4f;
             effect = StatusFx.defended;
             effectChance = 0.05f;
+        }};
+
+        armorNull = new ArmorStatus("ArmorNull"){{
+            armorAdd = -4;
         }};
     }
 }

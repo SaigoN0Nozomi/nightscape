@@ -12,10 +12,13 @@ public class ArmorStatus extends StatusEffect {
 
     public void setStats(){
         super.setStats();
-        stats.add(Stat.armor, armorAdd);
+        stats.add(Stat.armor, (int)(armorAdd));
     }
     public void update(Unit unit, float time){
-        unit.armor = armorAdd;
+        unit.armor = unit.type.armor;
+        if(time > 1) {
+            unit.armor = unit.armor + armorAdd;
+        }
         super.update(unit, time);
     }
 }
