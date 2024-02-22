@@ -104,7 +104,7 @@ public class NSBother {
         }};
 
         mender = new BetterMend("mender"){{
-            requirements(Category.effect, with(NSitems.tantalum, 60, NSitems.velonium, 50));
+            requirements(Category.effect, with(NSitems.tantalum, 60, NSitems.velonium, 20));
             size = 2;
             reload = 120f;
             healAmount = 10f;
@@ -118,13 +118,13 @@ public class NSBother {
         }};
 
         radar = new Radar("radar"){{
-            requirements(Category.effect, with(NSitems.velonium, 150, silicon, 120));
+            requirements(Category.effect, with(NSitems.velonium, 60, silicon, 120));
             outlineColor = Color.valueOf("443645");
             fogRadius = 40;
             discoveryTime = 160 * 10f;
 
             size = 2;
-            researchCost = with(NSitems.velonium, 600, silicon, 480);
+            researchCost = with(NSitems.velonium, 210, silicon, 480);
 
             consumePower(4f);
         }};
@@ -137,7 +137,7 @@ public class NSBother {
         }};
 
         storage = new StorageBlock("storage"){{
-            requirements(Category.effect, with(NSitems.tantalum, 350, NSitems.streby, 195));
+            requirements(Category.effect, with(NSitems.tantalum, 210, NSitems.streby, 85));
             size = 2;
             squareSprite = false;
             itemCapacity = 400;
@@ -150,7 +150,7 @@ public class NSBother {
         }};
 
         umbrella = new ForceProjector("umbrella"){{
-            requirements(Category.effect, with(NSitems.tantalum, 540, NSitems.velonium, 350, NSitems.streby, 180));
+            requirements(Category.effect, with(NSitems.tantalum, 340, NSitems.streby, 210, NSitems.velonium, 110));
             size = 4;
             hasItems = false;
             radius = 240f;

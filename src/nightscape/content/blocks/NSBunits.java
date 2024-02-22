@@ -21,23 +21,23 @@ public class NSBunits {
 
     public static void load(){
         baseConstructor = new UnitFactory("baseConstructor"){{
-            requirements(Category.units, with(NSitems.tantalum, 250, silicon, 180));
+            requirements(Category.units, with(NSitems.tantalum, 150, silicon, 110));
             plans = Seq.with(
                 new UnitPlan(NSunits.point,10 * 60f, with(silicon, 15, NSitems.tantalum, 15)),
-                new UnitPlan(NSunits.procursus,15 * 60f, with(silicon, 10, NSitems.zirconium, 35)),
+                new UnitPlan(NSunits.procursus,15 * 60f, with(silicon, 10, NSitems.zirconium, 25)),
                 new UnitPlan(NSunits.gutta,7 * 60f, with(silicon, 12, NSitems.zirconium, 12)),
                 new UnitPlan(NSunits.ishi,12 * 60f, with(silicon, 18, NSitems.tantalum, 20))
             );
             size = 3;
-            consumePower(1.5f);
+            consumePower(1f);
         }};
 
         supplementReconstructor = new Reconstructor("supplementReconstructor"){{
-            requirements(Category.units, with(NSitems.tantalum, 650, NSitems.streby, 380, silicon, 140));
+            requirements(Category.units, with(NSitems.tantalum, 450, NSitems.streby, 210, silicon, 150));
             researchCost = with(NSitems.tantalum, 6000, NSitems.streby, 3800, silicon, 2650);
 
             size = 3;
-            consumePower(5f);
+            consumePower(2f);
             consumeItems(with(silicon, 30, NSitems.streby, 45));
 
             constructTime = 60f * 15f;
@@ -51,8 +51,8 @@ public class NSBunits {
         }};
 
         payConv = new PayloadConveyor("payConveyor"){{
-            requirements(Category.units, with(NSitems.velonium, 20, NSitems.zirconium, 15));
-            researchCost = with(NSitems.velonium, 960, NSitems.zirconium, 620);
+            requirements(Category.units, with(NSitems.velonium, 10, NSitems.zirconium, 15));
+            researchCost = with(NSitems.velonium, 340, NSitems.zirconium, 620);
             moveTime = 60f;
             canOverdrive = false;
             health = 300;
@@ -60,8 +60,8 @@ public class NSBunits {
         }};
 
         payRout = new PayloadRouter("payRout"){{
-            requirements(Category.units, with(NSitems.velonium, 50, NSitems.zirconium, 35));
-            researchCost = with(NSitems.velonium, 1780, NSitems.zirconium, 980);
+            requirements(Category.units, with(NSitems.velonium, 15, NSitems.zirconium, 35));
+            researchCost = with(NSitems.velonium, 450, NSitems.zirconium, 980);
             moveTime = 60f;
             canOverdrive = false;
             health = 420;

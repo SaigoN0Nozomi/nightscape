@@ -125,7 +125,7 @@ public class NSBdistribution {
         }};
 
         liquidContainer = new LiquidRouter("liquidContainer"){{
-            requirements(Category.liquid, with(NSitems.tantalum, 280, NSitems.velonium, 120));
+            requirements(Category.liquid, with(NSitems.tantalum, 180, NSitems.velonium, 40));
             size = 2;
             squareSprite = false;
             solid = true;

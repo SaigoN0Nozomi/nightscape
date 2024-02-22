@@ -50,7 +50,7 @@ public class NSBturret {
     public static void load(){
 
         victim = new ItemTurret("victim"){{
-            requirements(Category.turret, with(NSitems.tantalum, 45));
+            requirements(Category.turret, with(NSitems.tantalum, 35));
             ammo(
                 NSitems.tantalum, new BasicBulletType(4f, 11f){{
                     width = 9f;
@@ -118,7 +118,7 @@ public class NSBturret {
         }};
 
         flicker = new ItemTurret("flicker"){{
-            requirements(Category.turret, with(NSitems.tantalum, 60, NSitems.zirconium, 45));
+            requirements(Category.turret, with(NSitems.tantalum, 40, NSitems.zirconium, 25));
             researchCost = with(NSitems.tantalum, 750, NSitems.zirconium, 355);
             ammo(
                 NSitems.naturit, new ArtilleryBulletType(3f,15){{
@@ -155,7 +155,7 @@ public class NSBturret {
         }};
 
         adrenaline = new AdrenalineTurret("adrenaline"){{
-            requirements(Category.turret, with(NSitems.velonium, 230, NSitems.zirconium, 125));
+            requirements(Category.turret, with(NSitems.velonium, 90, NSitems.zirconium, 125));
             researchCost = with(NSitems.velonium, 1650, NSitems.zirconium, 635);
             baseReload = 50f;
             reloadPerHp = 0.3f;
@@ -237,7 +237,7 @@ public class NSBturret {
         }};
 
         stelle = new LiquidTurret("stelle"){{
-            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.zirconium, 95, NSitems.velonium, 15));
+            requirements(Category.turret, with(NSitems.tantalum, 120, NSitems.zirconium, 65, NSitems.velonium, 15));
             researchCost = with(NSitems.tantalum, 1850, NSitems.zirconium, 670, NSitems.velonium, 320);
 
             ammo(
@@ -368,6 +368,7 @@ public class NSBturret {
                     height = width = 8;
                     backColor = frontColor = trailColor = Color.valueOf("fbdd6c");
                     trailWidth = 2;
+                    collidesAir = false;
                     trailLength = 3;
                     lifetime = 22;
                     status = StatusEffects.burning;
@@ -407,7 +408,7 @@ public class NSBturret {
         }};
 
         magnetic = new ItemTurret("magnetic"){{
-            requirements(Category.turret, with(NSitems.tantalum, 160, NSitems.streby, 270, NSitems.velonium, 30));
+            requirements(Category.turret, with(NSitems.tantalum, 270, NSitems.streby, 210, NSitems.velonium, 50));
             ammo(
                 NSitems.tantalum, new BasicBulletType(6f, 16f){{
                     width = 8f;

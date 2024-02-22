@@ -35,7 +35,7 @@ public class NSBproduction {
 
 
         shockDrill = new BurstDrill("shockDrill"){{
-            requirements(Category.production, with(NSitems.tantalum, 25, NSitems.naturit, 12));
+            requirements(Category.production, with(NSitems.tantalum, 18, NSitems.naturit, 12));
             researchCost = ItemStack.with(NSitems.tantalum, 100, NSitems.naturit, 50);
 
             squareSprite = false;
@@ -61,7 +61,7 @@ public class NSBproduction {
         }};
 
         eruptionDrill = new NSDrill("eruptionDrill"){{
-            requirements(Category.production, with(NSitems.tantalum, 120, NSitems.naturit, 75, NSitems.streby, 60));
+            requirements(Category.production, with(NSitems.tantalum, 80, NSitems.naturit, 55, NSitems.streby, 40));
             researchCost = ItemStack.with(NSitems.tantalum, 3260, NSitems.naturit, 2350, NSitems.streby, 1920);
             size = 3;
             health = 360;
@@ -69,7 +69,7 @@ public class NSBproduction {
             itemCapacity = 30;
             rotateSpeed = 10;
             consumeLiquid(NSLiquids.ammonia, 0.25f);
-            drillTime = 120;
+            drillTime = 100;
             tier = 4;
             heatReq = 3;
             liquidBoostIntensity = 1;
@@ -138,7 +138,7 @@ public class NSBproduction {
         }};
 
         naturitSeparator = new HeatCrafter("naturitSeparator"){{
-            requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.naturit, 180, NSitems.streby, 90));
+            requirements(Category.crafting, with(NSitems.tantalum, 180, NSitems.naturit, 120, NSitems.streby, 60));
             size = 3;
             heatRequirement = 6f;
             maxEfficiency = 2;
@@ -160,7 +160,7 @@ public class NSBproduction {
         }};
 
         cliffCrusher = new WallCrafter("cliffCrusher"){{
-            requirements(Category.production, with(NSitems.naturit, 90, NSitems.velonium, 60, NSitems.zirconium, 30));
+            requirements(Category.production, with(NSitems.naturit, 90, NSitems.velonium, 45, NSitems.zirconium, 30));
 
             consumeLiquid(Liquids.ozone, 9 / 60f);
             drillTime = 60f;
@@ -174,7 +174,7 @@ public class NSBproduction {
         }};
 
         siliconFurnace = new HeatCrafter("siliconFurnace"){{
-            requirements(Category.crafting, with(NSitems.tantalum, 270, NSitems.velonium, 120, NSitems.zirconium, 90));
+            requirements(Category.crafting, with(NSitems.tantalum, 210, NSitems.velonium, 100, NSitems.zirconium, 55));
             size = 3;
             heatRequirement = 4f;
             maxEfficiency = 3;
@@ -218,7 +218,7 @@ public class NSBproduction {
         }};
 
         strebyPress = new GenericCrafter("strebyPress"){{
-            requirements(Category.crafting, with(NSitems.zirconium, 60, NSitems.velonium, 45));
+            requirements(Category.crafting, with(NSitems.zirconium, 60, NSitems.velonium, 25));
             researchCost = with(NSitems.zirconium, 850, NSitems.velonium, 625);
             liquidCapacity = 60f;
             craftTime = 60f;

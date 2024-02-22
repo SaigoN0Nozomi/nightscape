@@ -28,9 +28,9 @@ public class NSBpower {
     node, SFGenerator, solarPanel;
     public static void load(){
         heatRedirector = new HeatConductor("heatRedirector"){{
-            requirements(Category.power, with(NSitems.tantalum, 45, NSitems.velonium, 25));
+            requirements(Category.power, with(NSitems.tantalum, 35, NSitems.velonium, 15));
 
-            researchCost = ItemStack.with(NSitems.tantalum, 900, NSitems.velonium, 500);
+            researchCost = ItemStack.with(NSitems.tantalum, 900, NSitems.velonium, 300);
 
             researchCostMultiplier = 1f;
             size = 2;
@@ -54,7 +54,7 @@ public class NSBpower {
         }};
 
         heatCore = new HeatCore("heatCore"){{
-            requirements(Category.power, with(NSitems.tantalum, 135, NSitems.velonium, 120, silicon, 80));
+            requirements(Category.power, with(NSitems.tantalum, 135, NSitems.velonium, 50, silicon, 80));
 
             drawer = new DrawMulti(
                     new DrawDefault(),
@@ -67,7 +67,7 @@ public class NSBpower {
             squareSprite = false;
             ambientSound = Sounds.hum;
             consumePower(1f);
-            researchCost = ItemStack.with(NSitems.tantalum, 1850, NSitems.velonium, 1150, silicon, 750);
+            researchCost = ItemStack.with(NSitems.tantalum, 1850, NSitems.velonium, 550, silicon, 750);
 
             EnPerHeat = 70f / 60f;
             heatMin = 1;
@@ -76,7 +76,7 @@ public class NSBpower {
         }};
 
         node = new BeamNode("node"){{
-            requirements(Category.power, with(NSitems.tantalum, 15, silicon, 6));
+            requirements(Category.power, with(NSitems.tantalum, 9, silicon, 6));
             consumesPower = outputsPower = true;
             health = 120;
             range = 6;
@@ -87,11 +87,11 @@ public class NSBpower {
         }};
 
         SFGenerator = new ConsumeGenerator("solidFuelGenerator"){{
-            requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 25));
+            requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 15));
             powerProduction = 5f / 6f;
             itemDuration = 75f;
             size = 2;
-            researchCost = ItemStack.with(NSitems.tantalum, 650, NSitems.zirconium, 580, silicon, 550);
+            researchCost = ItemStack.with(NSitems.tantalum, 650, NSitems.zirconium, 580, silicon, 350);
 
             generateEffect = Fx.generatespark;
             ambientSound = Sounds.smelter;
@@ -105,7 +105,7 @@ public class NSBpower {
         }};
 
         solarPanel = new SolarGenerator("solarPanel"){{
-           requirements(Category.power, with(NSitems.velonium, 30, silicon, 25));
+           requirements(Category.power, with(NSitems.velonium, 20, silicon, 15));
            size = 2;
            powerProduction = 20/60f;
         }};
