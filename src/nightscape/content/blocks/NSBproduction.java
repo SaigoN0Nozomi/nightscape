@@ -178,6 +178,7 @@ public class NSBproduction {
             size = 3;
             heatRequirement = 4f;
             maxEfficiency = 3;
+            squareSprite = false;
             outputItem = new ItemStack(silicon, 2);
             consumeItems(with(sand, 3, NSitems.naturit, 2));
             drawer = new DrawMulti(

@@ -21,7 +21,7 @@ public class NSBunits {
 
     public static void load(){
         baseConstructor = new UnitFactory("baseConstructor"){{
-            requirements(Category.units, with(NSitems.tantalum, 150, silicon, 110));
+            requirements(Category.units, with(NSitems.tantalum, 150, silicon, 80));
             plans = Seq.with(
                 new UnitPlan(NSunits.point,10 * 60f, with(silicon, 15, NSitems.tantalum, 15)),
                 new UnitPlan(NSunits.procursus,15 * 60f, with(silicon, 10, NSitems.zirconium, 25)),
@@ -37,7 +37,7 @@ public class NSBunits {
             researchCost = with(NSitems.tantalum, 6000, NSitems.streby, 3800, silicon, 2650);
 
             size = 3;
-            consumePower(2f);
+            consumePower(2.5f);
             consumeItems(with(silicon, 30, NSitems.streby, 45));
 
             constructTime = 60f * 15f;

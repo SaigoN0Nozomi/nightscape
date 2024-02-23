@@ -873,7 +873,7 @@ public class NSunits {
             hitSize = 12f;
 
             abilities.add(
-                    new ShieldRegenFieldAbility(5, 30, 120, 45),
+                    new ShieldRegenFieldAbility(3, 40, 120, 45),
                     new StatusFieldAbility(NSstatus.ascent, 60 * 8, 60 * 4, 75) {{
                         activeEffect = unitFx.ishiField;
                     }}

@@ -33,11 +33,11 @@ public class NSweather {
             sizeMin = 6;
             sizeMax = 20;
             dropTime = 3f;
-            dropAmount = 10;
+            dropAmount = 6;
             projectile = new LiquidBulletType(liquid){{
-                damage = 10;
+                damage = 8;
                 splashDamageRadius = 24;
-                splashDamage = 10;
+                splashDamage = 3;
                 speed = 0;
                 shootEffect = hitEffect = despawnEffect = Fx.none;
                 drag = 0;

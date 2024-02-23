@@ -157,8 +157,8 @@ public class NSBturret {
         adrenaline = new AdrenalineTurret("adrenaline"){{
             requirements(Category.turret, with(NSitems.velonium, 90, NSitems.zirconium, 125));
             researchCost = with(NSitems.velonium, 1650, NSitems.zirconium, 635);
-            baseReload = 50f;
-            reloadPerHp = 0.3f;
+            baseReload = 30f;
+            reloadPerHp = 0.2f;
             recoilTime = 80;
             health = 520;
             range = 140;
@@ -171,7 +171,7 @@ public class NSBturret {
             shootSound = SoundsAlt.snipeShoot;
             ammoPerShot = 1;
             ammo(
-                NSitems.tantalum, new BasicBulletType(5, 28){{
+                NSitems.tantalum, new BasicBulletType(5, 35){{
                     lifetime = 140/speed;
                     width = 20;
                     height = 30;
@@ -182,7 +182,7 @@ public class NSBturret {
                     hitEffect = despawnEffect = blockFx.adrenalinHitTantal;
                     backColor = trailColor = NSitems.tantalum.color;
                 }},
-                NSitems.zirconium, new BasicBulletType(8, 42){{
+                NSitems.zirconium, new BasicBulletType(8, 46){{
                     lifetime = 190/speed;
                     width = 15;
                     height = 37;
@@ -191,7 +191,7 @@ public class NSBturret {
                     trailLength = 6;
                     ammoMultiplier = 1;
                     trailWidth = 2f;
-                    reloadMultiplier = 0.5f;
+                    reloadMultiplier = 0.7f;
                     rangeChange = 50;
                     hitEffect = despawnEffect = blockFx.adrenalinHitZirconium;
                     backColor = trailColor = NSitems.zirconium.color;
@@ -212,7 +212,7 @@ public class NSBturret {
                     fragSpread = 0;
                     hitEffect = despawnEffect = Fx.none;
                     fragBullet = new ShrapnelBulletType(){{
-                        length = 25;
+                        length = 32;
                         damage = 21f;
                         width = 8f;
                         toColor = NSitems.streby.color;

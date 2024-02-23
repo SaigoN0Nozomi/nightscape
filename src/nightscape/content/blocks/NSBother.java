@@ -154,10 +154,10 @@ public class NSBother {
             size = 4;
             hasItems = false;
             radius = 240f;
-            shieldHealth = 100f;
+            shieldHealth = 120f;
             shieldBreakEffect = blockFx.shieldBrokeFx;
-            cooldownNormal = 2f;
-            cooldownBrokenBase = 0.3f;
+            cooldownNormal = 1f;
+            cooldownBrokenBase = 0.1f;
             consumePower(5f / 6);
         }};
     }
