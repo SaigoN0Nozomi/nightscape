@@ -1,9 +1,14 @@
 ![icon](https://github.com/SaigoN0Nozomi/nightscape/blob/d90bf33c63563bf373e726b19b266135f8a1b4ef/assets/title.png)
 ### New planet, what contains:
-16 new units \
-6 resources and some old ones \
-7 new turrets \
-6 new sectors \
+19 new units \
+6 new resources and some old ones \
+7 new almost unique turrets \
+7 new hard and interesting to play sectors \
+Heat based production \
+Extremely annoying weather \
+New menu and editor music \
 and many new blocks
+
+have fun :3
 
 discord server: https://discord.gg/y7N9jvfc

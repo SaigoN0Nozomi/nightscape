@@ -1,11 +1,11 @@
 displayName: "NightScape"
 name: "NScape"
-author: "Saigo no-nozomi. \nTranslation: CyberSirnik"
+author: "Saigo no-nozomi. \n Few sprites from: Sundered \n Translation help: CyberSirnik"
 main: "nightscape.nightscape"
 
-description: "Adds new planet with unique content and some new mechanics"
+description: "Adds hard new planet with unique content and new mechanics"
 
-version: 1.1
+version: 1.2
 minGameVersion: 146
 java: true
 
