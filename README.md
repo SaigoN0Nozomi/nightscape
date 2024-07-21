@@ -11,4 +11,4 @@ and many new blocks
 
 have fun :3
 
-discord server: https://discord.gg/y7N9jvfc
+discord server: https://discord.gg/q3M833Z4J4
