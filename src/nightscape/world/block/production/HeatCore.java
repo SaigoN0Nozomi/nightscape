@@ -3,12 +3,14 @@ package nightscape.world.block.production;
 import arc.Core;
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.blocks.heat.HeatProducer;
 import mindustry.world.draw.*;
 import mindustry.world.meta.Stat;
-import nightscape.world.meta.NSStatUnit;
+import nightscape.world.meta.NSStat;
 
 public class HeatCore extends HeatProducer {
     public float EnPerHeat = 1f;
@@ -36,8 +38,8 @@ public class HeatCore extends HeatProducer {
 
         stats.remove(Stat.powerUse);
         stats.remove(Stat.output);
-        stats.add(Stat.input, EnPerHeat * 60f, NSStatUnit.EnPerHeat);
-        stats.add(Stat.output, heatMax, NSStatUnit.heatMax);
+        stats.add(Stat.input, EnPerHeat * 60f, NSStat.EnPerHeat);
+        stats.add(Stat.output, heatMax, NSStat.heatMax);
     }
 
     @Override
@@ -64,6 +66,16 @@ public class HeatCore extends HeatProducer {
 
             table.row();
             table.slider(heatMin, heatMax, step, heatOut, true, this::configure);
+        }
+        @Override
+        public void write(Writes write) {
+            super.write(write);
+            write.f(heatOut);
+        }
+        @Override
+        public void read(Reads read, byte revision) {
+            super.read(read, revision);
+            heatOut = read.f();
         }
     }
 }

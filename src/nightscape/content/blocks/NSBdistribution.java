@@ -10,6 +10,7 @@ import mindustry.world.blocks.liquid.LiquidBridge;
 import mindustry.world.blocks.liquid.LiquidJunction;
 import mindustry.world.blocks.liquid.LiquidRouter;
 import mindustry.world.consumers.ConsumeLiquid;
+import mindustry.world.draw.DrawMulti;
 import nightscape.content.NSLiquids;
 import nightscape.content.NSitems;
 
@@ -18,7 +19,7 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBdistribution {
     public static Block
-            tRouter, tJunction, tBridge, tConveyor, aConveyor, tSorter, tSorterInv, tGate, tGateInv,
+            tRouter, tJunction, tBridge, tConveyor, aConveyor, dConveyor, tSorter, tSorterInv, tGate, tGateInv,
             tcRouter, tcBridge, tConduit, tcJuniction, liquidContainer, driver;
 
     public static void load(){
@@ -31,11 +32,21 @@ public class NSBdistribution {
             researchCost = ItemStack.with(NSitems.tantalum, 5);
         }};
 
+        dConveyor = new Conveyor("dConveyor"){{
+            requirements(Category.distribution, with(NSitems.tantalum, 3, NSitems.dense, 2));
+            health = 80;
+            armor = 5;
+            speed = 0.065f;
+            displayedSpeed = 8f;
+            underBullets = false;
+            researchCost = ItemStack.with(NSitems.tantalum, 450, NSitems.dense, 170);
+        }};
+
         aConveyor = new Conveyor("aConveyor"){{
             requirements(Category.distribution, with(NSitems.tantalum, 3, NSitems.streby, 1));
-            health = 80;
-            speed = 0.08f;
-            displayedSpeed = 9f;
+            health = 30;
+            speed = 0.10f;
+            displayedSpeed = 12f;
             underBullets = false;
             researchCost = ItemStack.with(NSitems.tantalum, 600, NSitems.streby, 450);
         }};
@@ -45,6 +56,7 @@ public class NSBdistribution {
             health = 30;
             ((Conveyor)tConveyor).junctionReplacement = this;
             ((Conveyor)aConveyor).junctionReplacement = this;
+            ((Conveyor)dConveyor).junctionReplacement = this;
             researchCost = ItemStack.with(NSitems.tantalum, 15);
         }};
 
@@ -89,6 +101,7 @@ public class NSBdistribution {
             itemCapacity = 5;
             ((Conveyor)tConveyor).bridgeReplacement = this;
             ((Conveyor)aConveyor).bridgeReplacement = this;
+            ((Conveyor)dConveyor).bridgeReplacement = this;
             researchCost = ItemStack.with(NSitems.tantalum, 45, NSitems.zirconium, 30);
         }};
 
@@ -131,12 +144,13 @@ public class NSBdistribution {
             solid = true;
             liquidCapacity = 1200f;
             health = 380;
+            liquidPadding = 1.5f;
         }};
 
         driver = new MassDriver("driver"){{
             requirements(Category.distribution, with(NSitems.tantalum, 145, NSitems.velonium, 120, silicon, 70, NSitems.streby, 65));
             size = 3;
-            consume(new ConsumeLiquid(NSLiquids.ammonia, 1/3f));
+            consume(new ConsumeLiquid(NSLiquids.ammonia, 1/6f));
             itemCapacity = 160;
             squareSprite = false;
             reload = 500f;

@@ -1,10 +1,7 @@
 package nightscape.content.blocks;
 
 import arc.graphics.Color;
-import mindustry.content.Fx;
-import mindustry.content.Items;
 import mindustry.content.Liquids;
-import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.LiquidBulletType;
 import mindustry.gen.Sounds;
 import mindustry.graphics.CacheLayer;
@@ -14,13 +11,12 @@ import mindustry.world.blocks.defense.Wall;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.Attribute;
 import mindustry.world.meta.BuildVisibility;
+import nightscape.content.NSLiquids;
 import nightscape.content.NSattribute;
 import nightscape.content.NSitems;
-import nightscape.content.effects.blockFx;
 import nightscape.world.block.environment.DamageTallBlock;
 import nightscape.world.block.environment.Geyser;
 
-import static mindustry.content.Items.sand;
 import static mindustry.type.ItemStack.with;
 
 public class NSBenvironment {
@@ -32,17 +28,25 @@ public class NSBenvironment {
     //naturit attributes
     natAsh, natAshWall, natweed, natTree,
     //redLands
-    slate, slateWall, slateBoulder, redStone, redWall, redBoulder,
+    slate, slateWall, slateBoulder, slateStone, redStone, redWall, redBoulder, redGeyser,
     //ice
     ice, iceWall, icedStone, iceShank,
     rainStone, rainStoneWall, rainBoulder,
     coldStone,
     //purl
-    purl, purlWall, purlGeyser,
+    purl, purlWall, purlGeyser, purlBoulder, purlWeed,
+    //fernum
+    softRock, softRockWall, softGay,
 
     //ore block
-    tantalumOre, zirconiumOre,
+    tantalumOre, zirconiumOre, vanadiumOre, tanWallOre, cyanidOre,
 
+    // Pryma region
+
+    // basalt
+    flameBasalt, flameBasaltWall, cyanBasaltWall, flameBasaltVent, flameBasaltBoulder,
+    // granit
+    flameGranit, flameGranitWall, cyanGranitWall, flameGranitBoulder, cyanCrystal,
     //other
     oldTracks, tWallLargeScrap;
 
@@ -131,6 +135,13 @@ public class NSBenvironment {
             slate.asFloor().decoration = this;
         }};
 
+        slateStone = new TallBlock("slateStone"){{
+            size = 1;
+            variants = 3;
+            shadowOffset = 0.2f;
+            customShadow = true;
+        }};
+
         redStone = new Floor("redStone") {{
             variants = 5;
         }};
@@ -143,6 +154,18 @@ public class NSBenvironment {
         redBoulder = new Prop("redBoulder"){{
             variants = 2;
             redStone.asFloor().decoration = this;
+        }};
+
+        redGeyser = new Geyser("redGeyser"){{
+            gTime = 150 * 60;
+            chargeTime = 500 * 60;
+            variants = 4;
+            size = 1;
+            bullet = new LiquidBulletType(Liquids.slag){{
+                damage = 15;
+                speed = 6;
+                lifetime = 15;
+            }};
         }};
 
         //sss
@@ -172,6 +195,7 @@ public class NSBenvironment {
 
         rainStone = new Floor("rainStone") {{
             variants = 3;
+            attributes.set(NSattribute.fundum, 0.05f);
         }};
 
         rainStoneWall = new StaticWall("rainStoneWall") {{
@@ -186,6 +210,7 @@ public class NSBenvironment {
 
         coldStone = new Floor("coldStone") {{
             variants = 3;
+            attributes.set(NSattribute.fundum, 0.05f);
         }};
 
         //purl
@@ -193,9 +218,10 @@ public class NSBenvironment {
             variants = 6;
         }};
 
-        purlWall = new StaticWall("purlWall"){{
-           purl.asFloor().wall = this;
-           mapColor = Color.valueOf("6d5869");
+        purlWall = new StaticTree("purlWall"){{
+            variants = 4;
+            purl.asFloor().wall = this;
+            mapColor = Color.valueOf("6d5869");
             attributes.set(Attribute.sand, 1.5f);
         }};
 
@@ -211,6 +237,97 @@ public class NSBenvironment {
             }};
         }};
 
+        purlBoulder = new TallBlock("purlBoulder"){{
+            size = 1;
+            variants = 2;
+            shadowOffset = 0.2f;
+            customShadow = true;
+        }};
+
+        purlWeed = new Seaweed("purlWeed"){{
+            variants = 3;
+            purl.asFloor().decoration = this;
+            offset = 0.1f;
+        }};
+        flameBasalt = new Floor("flameBasalt") {{
+            variants = 4;
+            attributes.set(Attribute.sand, 1f);
+        }};
+
+        flameBasaltWall = new StaticWall("flameBasaltWall"){{
+            flameBasalt.asFloor().wall = this;
+            attributes.set(Attribute.sand, 1f);
+        }};
+
+        cyanBasaltWall = new StaticWall("cyanBasaltWall"){{
+            variants = 3;
+            attributes.set(Attribute.sand, 1f);
+            itemDrop = NSitems.cyanid;
+        }};
+
+        flameBasaltVent = new SteamVent("flameBasaltVent"){{
+            parent = blendGroup = flameBasalt;
+            attributes.set(NSattribute.ozone, 1f);
+            attributes.set(NSattribute.naturit, 0.10f);
+            effectColor = Color.valueOf("ffbdd4");
+        }};
+
+        flameBasaltBoulder = new Prop("flameBasaltBoulder"){{
+            variants = 2;
+            flameBasalt.asFloor().decoration = this;
+        }};
+
+        flameGranit = new Floor("flameGranit") {{
+            variants = 4;
+            attributes.set(Attribute.sand, 1f);
+        }};
+
+        flameGranitWall = new StaticWall("flameGranitWall"){{
+            flameGranit.asFloor().wall = this;
+            attributes.set(Attribute.sand, 1f);
+        }};
+
+        cyanGranitWall = new StaticWall("cyanGranitWall"){{
+            variants = 3;
+            attributes.set(Attribute.sand, 1f);
+            itemDrop = NSitems.cyanid;
+        }};
+
+        flameGranitBoulder = new Prop("flameGranitBoulder"){{
+            variants = 2;
+            flameGranit.asFloor().decoration = this;
+        }};
+
+        cyanCrystal = new DamageTallBlock("cyanCrystal"){{
+            itemDrop = NSitems.cyanid;
+            variants = 3;
+            clipSize = 96f;
+            damageRange = 11;
+            damage = 7;
+            shadowOffset = -1.5f;
+        }};
+        softRock = new Floor("softRock") {{
+            variants = 3;
+            attributes.set(NSattribute.fundum, 0.15f);
+        }};
+
+        softRockWall = new StaticWall("softWall"){{
+            softRock.asFloor().wall = this;
+            attributes.set(Attribute.sand, 1f);
+        }};
+
+        softGay = new Geyser("softRockGay"){{
+            gTime = 150 * 60;
+            chargeTime = 500 * 60;
+            variants = 2;
+            size = 1;
+            bullet = new LiquidBulletType(NSLiquids.fernum){{
+                damage = 8;
+                speed = 5;
+                lifetime = 10;
+            }};
+        }};
+
         //ores
         tantalumOre = new OreBlock("tantalumOre"){{
             itemDrop = NSitems.tantalum;
@@ -220,11 +337,27 @@ public class NSBenvironment {
             itemDrop = NSitems.zirconium;
         }};
 
+        vanadiumOre = new OreBlock("vanadiumWallOre"){{
+            itemDrop = NSitems.vanadium;
+            wallOre = true;
+        }};
+
+        cyanidOre = new OreBlock("cyanidWallOre"){{
+            itemDrop = NSitems.cyanid;
+            wallOre = true;
+        }};
+
+        tanWallOre = new OreBlock("tantalumWallOre"){{
+            itemDrop = NSitems.tantalum;
+            wallOre = true;
+        }};
+
         //other
         oldTracks = new Wall("old-tracks"){{
             requirements(Category.defense, BuildVisibility.sandboxOnly, with(NSitems.zirconium, 12, NSitems.tantalum, 12));
             variants = 3;
             health = 450;
+            rotate = true;
         }};
 
         tWallLargeScrap = new Wall("tWall-large-scrap"){{
@@ -233,6 +366,5 @@ public class NSBenvironment {
             size = 2;
             health = 990;
         }};
-
     }
 }

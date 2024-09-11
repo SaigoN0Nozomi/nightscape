@@ -11,12 +11,19 @@ public class SoundsAlt {
     public static Sound
         rocket = new Sound(),
         shoot2 = new Sound(),
+        nya = new Sound(),
+        uwu = new Sound(),
+        god = new Sound(),
         plasmaCharge = new Sound(),
         plasmaBlast = new Sound(),
         plasma = new Sound(),
         shoot = new Sound(),
         blast = new Sound(),
         bigsap = new Sound(),
+        ascent = new Sound(),
+        cool = new Sound(),
+        artileryShoot = new Sound(),
+        fireinthehole = new Sound(),
         snipeShoot = new Sound();
         public static void load(){
             shoot = loadSound("shootAlt2");
@@ -28,6 +35,14 @@ public class SoundsAlt {
             plasma = loadSound("plasma");
             snipeShoot = loadSound("snipeShoot");
             blast = loadSound("blast");
+            ascent = loadSound("ascent");
+            cool = loadSound("cool");
+            fireinthehole = loadSound("fireinthehole");
+            artileryShoot = loadSound("artileryShoot");
+
+            nya = loadSound("nya");
+            uwu = loadSound("uwu");
+            god = loadSound("god");
         }
 
         private static Sound loadSound(String soundName){

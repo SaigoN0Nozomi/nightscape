@@ -35,7 +35,7 @@ public class HealingWall extends Wall{
 
             charge++;
             if(charge >= reload && canHeal) {
-                heal(health * healPercent / 100);
+                heal(maxHealth * healPercent / 100);
                 blockFx.healWall.at(x, y, size, healColor, block);
                 charge = 0;
             }

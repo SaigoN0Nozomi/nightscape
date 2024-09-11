@@ -35,11 +35,11 @@ public class ChordaPlanetGenerator extends PlanetGenerator {
                     {ice, coldStone, rainStone, purl, ash, rainStone, rainStone, rainStone, purl, purl, purl, purl, purl},
                     {slate, ice, coldStone, purl, natAsh, purl, ash, rainStone, purl, purl, purl, purl, purl},
                     {ice, ice, coldStone, coldStone, natAsh, rainStone, slate, slate, slate, rainStone, ash, ash, ash},
-                    {slate, coldStone, slate, natAsh, natAsh, natAsh, slate, ash, ash, ash, rainStone, ash, purl},
+                    {slate, coldStone, slate, ash, ash, natAsh, slate, ash, ash, ash, rainStone, ash, purl},
                     {slate, ice, coldStone, rainStone, natAsh, coldStone, slate, slate, rainStone, rainStone, rainStone, rainStone, purl},
-                    {ice, ice, coldStone, slate, coldStone, slate, natAsh, ash, rainStone, rainStone, purl, rainStone, purl},
-                    {coldStone, coldStone, slate, rainStone, natAsh, natAsh, rainStone, slate, slate, slate, purl, rainStone, purl},
-                    {coldStone, ice, rainStone, coldStone, slate, natAsh, slate, natAsh, slate, purl, rainStone, purl, purl},
+                    {ice, ice, coldStone, slate, coldStone, slate, ash, ash, rainStone, rainStone, purl, rainStone, purl},
+                    {coldStone, coldStone, slate, rainStone, natAsh, ash, rainStone, slate, slate, slate, purl, rainStone, purl},
+                    {coldStone, ice, rainStone, coldStone, slate, natAsh, slate, ash, slate, purl, rainStone, purl, purl},
                     {ice, coldStone, slate, rainStone, natAsh, purl, rainStone, slate, slate, purl, rainStone, purl, purl},
                     {coldStone, rainStone, rainStone, purl, purl, purl, rainStone, rainStone, rainStone, rainStone, purl, purl, purl},
                     {ice, ice, coldStone, purl, purl, purl, purl, rainStone, rainStone, purl, purl, purl, purl},
@@ -47,11 +47,11 @@ public class ChordaPlanetGenerator extends PlanetGenerator {
                     {ice, coldStone, rainStone, purl, ash, rainStone, rainStone, rainStone, purl, purl, purl, purl, purl}
             };
 
-    float water = 2f / arr[0].length;
+    float water = 1.6f / arr[0].length;
 
     float rawHeight(Vec3 position){
         position = Tmp.v33.set(position).scl(scl);
-        return (Mathf.pow(Simplex.noise3d(seed, 7, 0.5f, 1f/3f, position.x, position.y, position.z), 2.3f) + waterOffset) / (1f + waterOffset);
+        return (Mathf.pow(Simplex.noise3d(seed, 7, 0.3f, 2f/5f, position.x, position.y, position.z), 1.9f) + waterOffset) / (1f + waterOffset);
     }
     @Override
     public float getHeight(Vec3 position){

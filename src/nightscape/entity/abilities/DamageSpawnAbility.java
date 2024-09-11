@@ -1,28 +1,21 @@
 package nightscape.entity.abilities;
 
-import arc.Core;
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Lines;
-import arc.graphics.g2d.TextureRegion;
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
 import mindustry.entities.Effect;
 import mindustry.entities.Units;
 import mindustry.entities.abilities.UnitSpawnAbility;
 import mindustry.gen.Unit;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
-import nightscape.content.effects.unitFx;
+import nightscape.content.effects.baseunitFx;
 
 public class DamageSpawnAbility extends UnitSpawnAbility {
     public float damage;
     public float range = 120;
     public float charge;
-    public Effect fx = unitFx.drain;
+    public Effect fx = baseunitFx.drain;
     public DamageSpawnAbility(UnitType unit, float spawnTime, float spawnX, float spawnY, float damage){
         this.unit = unit;
         this.spawnTime = spawnTime;

@@ -1,5 +1,6 @@
 package nightscape.world.status;
 
+import arc.util.Strings;
 import mindustry.gen.Unit;
 import mindustry.type.StatusEffect;
 import mindustry.world.meta.Stat;
@@ -12,7 +13,7 @@ public class ArmorStatus extends StatusEffect {
 
     public void setStats(){
         super.setStats();
-        stats.add(Stat.armor, (int)(armorAdd));
+        stats.add(Stat.armor, Strings.autoFixed(armorAdd, 0));
     }
     public void update(Unit unit, float time){
         unit.armor = unit.type.armor;

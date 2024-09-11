@@ -44,5 +44,6 @@ public class Geyser extends StaticWall implements UpdateEnvironment<Interval>{
                 }
             }
         }
+
     }
 }

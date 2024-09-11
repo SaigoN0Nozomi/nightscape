@@ -10,13 +10,14 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.heat.HeatConductor;
 import mindustry.world.blocks.heat.HeatProducer;
-import mindustry.world.blocks.power.BeamNode;
-import mindustry.world.blocks.power.ConsumeGenerator;
-import mindustry.world.blocks.power.SolarGenerator;
+import mindustry.world.blocks.power.*;
 import mindustry.world.consumers.ConsumeItemFlammable;
 import mindustry.world.consumers.ConsumeItems;
 import mindustry.world.draw.*;
+import nightscape.content.NSLiquids;
 import nightscape.content.NSitems;
+import nightscape.content.effects.blockFx;
+import nightscape.world.block.power.HeatGenerator;
 import nightscape.world.block.production.HeatCore;
 
 import static mindustry.content.Items.silicon;
@@ -24,9 +25,12 @@ import static mindustry.type.ItemStack.with;
 
 public class NSBpower {
     public static Block
-    ozoneHeater, heatRedirector, heatCore,
-    node, SFGenerator, solarPanel;
+            //heat
+    ozoneHeater, heatRedirector, heatCore, slagHeater,
+            //power
+    node, bigNode, SFGenerator, solarPanel, powerStorage, heatGenerator;
     public static void load(){
+        //heat region
         heatRedirector = new HeatConductor("heatRedirector"){{
             requirements(Category.power, with(NSitems.tantalum, 35, NSitems.velonium, 15));
 
@@ -69,29 +73,71 @@ public class NSBpower {
             consumePower(1f);
             researchCost = ItemStack.with(NSitems.tantalum, 1850, NSitems.velonium, 550, silicon, 750);
 
-            EnPerHeat = 70f / 60f;
+            EnPerHeat = 55f / 60f;
             heatMin = 1;
             heatMax = 6;
             step = 0.5f;
         }};
+        /*
+        slagHeater = new HeatProducer("slagHeater"){{
+            requirements(Category.power, with(NSitems.vanadium, 25, NSitems.tantalum, 35));
 
+            researchCostMultiplier = 4f;
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput());
+            size = 2;
+            itemCapacity = 0;
+            health = 120;
+            liquidCapacity = 40f;
+            rotateDraw = false;
+            regionRotated1 = 1;
+            ambientSound = Sounds.hum;
+            consumeLiquid(Liquids.slag, 12f / 60f);
+            heatOutput = 3f;
+
+            researchCost = with(NSitems.vanadium, 425, NSitems.tantalum, 225);
+        }};
+         */
+
+        //power region
         node = new BeamNode("node"){{
             requirements(Category.power, with(NSitems.tantalum, 9, silicon, 6));
             consumesPower = outputsPower = true;
             health = 120;
             range = 6;
             fogRadius = 3;
-            researchCost = ItemStack.with(NSitems.tantalum, 225, silicon, 150);
+            researchCost = ItemStack.with(NSitems.tantalum, 36, silicon, 12);
 
             consumePowerBuffered(250f);
+        }};
+
+        bigNode = new PowerNode("bigNode"){{
+            requirements(Category.power, with(NSitems.dense, 24, silicon, 18));
+            consumesPower = outputsPower = true;
+            health = 360;
+            maxRange = 24;
+            maxNodes = 3;
+            size = 2;
+            fogRadius = 3;
+
+            consumePowerBuffered(1000f);
+        }};
+
+        powerStorage = new Battery("powerStorage"){{
+            requirements(Category.power, with(NSitems.tantalum, 70, silicon, 55));
+            consumesPower = outputsPower = true;
+            health = 320;
+            size = 2;
+
+            consumePowerBuffered(6000f);
         }};
 
         SFGenerator = new ConsumeGenerator("solidFuelGenerator"){{
             requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 15));
             powerProduction = 5f / 6f;
-            itemDuration = 75f;
+            itemDuration = 150f;
             size = 2;
-            researchCost = ItemStack.with(NSitems.tantalum, 650, NSitems.zirconium, 580, silicon, 350);
+            researchCost = ItemStack.with(NSitems.tantalum, 350, NSitems.zirconium, 280, silicon, 30);
 
             generateEffect = Fx.generatespark;
             ambientSound = Sounds.smelter;
@@ -108,6 +154,26 @@ public class NSBpower {
            requirements(Category.power, with(NSitems.velonium, 20, silicon, 15));
            size = 2;
            powerProduction = 20/60f;
+        }};
+
+        heatGenerator = new HeatGenerator("heatGenerator"){{
+            requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 15));
+            size = 3;
+            health = 380;
+            squareSprite = false;
+
+            effectChance = 0.1f;
+            generateEffect = blockFx.amSmoke;
+            minEff = 0.1f;
+            heatReq = 5;
+            powerProduction = 380/60f;
+            consumeLiquid(NSLiquids.ammonia, 13/60f);
+
+            drawer = new DrawMulti(
+                    new DrawDefault(),
+                    new DrawLiquidTile(NSLiquids.ammonia, 1.5f),
+                    new DrawRegion("-top")
+            );
         }};
     }
 }
