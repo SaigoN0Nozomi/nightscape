@@ -1,6 +1,7 @@
 package nightscape.content.blocks;
 
 import arc.graphics.Color;
+import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.entities.bullet.LiquidBulletType;
 import mindustry.gen.Sounds;
@@ -14,6 +15,7 @@ import mindustry.world.meta.BuildVisibility;
 import nightscape.content.NSLiquids;
 import nightscape.content.NSattribute;
 import nightscape.content.NSitems;
+import nightscape.content.effects.blockFx;
 import nightscape.world.block.environment.DamageTallBlock;
 import nightscape.world.block.environment.Geyser;
 
@@ -72,7 +74,7 @@ public class NSBenvironment {
 
         //Ash
         ash = new Floor("ash") {{
-            variants = 3;
+            variants = 5;
             attributes.set(NSattribute.naturit, 0.05f);
             playerUnmineable = true;
         }};
@@ -103,7 +105,7 @@ public class NSBenvironment {
         }};
 
         natTree = new TreeBlock("naturitTree"){{
-            variants = 2;
+            variants = 3;
             shadowOffset = -0.75f;
             emitLight = true;
             lightRadius = 48;
@@ -127,7 +129,7 @@ public class NSBenvironment {
 
         slateWall = new StaticWall("slateWall") {{
             slate.asFloor().wall = this;
-            attributes.set(Attribute.sand, 1f);
+            itemDrop = Items.sand;
         }};
 
         slateBoulder = new Prop("slateBoulder"){{
@@ -140,6 +142,7 @@ public class NSBenvironment {
             variants = 3;
             shadowOffset = 0.2f;
             customShadow = true;
+            itemDrop = Items.sand;
         }};
 
         redStone = new Floor("redStone") {{
@@ -148,7 +151,7 @@ public class NSBenvironment {
 
         redWall = new StaticWall("redWall") {{
             redStone.asFloor().wall = this;
-            attributes.set(Attribute.sand, 1f);
+            itemDrop = Items.sand;
         }};
 
         redBoulder = new Prop("redBoulder"){{
@@ -251,17 +254,15 @@ public class NSBenvironment {
         }};
         flameBasalt = new Floor("flameBasalt") {{
             variants = 4;
-            attributes.set(Attribute.sand, 1f);
         }};
 
         flameBasaltWall = new StaticWall("flameBasaltWall"){{
             flameBasalt.asFloor().wall = this;
-            attributes.set(Attribute.sand, 1f);
+            itemDrop = Items.sand;
         }};
 
         cyanBasaltWall = new StaticWall("cyanBasaltWall"){{
             variants = 3;
-            attributes.set(Attribute.sand, 1f);
             itemDrop = NSitems.cyanid;
         }};
 
@@ -284,7 +285,6 @@ public class NSBenvironment {
 
         flameGranitWall = new StaticWall("flameGranitWall"){{
             flameGranit.asFloor().wall = this;
-            attributes.set(Attribute.sand, 1f);
         }};
 
         cyanGranitWall = new StaticWall("cyanGranitWall"){{

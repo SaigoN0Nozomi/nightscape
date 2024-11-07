@@ -30,13 +30,14 @@ import nightscape.world.block.production.multiExtractor.SEaStabilizer;
 import static arc.graphics.g2d.Draw.color;
 import static arc.math.Angles.randLenVectors;
 import static mindustry.content.Items.*;
+import static mindustry.content.Liquids.ozone;
 import static mindustry.type.ItemStack.with;
 
 public class NSBproduction {
     public static Block
     shockDrill, nutExtractor, veloniumFurnace, naturitSeparator,
     seaDrill, seaBuffer, seaBufferEnemy, seaStabilizer,
-    siliconFurnace, ozoneCondenser, highFurn,
+    siliconFurnace, ozoneCondenser, highFurn, rainColl,
     eruptionDrill, ozoneIncinerator, strebyPress,
     //Pryma region
     natAirCollector, thermalExtractor, slagDrill, ozoneEl;
@@ -53,12 +54,8 @@ public class NSBproduction {
             itemCapacity = 20;
 
             drillTime = 60f * 6f;
-            drillEffect = new MultiEffect(
-                    Fx.mineImpact,
-                    Fx.drillSteam,
-                    Fx.mineImpactWave.wrap(Liquids.ozone.color, 45f)
-            );
-            shake = 4f;
+            drillEffect = blockFx.shockBlast;
+            shake = 2f;
             fogRadius = 4;
             drillMultipliers.put(NSitems.tantalum, 1.5f);
 
@@ -66,7 +63,7 @@ public class NSBproduction {
             arrows = 1;
             baseArrowColor = Color.valueOf("4c3d4e");
 
-            consumeLiquid(Liquids.ozone, 1.5f / 60f);
+            consumeLiquid(ozone, 1.5f / 60f);
         }};
 
         eruptionDrill = new NSDrill("eruptionDrill"){{
@@ -120,7 +117,7 @@ public class NSBproduction {
             );
 
             outputLiquid = new LiquidStack(NSLiquids.fernum, 2/6f);
-            consumeLiquid(Liquids.ozone, 12/60f);
+            consumeLiquid(ozone, 12/60f);
         }};
         seaBuffer = new SEaBuffer("t"){{
             requirements(Category.production, with(NSitems.tantalum, 20, NSitems.naturit, 10));
@@ -153,23 +150,23 @@ public class NSBproduction {
 
             researchCost = ItemStack.with(NSitems.tantalum, 40);
             outputItem = new ItemStack(NSitems.naturit, 1);
-            outputLiquid = new LiquidStack(Liquids.ozone, 9f / 60f);
+            outputLiquid = new LiquidStack(ozone, 9f / 60f);
             craftTime = 120;
             size = 2;
+
+            craftEffect = blockFx.natExtraction;
 
             hasItems = true;
             hasLiquids = true;
             liquidCapacity = 90f;
             radius = 1;
             radColor = NSitems.naturit.color;
-
-            craftEffect = Fx.none;
             attribute = NSattribute.naturit;
 
             legacyReadWarmup = true;
             drawer = new DrawMulti(
                     new DrawDefault(),
-                    new DrawLiquidTile(Liquids.ozone),
+                    new DrawLiquidTile(ozone),
                     new DrawRegion("-cultivator"){{
                         spinSprite = true;
                         rotateSpeed = 10f;
@@ -185,12 +182,7 @@ public class NSBproduction {
             requirements(Category.crafting, with(NSitems.tantalum, 55));
             researchCost = ItemStack.with(NSitems.tantalum, 650);
 
-            craftEffect = new Effect(60, e -> {
-                randLenVectors(e.id, 8, 4f + e.fin() * 5f, (x, y) -> {
-                    color(Color.orange, e.color, e.fin());
-                    Fill.square(e.x + x, e.y + y, 0.1f + e.fout() * 3f, 45);
-                });
-            });
+            craftEffect = blockFx.velFurnace;
 
             outputItem = new ItemStack(NSitems.velonium, 1);
             craftTime = 60f;
@@ -229,7 +221,7 @@ public class NSBproduction {
                     new DrawLiquidOutputs(),
                     new DrawHeatInput()
             );
-            outputLiquids = LiquidStack.with(Liquids.ozone, 8 / 60f, NSLiquids.ammonia, 12 / 60f);
+            outputLiquids = LiquidStack.with(ozone, 8 / 60f, NSLiquids.ammonia, 12 / 60f);
             liquidOutputDirections = new int[]{1, 3};
         }};
 
@@ -250,6 +242,27 @@ public class NSBproduction {
             researchCost = with(NSitems.tantalum, 550, NSitems.velonium, 220, NSitems.zirconium, 160);
         }};
 
+        rainColl = new HeatCrafter("rainColl"){{
+            requirements(Category.crafting, with(NSitems.tantalum, 75, NSitems.zirconium, 60, NSitems.velonium, 45));
+            researchCost = with(NSitems.tantalum, 650, NSitems.zirconium, 390, NSitems.velonium, 230);
+
+            craftTime = 45;
+            craftEffect = blockFx.blastFurnace;
+            consumeLiquid(ozone, 9/60f);
+            consumeItems(with(sand, 3));
+            outputItem = new ItemStack(blastCompound, 1);
+            heatRequirement = 2;
+            maxEfficiency = 2;
+            size = 2;
+            squareSprite = false;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bot"),
+                    new DrawLiquidTile(ozone, 1.5f),
+                    new DrawRegion(),
+                    new DrawHeatInput("-heat")
+            );
+        }};
+
         ozoneCondenser = new AttributeCrafter("ozoneCondenser"){{
             requirements(Category.production, with(NSitems.tantalum, 120, NSitems.zirconium, 120, silicon, 80));
             researchCost = with(NSitems.tantalum, 1420, NSitems.zirconium, 1340, silicon, 720);
@@ -261,7 +274,7 @@ public class NSBproduction {
             craftEffect = Fx.turbinegenerate;
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawLiquidTile(Liquids.ozone, 1.5f),
+                    new DrawLiquidTile(ozone, 1.5f),
                     new DrawRegion("-rotator"){{
                         spinSprite = true;
                         rotateSpeed = 18f;
@@ -274,7 +287,7 @@ public class NSBproduction {
             ambientSoundVolume = 0.06f;
             hasLiquids = true;
             boostScale = 1f / 9f;
-            outputLiquid = new LiquidStack(Liquids.ozone, 2 / 6f);
+            outputLiquid = new LiquidStack(ozone, 2 / 6f);
             consumePower(8f/ 6);
             liquidCapacity = 60f;
         }};
@@ -303,7 +316,7 @@ public class NSBproduction {
             researchCost = with(NSitems.zirconium, 850, NSitems.velonium, 625);
             liquidCapacity = 60f;
             craftTime = 120f;
-            consumeLiquids(LiquidStack.with(Liquids.ozone, 1.5 / 60f, NSLiquids.fernum, 2 / 60f));
+            consumeLiquids(LiquidStack.with(ozone, 1.5 / 60f, NSLiquids.fernum, 2 / 60f));
             consumeItems(with(NSitems.zirconium, 2));
             outputItem = new ItemStack(NSitems.streby, 1);
             size = 2;
@@ -313,7 +326,7 @@ public class NSBproduction {
             craftEffect = Fx.none;
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
-                new DrawLiquidTile(Liquids.ozone, 1.5f),
+                new DrawLiquidTile(ozone, 1.5f),
                 new DrawPistons(){{
                     sinMag = 2.5f;
                 }},

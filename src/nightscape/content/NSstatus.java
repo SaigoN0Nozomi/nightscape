@@ -3,6 +3,7 @@ package nightscape.content;
 import arc.graphics.Color;
 import arc.graphics.g2d.Fill;
 import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.type.StatusEffect;
 import nightscape.content.effects.StatusFx;
@@ -37,6 +38,9 @@ public class NSstatus {
             damageMultiplier = 0.7f;
             effect = StatusFx.shock;
             effectChance = 0.04f;
+            transitionDamage = 30;
+            reactive = true;
+            reactsWith(StatusEffects.blasted);
         }};
 
         ascent = new StatusEffect("Ascent"){{

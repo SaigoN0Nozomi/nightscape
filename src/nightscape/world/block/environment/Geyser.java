@@ -4,6 +4,8 @@ import arc.math.Mathf;
 import arc.util.Interval;
 import arc.util.Time;
 import mindustry.Vars;
+import mindustry.content.Fx;
+import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
 import mindustry.game.Team;
 import mindustry.gen.Building;
@@ -44,6 +46,5 @@ public class Geyser extends StaticWall implements UpdateEnvironment<Interval>{
                 }
             }
         }
-
     }
 }

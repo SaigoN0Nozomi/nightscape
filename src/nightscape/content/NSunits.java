@@ -54,7 +54,7 @@ public class NSunits {
     imp, vassago, baphometh, belial,
 
     //buggs
-    xing, dier,
+    xing, dier, dong,
 
     //something like only for enemy fractions units
     invader, rush, force, barier, //first level
@@ -295,6 +295,8 @@ public class NSunits {
             }});
             abilities.add(new DeathWishAbility() {{
                 radius = 120;
+                afterDamage = 330;
+                cloudLifetime = 320;
                 damage = 90;
                 deathWish = baseunitFx.volumineDeathWish;
             }});
@@ -778,7 +780,7 @@ public class NSunits {
                 }};
             }});
             setEnginesMirror(
-                    new UnitEngine(10, -7, 5f, 315f)
+                new UnitEngine(10, -7, 5f, 315f)
             );
             engineSize = 8f;
             engineOffset = 9f;
@@ -828,7 +830,7 @@ public class NSunits {
                 reload = 1f;
                 shootOnDeath = true;
                 shake = 10f;
-                bullet = new FieldBulletType(20f, 10f, 64) {{
+                bullet = new FieldBulletType(40f, 10f, 64) {{
                     collidesAir = true;
                     damageAllies = false;
                 }};
@@ -1543,6 +1545,95 @@ public class NSunits {
                     y = -4;
                 }});
             }});
+        }};
+
+        dong = new UnitType("dong"){{
+            this.constructor = UnitEntity::create;
+            health = 630;
+            armor = 5;
+            accel = 0.02f;
+            drag = 0.04f;
+            flying = true;
+            lowAltitude = true;
+            hitSize = 19f;
+            rotateSpeed = 1.7f;
+            outlineColor = Color.valueOf("302626");
+            engineSize = 4.5f;
+            engineOffset = 7f;
+            range = 120f;
+            speed = 1.9f;
+            fogRadius = 17;
+            setEnginesMirror(
+                    new UnitEngine(5.6f, -11f, 3f, 225f)
+            );
+            weapons.add(new Weapon(name + "-blast"){{
+                x = -12.2f;
+                reload = 90;
+                recoilTime = 60;
+                shootSound = SoundsAlt.artileryShoot;
+                shake = 1.6f;
+                layerOffset = -0.01f;
+                rotate = true;
+                rotateSpeed = 4;
+                rotationLimit = 45f;
+                bullet = new BasicBulletType(5, 12){{
+                    lifetime = 30;
+                    hitSound = Sounds.shotgun;
+                    width = 12;
+                    height = 19;
+                    frontColor = Color.valueOf("ffd8d1");
+                    backColor = Color.valueOf("e8998c");
+                    fragBullets = 3;
+                    fragRandomSpread = 0;
+                    fragSpread = 30f;
+                    fragOnHit = true;
+                    fragBullet = new ShrapnelBulletType(){{
+                        length = 30f;
+                        width = 12f;
+                        damage = 20;
+                        serrationSpacing = 4;
+                        hitShake = 3;
+                        toColor = Color.valueOf("ffd8d1");
+                    }};
+                }};
+                parts.add(
+                    new RegionPart("-gun"){{
+                        progress = PartProgress.recoil;
+                        moveY = -2f;
+                    }}
+                );
+            }});
+            weapons.addAll(
+                new Weapon(name + "-pew"){{
+                    y = 5f;
+                    x = 4;
+                    top = true;
+                    rotate = true;
+                    rotateSpeed = 4.2f;
+                    alternate = false;
+                    reload = 30;
+                    bullet = new BasicBulletType(3, 5){{
+                        lifetime = 50;
+                        frontColor = Color.valueOf("ffd8d1");
+                        backColor = Color.valueOf("e8998c");
+                        hitEffect = despawnEffect = upunitFx.dongHit;
+                    }};
+                }}, new Weapon(name + "-pew"){{
+                    y = -6f;
+                    x = 7f;
+                    top = true;
+                    rotate = true;
+                    rotateSpeed = 3.6f;
+                    alternate = false;
+                    reload = 45;
+                    bullet = new BasicBulletType(3, 5){{
+                        lifetime = 50;
+                        frontColor = Color.valueOf("ffd8d1");
+                        backColor = Color.valueOf("e8998c");
+                        hitEffect = despawnEffect = upunitFx.dongHit;
+                    }};
+                }}
+            );
         }};
 
         invader = new UnitType("Invader"){{

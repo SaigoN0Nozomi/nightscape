@@ -55,7 +55,7 @@ public class StatusFx {
     }),
 
     growth = new Effect(15, e -> {
-        color(NSitems.naturit.color, Color.gray.a(0.4f), e.fin());
+        color(NSitems.naturit.color, Color.valueOf("a0a0a0").a(0.4f), e.fin());
 
         randLenVectors(e.id, 4, e.finpow() * 12f, e.rotation, 360f, (x, y) -> {
             Fill.circle(e.x + x, e.y +y, e.fout() * 2f + 0.3f);

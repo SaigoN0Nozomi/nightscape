@@ -4,6 +4,7 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
+import mindustry.Vars;
 import mindustry.game.Team;
 import mindustry.graphics.Drawf;
 import mindustry.world.Tile;

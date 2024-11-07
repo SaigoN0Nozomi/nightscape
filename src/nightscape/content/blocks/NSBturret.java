@@ -48,6 +48,7 @@ import nightscape.world.meta.SoundsAlt;
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
+import static mindustry.content.Items.blastCompound;
 import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
 
@@ -112,6 +113,21 @@ public class NSBturret {
                     homingRange = 40;
                     homingPower = 0.02f;
                     smokeEffect = turretFx.victimSmoke;
+                }}, blastCompound, new BasicBulletType(4f, 6f){{
+                    reloadMultiplier = 1.2f;
+                    splashDamage = 14;
+                    splashDamageRadius = 14;
+                    width = 6f;
+                    height = 14f;
+                    lifetime = 30f;
+                    ammoMultiplier = 3;
+                    backColor = trailColor = Color.orange;
+                    trailEffect = turretFx.victimBTrail;
+                    trailChance = 0.18f;
+                    hitEffect = turretFx.victimBHit;
+                    frontColor = Color.yellow;
+                    despawnEffect = Fx.none;
+                    smokeEffect = turretFx.victimSmoke;
                 }}
             );
 
@@ -154,6 +170,15 @@ public class NSBturret {
                     despawnEffect = hitEffect = turretFx.flickerHit;
                     statusDuration = 240;
                     status = NSstatus.overgrowth;
+                }}, blastCompound, new ArtilleryBulletType(3f,15){{
+                    splashDamage = 27;
+                    lifetime = 20;
+                    splashDamageRadius = 64;
+                    sprite = "circle-bullet";
+                    backColor = frontColor = trailColor = Color.orange;
+                    despawnEffect = hitEffect = turretFx.flickerHitExp;
+                    statusDuration = 240;
+                    status = StatusEffects.blasted;
                 }}
             );
             shootSound = SoundsAlt.artileryShoot;
@@ -636,6 +661,37 @@ public class NSBturret {
                         hitEffect = despawnEffect = turretFx.magneticHit;
                         frontColor = Color.white;
                     }};
+                }}, blastCompound, new BasicBulletType(6f, 16f){{
+                    splashDamageRadius = 16;
+                    splashDamage = 19;
+                    width = 10f;
+                    height = 14f;
+                    lifetime = 14f;
+                    ammoMultiplier = 1;
+                    reloadMultiplier = 0.7f;
+                    pierceArmor = true;
+                    backColor = trailColor = Color.orange;
+                    trailWidth = 3;
+                    trailLength = 7;
+                    hitEffect = despawnEffect = turretFx.magneticHitExp;
+                    frontColor = Color.white;
+                    fragBullets = 2;
+                    fragRandomSpread = 50;
+                    fragBullet = new ArtilleryBulletType(6f, 3f){{
+                        splashDamageRadius = 32;
+                        splashDamage = 42;
+                        width = 6f;
+                        height = 9f;
+                        lifetime = 12f;
+                        ammoMultiplier = 1;
+                        reloadMultiplier = 1.3f;
+                        pierceArmor = true;
+                        backColor = trailColor = Color.orange;
+                        trailWidth = 3;
+                        trailLength = 7;
+                        hitEffect = despawnEffect = turretFx.magneticHitExpBig;
+                        frontColor = Color.white;
+                    }};
                 }});
             squareSprite = false;
             consumeAmmoOnce = false;
@@ -804,12 +860,12 @@ public class NSBturret {
                             deathExplosionEffect = turretFx.hornetHit;
                             shootOnDeath = true;
                             shake = 10f;
-                            bullet = new ExplosionBulletType(189f, 48f){{
+                            bullet = new ExplosionBulletType(439f, 48f){{
                                 hitEffect = Fx.none;
                                 collidesAir = false;
                                 buildingDamageMultiplier = 0.7f;
                                 fragBullets = 1;
-                                fragBullet = new FieldBulletType(25, 60, 102){{
+                                fragBullet = new FieldBulletType(35, 60, 102){{
                                     lifetime = 360;
                                     damageAllies = false;
                                 }};

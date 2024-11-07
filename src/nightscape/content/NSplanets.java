@@ -77,6 +77,7 @@ public class NSplanets {
                 r.fog = true;
                 r.coreIncinerates = true;
                 r.staticFog = true;
+                r.staticColor = Color.valueOf("000000BB");
                 r.lighting = false;
                 r.coreDestroyClear = false;
                 r.weather.add(new Weather.WeatherEntry(NSweather.ozoneRain, 5 * 60 * 60, 7 * 60 * 60, 20 * 60, 60 * 60));
@@ -153,6 +154,7 @@ public class NSplanets {
                         new Weather.WeatherEntry(NSweather.storm, 20 * 60 * 60, 25 * 60 * 60, 4 * 60 * 60, 8 * 60 * 60)
                 );
                 r.staticFog = true;
+                r.staticColor = Color.valueOf("000000BB");
                 r.lighting = false;
                 r.coreDestroyClear = false;
             };

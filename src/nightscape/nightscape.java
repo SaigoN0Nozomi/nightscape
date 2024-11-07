@@ -1,22 +1,11 @@
 package nightscape;
 
-import arc.scene.ui.ImageButton;
-import arc.scene.ui.layout.Table;
-import arc.scene.ui.layout.WidgetGroup;
 import arc.util.*;
-import mindustry.game.Team;
-import mindustry.gen.Tex;
 import mindustry.mod.*;
-import mindustry.ui.Styles;
 import nightscape.content.*;
-import nightscape.content.OZONEGOD.OZONEGOD;
 import nightscape.world.UpdEnvContainer;
-import nightscape.world.meta.NSMusic;
 import nightscape.world.meta.NSTeams;
 import nightscape.world.meta.SoundsAlt;
-
-import static mindustry.Vars.editor;
-import static mindustry.Vars.ui;
 
 public class nightscape extends Mod{
 
@@ -32,7 +21,6 @@ public class nightscape extends Mod{
         Log.info("Loading attribute, status, weather and item lists.");
         NSTeams.load();
         SoundsAlt.load();
-        NSMusic.load();
         NSattribute.load();
         NSstatus.load();
         NSweather.load();
@@ -46,7 +34,6 @@ public class nightscape extends Mod{
         NSplanets.load();
         NSsectors.load();
         CHtechtree.load();
-        OZONEGOD.load();
     }
     @Override
     public void init(){

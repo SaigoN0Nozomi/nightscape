@@ -1,6 +1,7 @@
 package nightscape.content.effects;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Angles;
@@ -61,6 +62,23 @@ public class turretFx {
         color(Items.silicon.color);
         Fill.circle(e.x, e.y, 3 * e.fout());
     }),
+    victimBTrail = new Effect(35, e -> {
+        color(Color.orange, Color.yellow, e.fin());
+        Fill.circle(e.x, e.y, 3 * e.fout());
+    }),
+    victimBHit = new Effect(20, e -> {
+        color(Color.orange, Color.yellow, e.fin());
+
+        stroke(0.4f + e.fout());
+
+        randLenVectors(e.id, 4, e.fin() * 12f, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.fout() * 3 + 1f);
+        });
+
+        stroke(e.fout() * 2);
+        Lines.circle(e.x, e.y, e.fin() * 14);
+    }),
     victimSHit = new Effect(10, e -> {
         color(Items.silicon.color);
 
@@ -76,18 +94,49 @@ public class turretFx {
     }),
     flickerHit = new MultiEffect(
         new Effect(30f, e -> {
-            color(NSitems.naturit.color, Color.gray.a(0.4f), e.fin());
+            color(NSitems.naturit.color, Color.valueOf("a0a0a0").a(0.4f), e.fin());
 
             randLenVectors(e.id, 12, e.finpow() * 45f, e.rotation, 360f, (x, y) -> {
                 Fill.circle(e.x + x, e.y +y, e.fout() * 3f + 0.3f);
             });
         }), new Effect(8, e ->{
-            color(Color.valueOf("eecd74").a(0.5f), Color.gray.a(0.1f), e.fin());
+            color(Color.valueOf("eecd74").a(0.5f), Color.valueOf("a0a0a0").a(0.1f), e.fin());
 
             stroke(e.fout() * 4);
             Lines.circle(e.x, e.y, 35 + e.fin() * 10);
             stroke(e.fout() * 2);
             Lines.circle(e.x, e.y, 15 + e.fin() * 8);
+        })
+    ),
+
+    flickerHitExp = new MultiEffect(
+        new Effect(30f, e -> {
+            color(Color.red, Color.orange, Color.gray, e.fin());
+            Draw.alpha(e.fout());
+
+            randLenVectors(e.id, 12, e.finpow() * 45f, e.rotation, 360f, (x, y) -> {
+                Fill.circle(e.x + x, e.y +y, e.fout() * 3f + 0.3f);
+            });
+        }), new Effect(12, e ->{
+            color(Color.orange, e.fin() * 0.6f);
+
+            stroke(e.fout() * 4);
+            Lines.circle(e.x, e.y, 44 + e.fin() * 10);
+            stroke(e.fout() * 2);
+            Lines.circle(e.x, e.y, 22 + e.fin() * 17);
+        }), new Effect(70f, e -> {
+            float length = 3f + e.finpow() * 32f;
+            rand.setSeed(e.id);
+            for(int i = 0; i < 7; i++){
+                v.trns(rand.random(360f), rand.random(length));
+                float sizer = rand.random(1.2f, 2.5f);
+
+                e.scaled(e.lifetime * rand.random(0.5f, 1f), b -> {
+                    color(Color.gray, b.fslope() * 0.93f);
+
+                    Fill.circle(e.x + v.x, e.y + v.y, sizer + b.fslope() * 1.2f);
+                });
+            }
         })
     ),
     adrenalinHitTantal = new Effect(13, e -> {
@@ -136,7 +185,7 @@ public class turretFx {
                 Lines.circle(e.x, e.y, s.finpow() * 4f);
             });
         }), new Effect(60f, e -> {
-            color(Color.valueOf("d297e199").a(0.7f), Color.lightGray.a(0.4f), e.fin());
+            color(Color.valueOf("d297e199").a(0.7f), Color.valueOf("cccccc").a(0.4f), e.fin());
 
             randLenVectors(e.id, 6, e.finpow() * 17f, e.rotation, 50f, (x, y) -> {
                 Fill.circle(e.x + x, e.y +y, e.fout() * 2f);
@@ -145,14 +194,14 @@ public class turretFx {
     ),
     stelleHitAm = new MultiEffect(
         new Effect(35f, e -> {
-            color(Color.valueOf("deffd199"), Color.lightGray.a(0.55f), e.fin());
+            color(Color.valueOf("deffd199"), Color.valueOf("cccccc").a(0.55f), e.fin());
 
             e.scaled(12f, s -> {
                 stroke(s.fout() * 2);
                 Lines.circle(e.x, e.y, s.finpow() * 6f);
             });
         }), new Effect(40f, e -> {
-            color(Color.valueOf("deffd199").a(0.7f), Color.lightGray.a(0.4f), e.fin());
+            color(Color.valueOf("deffd199").a(0.7f), Color.valueOf("cccccc").a(0.4f), e.fin());
 
             randLenVectors(e.id, 5, e.finpow() * 17f, e.rotation, 50f, (x, y) -> {
                 Fill.circle(e.x + x, e.y +y, e.fout() * 2f);
@@ -176,7 +225,7 @@ public class turretFx {
         });
     }),
     cleanHit = new Effect(10, e -> {
-        color(Color.valueOf("ffaa5f").a(0.9f), Color.gray.a(0.4f), e.fin());
+        color(Color.valueOf("ffaa5f").a(0.9f), Color.valueOf("a0a0a0").a(0.4f), e.fin());
 
         stroke(e.fout() * 4);
         Lines.circle(e.x, e.y, 8 + e.fin() * 10);
@@ -229,11 +278,60 @@ public class turretFx {
         color(NSitems.velonium.color);
 
         randLenVectors(e.id, 5, e.fin(Interp.pow2Out) * 15f, e.rotation, 60, (x, y) -> {
-            float ang = Mathf.angle(x, y);
             Fill.circle(e.x + x, e.y + y, e.fout() * 2);
         });
 
         stroke(e.fout() * 2);
         Lines.circle(e.x, e.y, e.fin() * 8);
-    });
+    }),
+    magneticHitExpBig = new MultiEffect(
+        new Effect(15, e -> {
+            color(Color.red, Color.orange, Color.gray, e.fin());
+
+            randLenVectors(e.id, 5, e.fin(Interp.pow2Out) * 15f, e.rotation, 60, (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, e.fout() * 2);
+            });
+
+            stroke(e.fout() * 2);
+            Lines.circle(e.x, e.y, e.fin() * 32);
+        }), new Effect(40f, e -> {
+            float length = 3f + e.finpow() * 21f;
+            rand.setSeed(e.id);
+            for(int i = 0; i < 5; i++){
+                v.trns(rand.random(360f), rand.random(length));
+                float sizer = rand.random(0.9f, 1.9f);
+
+                e.scaled(e.lifetime * rand.random(0.5f, 1f), b -> {
+                    color(Color.gray, b.fslope() * 0.93f);
+
+                    Fill.circle(e.x + v.x, e.y + v.y, sizer + b.fslope() * 1.2f);
+                });
+            }
+        })
+    ),
+    magneticHitExp = new MultiEffect(
+        new Effect(15, e -> {
+            color(Color.red, Color.orange, Color.gray, e.fin());
+
+            randLenVectors(e.id, 5, e.fin(Interp.pow2Out) * 15f, e.rotation, 60, (x, y) -> {
+                Fill.circle(e.x + x, e.y + y, e.fout() * 2);
+            });
+
+            stroke(e.fout() * 2);
+            Lines.circle(e.x, e.y, e.fin() * 16);
+        }), new Effect(40f, e -> {
+            float length = 3f + e.finpow() * 21f;
+            rand.setSeed(e.id);
+            for(int i = 0; i < 3; i++){
+                v.trns(rand.random(360f), rand.random(length));
+                float sizer = rand.random(1.2f, 2.9f);
+
+                e.scaled(e.lifetime * rand.random(0.5f, 1f), b -> {
+                    color(Color.gray, b.fslope() * 0.93f);
+
+                    Fill.circle(e.x + v.x, e.y + v.y, sizer + b.fslope() * 1.2f);
+                });
+            }
+        })
+    );
 }

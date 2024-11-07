@@ -60,6 +60,6 @@ public class NSitems {
             hiddenOnPlanets = new Planet[]{serpulo, erekir};
         }};
 
-        chordaItems.addAll(tantalum, naturit, velonium, silicon, dense, zirconium, streby, vanadium, cyanid);
+        chordaItems.addAll(tantalum, naturit, velonium, silicon, dense, zirconium, streby, vanadium, cyanid, sand, blastCompound);
     }
 }

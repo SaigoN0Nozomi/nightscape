@@ -34,5 +34,6 @@ public class NSStat {
 
     public static final Stat
     coolTime = new Stat("coolTime", StatCat.function),
-    heatTime = new Stat("heatTime", StatCat.function);
+    heatTime = new Stat("heatTime", StatCat.function),
+    duration = new Stat("duration", StatCat.function);
 }

@@ -10,6 +10,7 @@ import mindustry.entities.Effect;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
+import nightscape.content.NSitems;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
@@ -135,5 +136,19 @@ public class upunitFx {
         randLenVectors(e.id, 1, e.finpow() * 9, (x, y) -> {
             Fill.circle(e.x + x + rangex, e.y + y + rangey, rad * e.fout());
         });
+    }),
+
+    dongHit = new Effect(10, e -> {
+        color(Color.valueOf("ffd8d1"), Color.valueOf("e8998c"), e.fin());
+
+        stroke(0.6f + e.fout());
+
+        randLenVectors(e.id, 4, e.fin() * 12f, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            lineAngle(e.x + x, e.y + y, ang, e.fout() * 3 + 1f);
+        });
+
+        stroke(e.fout() * 2);
+        Lines.circle(e.x, e.y, e.fin() * 4);
     });
 }

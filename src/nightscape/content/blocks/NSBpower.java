@@ -20,13 +20,14 @@ import nightscape.content.effects.blockFx;
 import nightscape.world.block.power.HeatGenerator;
 import nightscape.world.block.production.HeatCore;
 
+import static mindustry.content.Items.blastCompound;
 import static mindustry.content.Items.silicon;
 import static mindustry.type.ItemStack.with;
 
 public class NSBpower {
     public static Block
             //heat
-    ozoneHeater, heatRedirector, heatCore, slagHeater,
+    ozoneHeater, heatRedirector, heatCore, slagHeater, blastGen,
             //power
     node, bigNode, SFGenerator, solarPanel, powerStorage, heatGenerator;
     public static void load(){
@@ -136,6 +137,7 @@ public class NSBpower {
             requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 15));
             powerProduction = 5f / 6f;
             itemDuration = 150f;
+            health = 120;
             size = 2;
             researchCost = ItemStack.with(NSitems.tantalum, 350, NSitems.zirconium, 280, silicon, 30);
 
@@ -151,13 +153,27 @@ public class NSBpower {
         }};
 
         solarPanel = new SolarGenerator("solarPanel"){{
-           requirements(Category.power, with(NSitems.velonium, 20, silicon, 15));
-           size = 2;
-           powerProduction = 20/60f;
+            requirements(Category.power, with(NSitems.velonium, 20, silicon, 45));
+            health = 130;
+            size = 2;
+            powerProduction = 20/60f;
+        }};
+
+        blastGen = new ConsumeGenerator("blastGen"){{
+            requirements(Category.power, with(NSitems.tantalum, 50, silicon, 25, NSitems.dense, 5));
+            size = 2;
+            health = 210;
+            powerProduction = 110/60f;
+            itemDuration = 180f;
+            consumeItem(blastCompound);
+            explosionRadius = 5;
+            explosionDamage = 90;
+
+            consumePowerBuffered(1200f);
         }};
 
         heatGenerator = new HeatGenerator("heatGenerator"){{
-            requirements(Category.power, with(NSitems.tantalum, 30, NSitems.zirconium, 30, silicon, 15));
+            requirements(Category.power, with(NSitems.tantalum, 170, NSitems.velonium, 80, silicon, 75, NSitems.dense, 35));
             size = 3;
             health = 380;
             squareSprite = false;

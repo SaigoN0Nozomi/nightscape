@@ -39,10 +39,6 @@ public class SoundsAlt {
             cool = loadSound("cool");
             fireinthehole = loadSound("fireinthehole");
             artileryShoot = loadSound("artileryShoot");
-
-            nya = loadSound("nya");
-            uwu = loadSound("uwu");
-            god = loadSound("god");
         }
 
         private static Sound loadSound(String soundName){
